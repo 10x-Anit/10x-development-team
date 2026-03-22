@@ -111,7 +111,9 @@ PreToolUse, PostToolUse, Stop, SessionStart, SubagentStart, SubagentStop, and mo
 
 ## Built by
 
-[Thinqmesh](https://thinqmesh.com) — AI-powered development tools.
+**[10x.in](https://10x.in)** — AI-powered development tools.
+
+Developed by **Anit Chaudhry** — Product Manager & Developer at 10x.in
 
 ## License
 

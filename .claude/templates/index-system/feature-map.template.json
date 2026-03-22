@@ -1,0 +1,47 @@
+{
+  "_meta": {
+    "description": "Feature map — tracks which features exist, which files implement them, which agents built them, and how they're wired together. Agents read this to understand feature boundaries before refactoring, fixing, or upgrading.",
+    "version": "1.0.0",
+    "last_updated": ""
+  },
+  "features": {
+    "_example_authentication": {
+      "name": "Authentication",
+      "description": "User login, signup, session management, route protection",
+      "status": "completed",
+      "built_by": ["backend-dev", "frontend-dev"],
+      "files": {
+        "frontend": [
+          { "path": "src/app/(auth)/login/page.tsx", "role": "Login page UI" },
+          { "path": "src/app/(auth)/signup/page.tsx", "role": "Signup page UI" },
+          { "path": "src/components/user-nav.tsx", "role": "User menu in navbar (avatar + dropdown)" }
+        ],
+        "backend": [
+          { "path": "src/app/api/auth/[...nextauth]/route.ts", "role": "Auth API handler" },
+          { "path": "src/app/api/auth/signup/route.ts", "role": "User registration endpoint" },
+          { "path": "src/lib/auth.ts", "role": "Auth config and helpers" }
+        ],
+        "middleware": [
+          { "path": "src/middleware.ts", "role": "Route protection — redirects unauthenticated users" }
+        ],
+        "database": [
+          { "path": "prisma/schema.prisma", "lines": "User model (lines 15-25)", "role": "User table schema" }
+        ],
+        "tests": [
+          { "path": "src/app/api/auth/signup/route.test.ts", "role": "Signup endpoint tests" }
+        ]
+      },
+      "wiring": {
+        "data_flow": "Login form → POST /api/auth/[...nextauth] → Prisma User lookup → JWT session → Cookie",
+        "signup_flow": "Signup form → POST /api/auth/signup → Validate (Zod) → Hash password → Prisma create → Redirect to login",
+        "protection": "middleware.ts checks cookie → redirect to /login if missing → return to original URL after login"
+      },
+      "components_used": ["login-form (registry)", "signup-form (registry)", "auth-guard (registry)"],
+      "dependencies": {
+        "packages": ["next-auth", "bcryptjs", "@auth/prisma-adapter"],
+        "env_vars": ["NEXTAUTH_SECRET", "NEXTAUTH_URL"]
+      },
+      "notes": "Password hashing uses bcryptjs with 12 salt rounds. Sessions are JWT-based, stored in httpOnly cookies."
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "_comment": "LSP servers for code intelligence. Agents can use these for go-to-definition, type info, and diagnostics.",
+  "lspServers": {
+    "typescript": {
+      "command": "npx",
+      "args": ["typescript-language-server", "--stdio"],
+      "languages": ["typescript", "typescriptreact", "javascript", "javascriptreact"],
+      "initializationOptions": {
+        "preferences": {
+          "includeCompletionsForModuleExports": true,
+          "includeCompletionsWithInsertText": true
+        }
+      }
+    }
+  }
+}

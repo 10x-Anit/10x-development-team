@@ -1,0 +1,51 @@
+{
+  "_meta": {
+    "description": "Knowledge base index. Agents read THIS to find the right reference file for their task. DO NOT scan the knowledge folder — use this index.",
+    "usage": "1. Check which category matches your task. 2. Read ONLY that file. 3. Copy code patterns directly — don't reinvent.",
+    "categories": {
+      "frameworks": "When to use which framework, install commands, project structure",
+      "libraries": "How to use specific libraries (shadcn, framer-motion, tailwind, etc.)",
+      "patterns": "Code patterns with sample code for common tasks",
+      "components-source": "Pre-built component code ready to copy into projects"
+    }
+  },
+  "frameworks": {
+    "framework-selection.md": "Decision matrix: which framework for which project type and scope",
+    "nextjs.md": "Next.js App Router patterns, file conventions, API routes, layouts",
+    "vite-react.md": "Vite + React setup, routing, build config",
+    "expo-react-native.md": "Expo + React Native setup, navigation, native APIs",
+    "html-css-js.md": "Vanilla HTML/CSS/JS patterns for Simple scope projects"
+  },
+  "libraries": {
+    "shadcn-ui.md": "shadcn/ui install, component list, usage examples, theming",
+    "tailwind.md": "Tailwind CSS utility patterns, responsive, dark mode, custom config",
+    "framer-motion.md": "Animation patterns: fade, slide, scale, stagger, scroll, layout",
+    "react-hook-form.md": "Form handling with validation, error display, submission",
+    "zustand.md": "State management: stores, selectors, persist, devtools",
+    "prisma.md": "Database ORM: schema, migrations, CRUD queries, relations",
+    "nextauth.md": "Authentication: providers, session, middleware, protected routes",
+    "stripe.md": "Payments: checkout, subscriptions, webhooks, customer portal",
+    "zod.md": "Input validation: schemas, parsing, error messages, form integration"
+  },
+  "patterns": {
+    "react-components.md": "Component patterns: props, composition, conditional render, lists",
+    "api-patterns.md": "API route patterns: CRUD, auth middleware, error handling, validation",
+    "data-fetching.md": "Data fetching: server components, client fetch, SWR/React Query, loading states",
+    "auth-flow.md": "Authentication flow: login, signup, session, protected routes, middleware",
+    "responsive-layout.md": "Responsive patterns: mobile-first, breakpoints, grid, flex, container queries",
+    "dark-mode.md": "Dark mode: Tailwind class strategy, system preference, toggle, persistence",
+    "seo.md": "SEO patterns: metadata, sitemap, robots, Open Graph, structured data"
+  },
+  "components-source": {
+    "button.md": "Button component with variants, sizes, loading state — copy-paste ready",
+    "input.md": "Input component with label, error, icon — copy-paste ready",
+    "card.md": "Card component with image, content, actions — copy-paste ready",
+    "modal.md": "Modal/dialog with backdrop, focus trap, animations — copy-paste ready",
+    "data-table.md": "Data table with sort, filter, pagination — copy-paste ready",
+    "navbar.md": "Responsive navbar with mobile menu — copy-paste ready",
+    "sidebar.md": "Collapsible sidebar for dashboards — copy-paste ready",
+    "toast.md": "Toast notification system — copy-paste ready",
+    "form.md": "Complete form with validation — copy-paste ready",
+    "auth-pages.md": "Login + Signup pages — copy-paste ready"
+  }
+}

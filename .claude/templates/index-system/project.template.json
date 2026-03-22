@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "description": "10x Development Team project manifest. Source of truth for all agents.",
+    "version": "1.0.0",
+    "plugin": "10x-development-team"
+  },
+  "name": "",
+  "description": "",
+  "scope": "",
+  "type": "",
+  "stack": {
+    "framework": "",
+    "styling": "",
+    "language": "",
+    "backend": "",
+    "database": "",
+    "auth": "",
+    "testing": "",
+    "deployment": ""
+  },
+  "vision": {
+    "target_users": "",
+    "core_features": [],
+    "first_screen": "",
+    "branding": {
+      "colors": [],
+      "style": ""
+    },
+    "user_roles": []
+  },
+  "status": "initialized",
+  "current_phase": "setup",
+  "phases": [
+    "setup",
+    "design",
+    "frontend",
+    "backend",
+    "testing",
+    "deployment",
+    "complete"
+  ],
+  "created_at": "",
+  "updated_at": ""
+}

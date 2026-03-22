@@ -1,0 +1,24 @@
+{
+  "_meta": {
+    "description": "Task tracker for the 10x Development Team. Each task has a goal, assigned agent, status, expected output, and dependencies. Agents read this to know what to work on.",
+    "version": "1.0.0",
+    "last_updated": "",
+    "statuses": {
+      "pending": "Not started yet",
+      "in_progress": "Agent is currently working on this",
+      "blocked": "Waiting on a dependency or user input",
+      "completed": "Done and verified",
+      "failed": "Attempted but failed — see notes"
+    }
+  },
+  "current_phase": "initialization",
+  "summary": {
+    "total": 0,
+    "pending": 0,
+    "in_progress": 0,
+    "completed": 0,
+    "blocked": 0,
+    "failed": 0
+  },
+  "tasks": []
+}

@@ -1,0 +1,27 @@
+{
+  "_meta": {
+    "description": "Master file index. Agents read THIS file to understand the project structure. Updated after every file creation, edit, or deletion. DO NOT scan the filesystem — this IS the filesystem map.",
+    "version": "1.0.0",
+    "last_updated": "",
+    "file_count": 0,
+    "types": {
+      "page": "Route/page files that render a URL path",
+      "component": "Reusable UI components in src/components/",
+      "layout": "Layout wrappers (page shells, nav containers)",
+      "api": "API route handlers (GET, POST, etc.)",
+      "service": "Business logic service files",
+      "lib": "Utility functions, clients, helpers",
+      "hook": "Custom React hooks",
+      "type": "TypeScript type/interface definitions",
+      "style": "CSS, Tailwind config, design tokens",
+      "config": "Project config (tsconfig, eslint, vite, etc.)",
+      "test": "Test files (.test.ts, .test.tsx, .spec.ts)",
+      "migration": "Database migration files",
+      "asset": "Static assets (images, fonts, icons)",
+      "html": "Plain HTML files (Simple scope projects)",
+      "script": "Plain JavaScript files (Simple scope projects)",
+      "deployment": "Deployment config (Dockerfile, CI/CD, etc.)"
+    }
+  },
+  "files": {}
+}

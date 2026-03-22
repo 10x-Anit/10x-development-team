@@ -1,0 +1,299 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "description": "Global component registry. Agents MUST check this before creating any component. Never duplicate what exists here.",
+    "usage": "Read this file first. Find matching component by category and name. Use the template path to get the code."
+  },
+  "web": {
+    "navigation": {
+      "navbar": {
+        "description": "Responsive top navigation bar with logo, links, mobile hamburger menu",
+        "template": "components/web/navigation/navbar.md",
+        "props": ["logo", "links", "cta", "sticky", "transparent"],
+        "variants": ["default", "centered", "sidebar-toggle"],
+        "responsive": true
+      },
+      "sidebar": {
+        "description": "Collapsible sidebar navigation for dashboards and admin panels",
+        "template": "components/web/navigation/sidebar.md",
+        "props": ["items", "collapsed", "logo", "footer"],
+        "variants": ["default", "mini", "overlay"],
+        "responsive": true
+      },
+      "breadcrumb": {
+        "description": "Breadcrumb navigation showing page hierarchy",
+        "template": "components/web/navigation/breadcrumb.md",
+        "props": ["items", "separator"],
+        "variants": ["default", "with-icons"],
+        "responsive": true
+      },
+      "footer": {
+        "description": "Site footer with links, social icons, newsletter signup",
+        "template": "components/web/navigation/footer.md",
+        "props": ["columns", "social", "newsletter", "copyright"],
+        "variants": ["simple", "multi-column", "centered"],
+        "responsive": true
+      },
+      "tabs": {
+        "description": "Tab navigation for switching between content sections",
+        "template": "components/web/navigation/tabs.md",
+        "props": ["items", "activeTab", "onChange", "orientation"],
+        "variants": ["default", "pills", "underline"],
+        "responsive": true
+      }
+    },
+    "forms": {
+      "input": {
+        "description": "Text input field with label, validation, error message",
+        "template": "components/web/forms/input.md",
+        "props": ["label", "type", "placeholder", "error", "required", "disabled"],
+        "variants": ["default", "floating-label", "with-icon"],
+        "responsive": true
+      },
+      "select": {
+        "description": "Dropdown select with search, multi-select support",
+        "template": "components/web/forms/select.md",
+        "props": ["options", "label", "multiple", "searchable", "placeholder"],
+        "variants": ["default", "multi", "grouped"],
+        "responsive": true
+      },
+      "checkbox": {
+        "description": "Checkbox and checkbox group with labels",
+        "template": "components/web/forms/checkbox.md",
+        "props": ["label", "checked", "onChange", "disabled", "indeterminate"],
+        "variants": ["default", "switch", "card"],
+        "responsive": true
+      },
+      "textarea": {
+        "description": "Multi-line text input with auto-resize",
+        "template": "components/web/forms/textarea.md",
+        "props": ["label", "rows", "maxLength", "autoResize", "placeholder"],
+        "variants": ["default", "rich-text"],
+        "responsive": true
+      },
+      "file-upload": {
+        "description": "File upload with drag-and-drop, preview, progress bar",
+        "template": "components/web/forms/file-upload.md",
+        "props": ["accept", "maxSize", "multiple", "onUpload"],
+        "variants": ["default", "dropzone", "avatar"],
+        "responsive": true
+      },
+      "form-wrapper": {
+        "description": "Form container with validation, submit handling, field layout",
+        "template": "components/web/forms/form-wrapper.md",
+        "props": ["onSubmit", "validation", "layout", "submitLabel"],
+        "variants": ["default", "inline", "stepped"],
+        "responsive": true
+      }
+    },
+    "layouts": {
+      "page-shell": {
+        "description": "Main page layout wrapper with navbar, sidebar, content area, footer",
+        "template": "components/web/layouts/page-shell.md",
+        "props": ["navbar", "sidebar", "footer", "maxWidth"],
+        "variants": ["default", "dashboard", "minimal", "full-width"],
+        "responsive": true
+      },
+      "section": {
+        "description": "Content section with heading, optional background, padding",
+        "template": "components/web/layouts/section.md",
+        "props": ["title", "subtitle", "background", "padding", "id"],
+        "variants": ["default", "hero", "cta", "feature"],
+        "responsive": true
+      },
+      "grid": {
+        "description": "Responsive grid layout with configurable columns",
+        "template": "components/web/layouts/grid.md",
+        "props": ["columns", "gap", "items"],
+        "variants": ["default", "masonry", "auto-fit"],
+        "responsive": true
+      },
+      "container": {
+        "description": "Centered content container with max-width",
+        "template": "components/web/layouts/container.md",
+        "props": ["maxWidth", "padding"],
+        "variants": ["default", "narrow", "wide", "full"],
+        "responsive": true
+      },
+      "split-layout": {
+        "description": "Two-column split layout for content + media",
+        "template": "components/web/layouts/split-layout.md",
+        "props": ["left", "right", "ratio", "reversed"],
+        "variants": ["default", "sticky-media", "overlap"],
+        "responsive": true
+      }
+    },
+    "cards": {
+      "card": {
+        "description": "Generic card with image, title, description, actions",
+        "template": "components/web/cards/card.md",
+        "props": ["image", "title", "description", "actions", "badge"],
+        "variants": ["default", "horizontal", "minimal", "elevated"],
+        "responsive": true
+      },
+      "pricing-card": {
+        "description": "Pricing plan card with features list, price, CTA",
+        "template": "components/web/cards/pricing-card.md",
+        "props": ["plan", "price", "period", "features", "cta", "popular"],
+        "variants": ["default", "highlighted", "compact"],
+        "responsive": true
+      },
+      "testimonial-card": {
+        "description": "Customer testimonial with avatar, quote, name, role",
+        "template": "components/web/cards/testimonial-card.md",
+        "props": ["quote", "author", "role", "avatar", "rating"],
+        "variants": ["default", "minimal", "featured"],
+        "responsive": true
+      },
+      "stat-card": {
+        "description": "Statistics card with number, label, trend indicator",
+        "template": "components/web/cards/stat-card.md",
+        "props": ["value", "label", "trend", "icon", "change"],
+        "variants": ["default", "mini", "with-chart"],
+        "responsive": true
+      },
+      "feature-card": {
+        "description": "Feature showcase card with icon, title, description",
+        "template": "components/web/cards/feature-card.md",
+        "props": ["icon", "title", "description", "link"],
+        "variants": ["default", "centered", "with-image"],
+        "responsive": true
+      }
+    },
+    "modals": {
+      "modal": {
+        "description": "Dialog modal with header, body, footer actions",
+        "template": "components/web/modals/modal.md",
+        "props": ["title", "isOpen", "onClose", "size", "actions"],
+        "variants": ["default", "fullscreen", "drawer", "confirm"],
+        "responsive": true
+      },
+      "toast": {
+        "description": "Toast notification with auto-dismiss, action button",
+        "template": "components/web/modals/toast.md",
+        "props": ["message", "type", "duration", "action"],
+        "variants": ["success", "error", "warning", "info"],
+        "responsive": true
+      },
+      "command-palette": {
+        "description": "Search-driven command palette overlay (Ctrl+K style)",
+        "template": "components/web/modals/command-palette.md",
+        "props": ["commands", "placeholder", "onSelect"],
+        "variants": ["default", "with-categories"],
+        "responsive": true
+      }
+    },
+    "tables": {
+      "data-table": {
+        "description": "Data table with sorting, filtering, pagination, row selection",
+        "template": "components/web/tables/data-table.md",
+        "props": ["columns", "data", "sortable", "filterable", "paginated", "selectable"],
+        "variants": ["default", "compact", "expandable"],
+        "responsive": true
+      },
+      "list-view": {
+        "description": "List view for displaying records with actions",
+        "template": "components/web/tables/list-view.md",
+        "props": ["items", "renderItem", "actions", "emptyState"],
+        "variants": ["default", "card-list", "timeline"],
+        "responsive": true
+      }
+    },
+    "auth": {
+      "login-form": {
+        "description": "Login form with email/password, social auth, forgot password link",
+        "template": "components/web/auth/login-form.md",
+        "props": ["onSubmit", "socialProviders", "forgotPasswordUrl", "signupUrl"],
+        "variants": ["default", "split-screen", "minimal"],
+        "responsive": true
+      },
+      "signup-form": {
+        "description": "Registration form with name, email, password, terms checkbox",
+        "template": "components/web/auth/signup-form.md",
+        "props": ["onSubmit", "fields", "socialProviders", "termsUrl"],
+        "variants": ["default", "stepped", "minimal"],
+        "responsive": true
+      },
+      "auth-guard": {
+        "description": "Route protection wrapper that redirects unauthenticated users",
+        "template": "components/web/auth/auth-guard.md",
+        "props": ["redirectTo", "roles", "fallback"],
+        "variants": ["default", "role-based"],
+        "responsive": false
+      }
+    }
+  },
+  "mobile": {
+    "navigation": {
+      "bottom-tabs": {
+        "description": "Bottom tab bar navigation for mobile apps",
+        "template": "components/mobile/navigation/bottom-tabs.md",
+        "props": ["tabs", "activeTab", "onChange", "badge"],
+        "variants": ["default", "floating", "with-fab"],
+        "responsive": false
+      },
+      "stack-header": {
+        "description": "Stack navigation header with back button, title, actions",
+        "template": "components/mobile/navigation/stack-header.md",
+        "props": ["title", "backButton", "actions", "transparent"],
+        "variants": ["default", "large-title", "search"],
+        "responsive": false
+      },
+      "drawer": {
+        "description": "Side drawer navigation menu",
+        "template": "components/mobile/navigation/drawer.md",
+        "props": ["items", "header", "footer"],
+        "variants": ["default", "mini"],
+        "responsive": false
+      }
+    },
+    "forms": {
+      "mobile-input": {
+        "description": "Mobile-optimized text input with proper keyboard types",
+        "template": "components/mobile/forms/mobile-input.md",
+        "props": ["label", "keyboardType", "returnKeyType", "autoFocus"],
+        "variants": ["default", "outlined", "underline"],
+        "responsive": false
+      },
+      "mobile-picker": {
+        "description": "Native picker/dropdown for mobile platforms",
+        "template": "components/mobile/forms/mobile-picker.md",
+        "props": ["options", "selectedValue", "onValueChange"],
+        "variants": ["default", "wheel", "modal"],
+        "responsive": false
+      }
+    },
+    "layouts": {
+      "safe-area": {
+        "description": "Safe area wrapper for notch/island devices",
+        "template": "components/mobile/layouts/safe-area.md",
+        "props": ["edges", "backgroundColor"],
+        "variants": ["default"],
+        "responsive": false
+      },
+      "scroll-view": {
+        "description": "Scrollable content area with pull-to-refresh",
+        "template": "components/mobile/layouts/scroll-view.md",
+        "props": ["refreshing", "onRefresh", "horizontal"],
+        "variants": ["default", "section-list", "flat-list"],
+        "responsive": false
+      }
+    },
+    "lists": {
+      "list-item": {
+        "description": "List item with icon, title, subtitle, chevron, swipe actions",
+        "template": "components/mobile/lists/list-item.md",
+        "props": ["title", "subtitle", "icon", "onPress", "swipeActions"],
+        "variants": ["default", "with-avatar", "with-toggle"],
+        "responsive": false
+      },
+      "section-list": {
+        "description": "Grouped list with section headers",
+        "template": "components/mobile/lists/section-list.md",
+        "props": ["sections", "renderItem", "renderSectionHeader"],
+        "variants": ["default", "inset", "plain"],
+        "responsive": false
+      }
+    }
+  }
+}

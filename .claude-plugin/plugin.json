@@ -1,0 +1,34 @@
+{
+  "name": "10x-development-team",
+  "description": "AI-powered development team that builds complete apps from your vision. 7 specialist agents, 16 slash commands, 32 knowledge files, 39 component blueprints. Say what you want — the team builds it.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Thinqmesh",
+    "url": "https://thinqmesh.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "development-team",
+    "multi-agent",
+    "full-stack",
+    "app-builder",
+    "components",
+    "react",
+    "nextjs",
+    "tailwind",
+    "shadcn",
+    "html-css-js",
+    "mobile",
+    "expo"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AnitChaudhry/10x-development-team"
+  },
+  "paths": {
+    "skills": ".claude/skills",
+    "agents": ".claude/agents",
+    "hooks": ".claude/hooks",
+    "settings": ".claude/settings.json"
+  }
+}

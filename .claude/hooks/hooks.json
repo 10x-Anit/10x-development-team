@@ -1,0 +1,127 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write",
+        "type": "prompt",
+        "description": "Block component duplication — enforce global component reuse",
+        "prompt": "A file is about to be written.\n\nFile: {{tool_input.file_path}}\n\nRules:\n1. If this file is inside a page/route directory AND defines a reusable React component (button, card, form, modal, list, nav, table, input), BLOCK IT. Components must go in src/components/.\n2. If the component name matches something in the project's component registry, suggest the existing one.\n3. Files in src/components/ are fine — those ARE global components.\n4. Page compositions (importing and arranging components) are fine.\n5. Plain HTML files, CSS files, JS files — always fine.\n6. Config, utility, hook, test files — always fine.\n\nIf violation: exit 2 with reason.\nIf fine: exit 0."
+      },
+      {
+        "matcher": "Write",
+        "type": "prompt",
+        "description": "Block hardcoded secrets in any file",
+        "prompt": "A file is about to be written.\n\nFile: {{tool_input.file_path}}\n\nCheck for:\n1. API keys (sk_live_*, pk_live_*, AKIA*, ghp_*, etc.)\n2. Hardcoded passwords\n3. Database URLs with real credentials\n4. Private keys or tokens\n\nIgnore:\n- .env.example (placeholder values)\n- Test files with fake values\n- process.env.* or import.meta.env.* references\n- Documentation files\n\nIf secrets found: exit 2.\nIf clean: exit 0."
+      },
+      {
+        "matcher": "Bash",
+        "type": "prompt",
+        "description": "Block destructive shell commands",
+        "prompt": "A bash command is about to run.\n\nCommand: {{tool_input.command}}\n\nBlock (exit 2) if:\n1. Deletes outside project dir (rm -rf /*, rm -rf ~/*)\n2. Force pushes to main/master\n3. Drops database tables without migration context\n4. Modifies system files\n5. Installs globally without user request\n\nAllow (exit 0) if:\n- Standard dev commands (npm, npx, node, git, mkdir, etc.)\n- Within project directory\n- Creates/modifies project files\n\nIf blocked: explain what's dangerous."
+      },
+      {
+        "matcher": "Edit",
+        "type": "prompt",
+        "description": "Block removal of security-critical code patterns",
+        "prompt": "A file edit is about to happen.\n\nFile: {{tool_input.file_path}}\nRemoving: {{tool_input.old_string}}\nAdding: {{tool_input.new_string}}\n\nBlock (exit 2) if the edit:\n1. Removes try/catch error handling without replacement\n2. Removes auth/authorization checks\n3. Removes input validation\n4. Replaces parameterized queries with string concatenation\n5. Removes CORS or security headers\n\nAllow (exit 0) if:\n- Refactoring (replacing with equivalent or better code)\n- Removing truly unused code\n- Normal development edits\n\nIf blocked: explain the security concern."
+      },
+      {
+        "matcher": "Read",
+        "type": "prompt",
+        "description": "Remind agents to use the index instead of scanning files",
+        "prompt": "A file is about to be read.\n\nFile: {{tool_input.file_path}}\n\nThis is an informational check only — always exit 0.\n\nBut if the agent is reading many files in rapid succession (suggesting a filesystem scan), output a JSON reminder:\n{\"reminder\": \"Use .10x/file-index.json instead of scanning files individually. Read the index first, then only read specific files you need.\"}\n\nAlways exit 0."
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "type": "command",
+        "description": "Auto-format newly created files with Prettier",
+        "command": "npx prettier --write \"{{tool_input.file_path}}\" 2>/dev/null || true",
+        "async": true
+      },
+      {
+        "matcher": "Write",
+        "type": "prompt",
+        "description": "Remind agent to update the project index after file creation",
+        "prompt": "A file was just written.\n\nFile: {{tool_input.file_path}}\n\nCheck: does .10x/file-index.json exist in the project?\nIf yes: remind the agent to update the file index with this new file.\nOutput: {\"action_needed\": \"Update .10x/file-index.json with entry for {{tool_input.file_path}}\"}\n\nAlways exit 0."
+      },
+      {
+        "matcher": "Edit",
+        "type": "command",
+        "description": "Auto-format edited files with Prettier",
+        "command": "npx prettier --write \"{{tool_input.file_path}}\" 2>/dev/null || true",
+        "async": true
+      },
+      {
+        "matcher": "Bash",
+        "type": "prompt",
+        "description": "Check npm install output for vulnerabilities",
+        "prompt": "A bash command just ran.\n\nCommand: {{tool_input.command}}\nOutput: {{tool_output}}\n\nIf this was npm/pnpm/yarn install:\n1. Check for security vulnerability warnings\n2. Check for deprecated packages\n3. Report concerns but don't block\n\nIf not an install command: exit 0.\n\nAlways exit 0. Report as: {\"warnings\": [\"...\"]}"
+      }
+    ],
+    "Stop": [
+      {
+        "type": "prompt",
+        "description": "Verify agent completed all tasks and updated the index",
+        "prompt": "The agent is about to stop.\n\nVerify:\n1. Were all assigned tasks completed? Check if agent mentioned completing tasks.\n2. Did the agent update .10x/file-index.json with new files?\n3. Did the agent log work in .10x/dev-log.md?\n4. Did the agent report results to the user?\n5. Were any errors left unresolved?\n\nIf everything looks good: exit 0.\nIf critical work is incomplete (tasks not done, index not updated): exit 2 with what's missing.\nIf only minor things missing (dev-log not updated): exit 0 with reminder."
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "type": "command",
+        "description": "Detect project state and suggest next action",
+        "command": "if [ -f '.10x/project.json' ]; then echo '{\"status\": \"project_exists\", \"message\": \"Existing 10x project found. Use /10x-development-team:resume to continue.\"}'; cat .10x/project.json 2>/dev/null | head -5; elif [ -f 'package.json' ]; then echo '{\"status\": \"non_10x_project\", \"message\": \"Project found but not initialized with 10x. Use /10x-development-team:start to set up.\"}'; else echo '{\"status\": \"no_project\", \"message\": \"No project found. Use /10x-development-team:start to begin.\"}'; fi"
+      }
+    ],
+    "TaskCompleted": [
+      {
+        "type": "command",
+        "description": "Log completed task with timestamp",
+        "command": "mkdir -p .10x && echo \"[$(date -u '+%Y-%m-%dT%H:%M:%SZ')] Task completed\" >> .10x/dev-log.md 2>/dev/null || true",
+        "async": true
+      }
+    ],
+    "SubagentStart": [
+      {
+        "type": "prompt",
+        "description": "Ensure subagent has access to project index",
+        "prompt": "A specialist agent is being spawned.\n\nAgent: {{agent_name}}\n\nCheck the spawn prompt includes ALL of:\n1. Reading .10x/project.json\n2. Reading .10x/file-index.json\n3. Reading .10x/feature-map.json\n4. Reading relevant .claude/knowledge/ file\n5. Instruction to update file-index.json after work\n6. Instruction to update feature-map.json after work\n7. Instruction to append to dev-log.md\n8. Clear acceptance criteria\n\nIf any are missing, output:\n{\"reminder\": \"Delegation missing: [list missing items]. Agent may produce incorrect or untracked output.\"}\n\nAlways exit 0."
+      }
+    ],
+    "SubagentStop": [
+      {
+        "type": "prompt",
+        "description": "Verify subagent updated the project index",
+        "prompt": "A specialist agent just finished.\n\nAgent: {{agent_name}}\n\nCheck ALL of these:\n1. Did the agent complete its assigned tasks?\n2. Did it follow the global component registry (if frontend work)?\n3. Did it update .10x/file-index.json with every file created or modified?\n4. Did it update .10x/feature-map.json with feature wiring (for MVP/Production scope)?\n5. Did it append to .10x/dev-log.md with what was done?\n6. Did it update .10x/tasks.json status?\n\nIf any of items 3-6 are missing, output:\n{\"concerns\": [\"Agent did not update [missing file]. Index may be out of sync.\"]}\n\nAlways exit 0."
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "auto",
+        "type": "command",
+        "description": "Save current state to index before context compaction",
+        "command": "if [ -f '.10x/project.json' ]; then echo '{\"pre_compact\": \"Project index exists at .10x/ — will be reloaded after compaction\"}'; fi",
+        "async": false
+      }
+    ],
+    "PostCompact": [
+      {
+        "matcher": "auto",
+        "type": "command",
+        "description": "Remind to reload project index after compaction",
+        "command": "if [ -f '.10x/project.json' ]; then echo '{\"post_compact\": \"Context was compacted. Re-read .10x/project.json and .10x/file-index.json before continuing work.\"}'; fi",
+        "async": false
+      }
+    ],
+    "SessionEnd": [
+      {
+        "type": "command",
+        "description": "Final dev-log entry when session ends",
+        "command": "if [ -f '.10x/dev-log.md' ]; then echo '' >> .10x/dev-log.md && echo \"## $(date -u '+%Y-%m-%dT%H:%M:%SZ') — Session Ended\" >> .10x/dev-log.md && echo '- **Agent:** system' >> .10x/dev-log.md && echo '- **Action:** Session closed' >> .10x/dev-log.md && echo '---' >> .10x/dev-log.md; fi 2>/dev/null || true",
+        "async": true
+      }
+    ]
+  }
+}

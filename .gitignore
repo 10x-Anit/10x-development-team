@@ -1,0 +1,23 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node (if testing locally)
+node_modules/
+.env
+.env.local
+
+# Claude local settings (user-specific, not shipped)
+.claude/settings.local.json
+
+# Build artifacts
+dist/
+.next/
+out/

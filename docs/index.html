@@ -3,540 +3,1171 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>10x Development Team — Build Apps with AI Agents</title>
-  <meta name="description" content="Multi-agent AI plugin that builds complete apps. Works with Claude Desktop, Claude Code, Codex, OpenCode, and any MCP client.">
-  <meta property="og:title" content="10x Development Team — Build Apps with AI Agents">
-  <meta property="og:description" content="7 specialist AI agents build your app. Works with any MCP-compatible AI client.">
+  <title>10x Development Team — Your AI Development Team</title>
+  <meta name="description" content="Multi-agent AI plugin. 7 specialist agents build complete apps from natural language. Works with Claude Code, Cursor, Windsurf, Codex, and 5 more AI clients.">
+  <meta property="og:title" content="10x Development Team">
+  <meta property="og:description" content="7 AI agents that build complete apps from natural language. One plugin, 9 clients, 19 commands.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://10x-anit.github.io/10x-development-team/">
+  <link rel="canonical" href="https://10x-anit.github.io/10x-development-team/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    /* ── CSS Custom Properties ── */
     :root {
-      --primary: #3b82f6;
-      --primary-dark: #2563eb;
-      --bg: #0a0a0a;
-      --bg-card: #141414;
-      --bg-card-hover: #1a1a1a;
-      --text: #fafafa;
-      --text-muted: #a1a1aa;
-      --border: #27272a;
-      --green: #22c55e;
-      --purple: #a855f7;
-      --orange: #f97316;
-      --pink: #ec4899;
-      --cyan: #06b6d4;
+      --color-bg: #0a0a0f;
+      --color-bg-raised: #111119;
+      --color-bg-card: rgba(255, 255, 255, 0.03);
+      --color-bg-card-hover: rgba(255, 255, 255, 0.06);
+      --color-surface: #16161e;
+      --color-border: rgba(255, 255, 255, 0.08);
+      --color-border-hover: rgba(255, 255, 255, 0.15);
+      --color-text: #e4e4e7;
+      --color-text-muted: #a1a1aa;
+      --color-text-dim: #71717a;
+      --color-heading: #fafafa;
+      --color-primary: #818cf8;
+      --color-primary-bright: #a5b4fc;
+      --color-secondary: #c084fc;
+      --color-accent: #22d3ee;
+      --color-success: #34d399;
+      --color-warning: #fbbf24;
+      --color-gradient-1: #818cf8;
+      --color-gradient-2: #c084fc;
+      --color-gradient-3: #22d3ee;
+      --color-code-bg: #1a1a24;
+      --color-code-border: rgba(129, 140, 248, 0.15);
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --shadow-card: 0 0 0 1px var(--color-border), 0 4px 24px rgba(0,0,0,0.3);
+      --shadow-card-hover: 0 0 0 1px var(--color-border-hover), 0 8px 40px rgba(0,0,0,0.4);
+      --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
     }
-    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
-    a { color: var(--primary); text-decoration: none; }
-    a:hover { text-decoration: underline; }
 
-    /* Hero */
-    .hero { text-align: center; padding: 80px 20px 60px; max-width: 800px; margin: 0 auto; }
-    .hero-badge { display: inline-block; padding: 4px 14px; border-radius: 9999px; border: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted); margin-bottom: 24px; }
-    .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 20px; }
-    .hero h1 span { background: linear-gradient(135deg, var(--primary), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 32px; }
-    .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 8px; font-size: 0.95rem; font-weight: 600; transition: all 0.15s; border: none; cursor: pointer; }
-    .btn-primary { background: var(--primary); color: white; }
-    .btn-primary:hover { background: var(--primary-dark); text-decoration: none; }
-    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
-    .btn-outline:hover { border-color: var(--text-muted); text-decoration: none; }
-
-    /* Install */
-    .install { text-align: center; padding: 0 20px 60px; }
-    .install-code { display: inline-block; background: var(--bg-card); border: 1px solid var(--border); padding: 14px 28px; border-radius: 8px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.95rem; color: var(--green); }
-    .clients { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
-    .client-tag { padding: 6px 16px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.85rem; color: var(--text-muted); }
-
-    /* Stats */
-    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px; max-width: 1000px; margin: 0 auto 60px; padding: 0 20px; }
-    .stat { text-align: center; padding: 24px 12px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; }
-    .stat-num { font-size: 2rem; font-weight: 800; }
-    .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
-
-    /* Section */
-    .section { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
-    .section h2 { font-size: 1.8rem; font-weight: 700; text-align: center; margin-bottom: 12px; }
-    .section .subtitle { text-align: center; color: var(--text-muted); margin-bottom: 40px; font-size: 1rem; max-width: 600px; margin-left: auto; margin-right: auto; }
-
-    /* Use Cases */
-    .use-cases { display: flex; flex-direction: column; gap: 32px; }
-    .use-case { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
-    .use-case-header { display: flex; align-items: center; gap: 16px; padding: 28px 32px 0; }
-    .use-case-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
-    .uc-icon-1 { background: #3b82f620; }
-    .uc-icon-2 { background: #22c55e20; }
-    .uc-icon-3 { background: #f9731620; }
-    .uc-icon-4 { background: #a855f720; }
-    .uc-icon-5 { background: #ec489920; }
-    .use-case-header h3 { font-size: 1.2rem; font-weight: 700; }
-    .use-case-header .uc-persona { font-size: 0.85rem; color: var(--text-muted); margin-top: 2px; }
-    .use-case-body { padding: 20px 32px 28px; }
-    .use-case-body .uc-scenario { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 20px; line-height: 1.6; }
-    .uc-flow { display: flex; flex-direction: column; gap: 0; }
-    .uc-step { display: flex; gap: 16px; align-items: flex-start; position: relative; padding-bottom: 16px; }
-    .uc-step:last-child { padding-bottom: 0; }
-    .uc-step-num { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; flex-shrink: 0; position: relative; z-index: 1; }
-    .uc-step:not(:last-child)::before { content: ''; position: absolute; left: 15px; top: 32px; bottom: 0; width: 2px; background: var(--border); }
-    .uc-step-1 .uc-step-num { background: var(--primary); color: white; }
-    .uc-step-2 .uc-step-num { background: var(--purple); color: white; }
-    .uc-step-3 .uc-step-num { background: var(--orange); color: white; }
-    .uc-step-4 .uc-step-num { background: var(--green); color: white; }
-    .uc-step-5 .uc-step-num { background: var(--pink); color: white; }
-    .uc-step-content { flex: 1; }
-    .uc-step-content .uc-action { font-weight: 600; font-size: 0.92rem; margin-bottom: 4px; }
-    .uc-step-content .uc-detail { color: var(--text-muted); font-size: 0.85rem; }
-    .uc-step-content code { background: var(--bg); padding: 2px 8px; border-radius: 4px; font-size: 0.82rem; color: var(--green); }
-    .uc-result { margin-top: 20px; padding: 16px 20px; background: var(--bg); border-radius: 8px; border-left: 3px solid var(--green); }
-    .uc-result-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green); font-weight: 700; margin-bottom: 6px; }
-    .uc-result p { font-size: 0.88rem; color: var(--text-muted); }
-    .uc-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
-    .uc-tag { padding: 3px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; border: 1px solid var(--border); color: var(--text-muted); }
-    .uc-tag-scope { color: var(--primary); border-color: var(--primary); }
-    .uc-tag-client { color: var(--purple); border-color: var(--purple); }
-    .uc-tag-data { color: var(--orange); border-color: var(--orange); }
-
-    /* Agents Grid */
-    .agents { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-    .agent-card { padding: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; transition: border-color 0.15s; }
-    .agent-card:hover { border-color: var(--primary); }
-    .agent-icon { font-size: 1.5rem; margin-bottom: 8px; }
-    .agent-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 6px; }
-    .agent-card p { font-size: 0.88rem; color: var(--text-muted); }
-
-    /* Scopes Table */
-    .scopes { width: 100%; border-collapse: collapse; }
-    .scopes th, .scopes td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border); }
-    .scopes th { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
-    .scopes td:first-child { font-weight: 600; }
-    .scopes td:nth-child(3) { color: var(--text-muted); font-size: 0.9rem; }
-    .scope-badge { display: inline-block; padding: 2px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; }
-    .scope-simple { background: #22c55e20; color: var(--green); }
-    .scope-proto { background: #f9731620; color: var(--orange); }
-    .scope-mvp { background: #3b82f620; color: var(--primary); }
-    .scope-prod { background: #a855f720; color: var(--purple); }
-
-    /* Ways */
-    .ways { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px; }
-    .way { padding: 28px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; }
-    .way h3 { font-size: 1.1rem; margin-bottom: 12px; }
-    .way code { display: block; background: var(--bg); padding: 12px 16px; border-radius: 6px; font-size: 0.85rem; color: var(--green); margin: 8px 0; overflow-x: auto; }
-    .way p { font-size: 0.88rem; color: var(--text-muted); }
-
-    /* Features */
-    .features { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-    .feature { padding: 28px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; }
-    .feature h3 { font-size: 1.05rem; margin-bottom: 8px; }
-    .feature p { font-size: 0.88rem; color: var(--text-muted); }
-
-    /* Footer */
-    .footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); margin-top: 60px; }
-    .footer p { color: var(--text-muted); font-size: 0.88rem; }
-
-    @media (max-width: 640px) {
-      .hero { padding: 50px 16px 40px; }
-      .hero-actions { flex-direction: column; align-items: center; }
-      .stats { grid-template-columns: repeat(3, 1fr); }
-      .use-case-header { flex-direction: column; align-items: flex-start; gap: 12px; }
-      .use-case-body { padding: 16px 20px 24px; }
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
+    a { color: var(--color-primary-bright); text-decoration: none; transition: color var(--transition-fast); }
+    a:hover { color: var(--color-primary); }
+    a:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; border-radius: 4px; }
+    img { max-width: 100%; display: block; }
+    button:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; border-radius: 4px; }
+
+    /* ── Utility ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .gradient-text {
+      background: linear-gradient(135deg, var(--color-gradient-1), var(--color-gradient-2), var(--color-gradient-3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .section-label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-primary);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 800;
+      color: var(--color-heading);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-subtitle {
+      font-size: 1.0625rem;
+      color: var(--color-text-muted);
+      max-width: 640px;
+      line-height: 1.7;
+    }
+    section { padding: 96px 0; }
+
+    /* ── Navbar ── */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 16px 0;
+      background: rgba(10, 10, 15, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--color-border);
+      transition: background var(--transition-base);
+    }
+    .navbar .container { display: flex; align-items: center; justify-content: space-between; }
+    .nav-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.125rem; color: var(--color-heading); }
+    .nav-brand-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--color-gradient-1), var(--color-gradient-2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.875rem; font-weight: 800; color: #fff;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--color-text-muted); font-size: 0.875rem; font-weight: 500; }
+    .nav-links a:hover { color: var(--color-heading); }
+    .nav-cta {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px;
+      background: var(--color-primary); color: #fff; border-radius: var(--radius-sm);
+      font-size: 0.875rem; font-weight: 600; border: none; cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .nav-cta:hover { background: var(--color-primary-bright); color: #fff; transform: translateY(-1px); }
+    .nav-mobile-toggle { display: none; background: none; border: none; color: var(--color-text); cursor: pointer; padding: 8px; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .nav-mobile-toggle { display: block; }
+      .nav-links.open {
+        display: flex; flex-direction: column; position: absolute;
+        top: 100%; left: 0; right: 0; background: var(--color-bg-raised);
+        padding: 24px; gap: 20px; border-bottom: 1px solid var(--color-border);
+      }
+    }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; padding: 120px 0 80px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .hero-orb {
+      position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.3;
+    }
+    .hero-orb-1 {
+      width: 600px; height: 600px; top: -200px; right: -100px;
+      background: var(--color-gradient-1);
+      animation: orbFloat1 20s ease-in-out infinite;
+    }
+    .hero-orb-2 {
+      width: 500px; height: 500px; bottom: -150px; left: -100px;
+      background: var(--color-gradient-2);
+      animation: orbFloat2 25s ease-in-out infinite;
+    }
+    .hero-orb-3 {
+      width: 400px; height: 400px; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: var(--color-gradient-3);
+      animation: orbFloat3 18s ease-in-out infinite;
+    }
+    @keyframes orbFloat1 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-80px, 60px); } }
+    @keyframes orbFloat2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(60px, -80px); } }
+    @keyframes orbFloat3 { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.2); } }
+
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+    }
+
+    .hero-content { position: relative; z-index: 1; text-align: center; max-width: 800px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px;
+      background: var(--color-bg-card); border: 1px solid var(--color-border);
+      border-radius: 100px; font-size: 0.8125rem; color: var(--color-text-muted);
+      margin-bottom: 32px;
+    }
+    .hero-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-success); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      font-weight: 900; line-height: 1.08; color: var(--color-heading);
+      margin-bottom: 24px; letter-spacing: -0.03em;
+    }
+    .hero p.hero-desc {
+      font-size: clamp(1.0625rem, 2vw, 1.25rem);
+      color: var(--color-text-muted); max-width: 600px; margin: 0 auto 40px; line-height: 1.7;
+    }
+
+    .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 48px; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px;
+      background: linear-gradient(135deg, var(--color-gradient-1), var(--color-gradient-2));
+      color: #fff; border-radius: var(--radius-sm); font-size: 1rem; font-weight: 600;
+      border: none; cursor: pointer; transition: all var(--transition-fast);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(129, 140, 248, 0.3); color: #fff; }
+    .btn-primary:active { transform: translateY(0) scale(0.98); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px;
+      background: transparent; color: var(--color-text);
+      border: 1px solid var(--color-border); border-radius: var(--radius-sm);
+      font-size: 1rem; font-weight: 600; cursor: pointer; transition: all var(--transition-fast);
+    }
+    .btn-secondary:hover { border-color: var(--color-border-hover); background: var(--color-bg-card); color: var(--color-heading); transform: translateY(-1px); }
+
+    .hero-clients {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-bottom: 48px;
+    }
+    .client-badge {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px;
+      background: var(--color-bg-card); border: 1px solid var(--color-border);
+      border-radius: 100px; font-size: 0.75rem; font-weight: 500; color: var(--color-text-muted);
+      transition: all var(--transition-fast);
+    }
+    .client-badge:hover { border-color: var(--color-primary); color: var(--color-primary-bright); }
+    .client-badge .icon { font-size: 1rem; }
+
+    .hero-stats { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-value { font-size: 2rem; font-weight: 800; color: var(--color-heading); }
+    .stat-label { font-size: 0.8125rem; color: var(--color-text-dim); margin-top: 4px; }
+
+    /* ── How It Works ── */
+    .how-it-works { background: var(--color-bg-raised); }
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 48px; }
+    .step-card {
+      position: relative; padding: 32px; border-radius: var(--radius-lg);
+      background: var(--color-bg-card); border: 1px solid var(--color-border);
+      transition: all var(--transition-base);
+    }
+    .step-card:hover { border-color: var(--color-border-hover); background: var(--color-bg-card-hover); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+    .step-number {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--color-gradient-1), var(--color-gradient-2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem; font-weight: 800; color: #fff; margin-bottom: 20px;
+    }
+    .step-card h3 { font-size: 1.25rem; font-weight: 700; color: var(--color-heading); margin-bottom: 8px; }
+    .step-card p { font-size: 0.9375rem; color: var(--color-text-muted); line-height: 1.6; }
+    .step-arrow {
+      position: absolute; right: -24px; top: 50%; transform: translateY(-50%);
+      color: var(--color-text-dim); font-size: 1.25rem;
+    }
+    @media (max-width: 768px) {
+      .steps-grid { grid-template-columns: 1fr; }
+      .step-arrow { display: none; }
+    }
+
+    /* ── Client Cards ── */
+    .clients-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 48px; }
+    .client-card {
+      padding: 24px; border-radius: var(--radius-md);
+      background: var(--color-bg-card); border: 1px solid var(--color-border);
+      text-align: center; transition: all var(--transition-base);
+    }
+    .client-card:hover { border-color: var(--color-primary); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+    .client-card .client-icon { font-size: 2rem; margin-bottom: 12px; }
+    .client-card h3 { font-size: 0.9375rem; font-weight: 600; color: var(--color-heading); margin-bottom: 4px; }
+    .client-card p { font-size: 0.8125rem; color: var(--color-text-dim); }
+
+    /* ── Agent Cards ── */
+    .agents-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 48px; }
+    .agent-card {
+      padding: 28px; border-radius: var(--radius-lg);
+      background: var(--color-bg-card); border: 1px solid var(--color-border);
+      transition: all var(--transition-base);
+    }
+    .agent-card:hover { border-color: var(--color-border-hover); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+    .agent-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+    .agent-avatar {
+      width: 44px; height: 44px; border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.25rem;
+    }
+    .agent-card h3 { font-size: 1.0625rem; font-weight: 700; color: var(--color-heading); }
+    .agent-card .agent-role { font-size: 0.8125rem; color: var(--color-text-dim); }
+    .agent-card p { font-size: 0.9375rem; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 14px; }
+    .agent-scope-tag {
+      display: inline-block; padding: 3px 10px; border-radius: 100px;
+      font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+      background: rgba(129, 140, 248, 0.1); color: var(--color-primary-bright); border: 1px solid rgba(129, 140, 248, 0.2);
+    }
+
+    /* ── Scopes ── */
+    .scopes-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 48px; }
+    .scope-card {
+      padding: 28px; border-radius: var(--radius-lg);
+      background: var(--color-bg-card); border: 1px solid var(--color-border);
+      transition: all var(--transition-base); position: relative; overflow: hidden;
+    }
+    .scope-card:hover { border-color: var(--color-border-hover); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+    .scope-card .scope-icon { font-size: 2rem; margin-bottom: 16px; }
+    .scope-card h3 { font-size: 1.125rem; font-weight: 700; color: var(--color-heading); margin-bottom: 6px; }
+    .scope-card .scope-stack { font-size: 0.8125rem; font-weight: 600; color: var(--color-primary); margin-bottom: 12px; }
+    .scope-card p { font-size: 0.875rem; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 16px; }
+    .scope-features { list-style: none; }
+    .scope-features li {
+      font-size: 0.8125rem; color: var(--color-text-dim); padding: 4px 0;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .scope-features li::before { content: '\2713'; color: var(--color-success); font-weight: 700; }
+    @media (max-width: 960px) { .scopes-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .scopes-grid { grid-template-columns: 1fr; } }
+
+    /* ── Commands ── */
+    .commands-section { background: var(--color-bg-raised); }
+    .command-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; margin-top: 48px; }
+    .command-group {
+      padding: 24px; border-radius: var(--radius-lg);
+      background: var(--color-bg-card); border: 1px solid var(--color-border);
+    }
+    .command-group h3 { font-size: 1rem; font-weight: 700; color: var(--color-heading); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .command-list { list-style: none; }
+    .command-list li { padding: 8px 0; border-bottom: 1px solid var(--color-border); display: flex; align-items: baseline; gap: 10px; }
+    .command-list li:last-child { border-bottom: none; }
+    .cmd-name { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--color-primary-bright); font-weight: 500; white-space: nowrap; }
+    .cmd-desc { font-size: 0.8125rem; color: var(--color-text-dim); }
+
+    /* ── Use Cases ── */
+    .use-cases-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; margin-top: 48px; }
+    .use-case-card {
+      padding: 28px; border-radius: var(--radius-lg);
+      background: var(--color-bg-card); border: 1px solid var(--color-border);
+      transition: all var(--transition-base);
+    }
+    .use-case-card:hover { border-color: var(--color-border-hover); transform: translateY(-4px); }
+    .use-case-card .use-case-icon { font-size: 1.75rem; margin-bottom: 14px; }
+    .use-case-card h3 { font-size: 1.0625rem; font-weight: 700; color: var(--color-heading); margin-bottom: 8px; }
+    .use-case-card p { font-size: 0.9375rem; color: var(--color-text-muted); line-height: 1.6; margin-bottom: 14px; }
+    .use-case-card .use-case-prompt {
+      font-family: var(--font-mono); font-size: 0.8125rem; color: var(--color-accent);
+      padding: 12px; background: var(--color-code-bg); border-radius: var(--radius-sm);
+      border: 1px solid var(--color-code-border);
+    }
+
+    /* ── AI Reference Sections ── */
+    .ai-ref { background: var(--color-bg-raised); border-top: 1px solid var(--color-border); }
+    .ai-ref-header { margin-bottom: 32px; }
+    .ai-ref-header .section-label { color: var(--color-accent); }
+    .ai-ref-note {
+      display: flex; align-items: center; gap: 12px; padding: 16px 20px; margin-bottom: 32px;
+      background: rgba(34, 211, 238, 0.05); border: 1px solid rgba(34, 211, 238, 0.15);
+      border-radius: var(--radius-md); font-size: 0.875rem; color: var(--color-accent);
+    }
+
+    .ref-block {
+      margin-bottom: 32px; padding: 24px; border-radius: var(--radius-lg);
+      background: var(--color-bg-card); border: 1px solid var(--color-border);
+    }
+    .ref-block h3 { font-size: 1rem; font-weight: 700; color: var(--color-heading); margin-bottom: 16px; }
+    .ref-block h4 { font-size: 0.875rem; font-weight: 600; color: var(--color-text-muted); margin: 16px 0 8px; }
+
+    pre, code { font-family: var(--font-mono); }
+    pre {
+      background: var(--color-code-bg); border: 1px solid var(--color-code-border);
+      border-radius: var(--radius-sm); padding: 16px 20px; overflow-x: auto;
+      font-size: 0.8125rem; line-height: 1.7; color: var(--color-text);
+      margin: 12px 0;
+    }
+    code {
+      font-size: 0.8125rem; padding: 2px 6px;
+      background: var(--color-code-bg); border-radius: 4px; color: var(--color-primary-bright);
+    }
+    pre code { padding: 0; background: none; }
+
+    .ref-table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; margin: 12px 0; }
+    .ref-table th {
+      text-align: left; padding: 10px 14px; border-bottom: 2px solid var(--color-border);
+      color: var(--color-text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.6875rem;
+    }
+    .ref-table td { padding: 10px 14px; border-bottom: 1px solid var(--color-border); color: var(--color-text); vertical-align: top; }
+    .ref-table tr:last-child td { border-bottom: none; }
+    .ref-table td:first-child { color: var(--color-primary-bright); font-family: var(--font-mono); white-space: nowrap; }
+
+    /* ── Knowledge Index ── */
+    .knowledge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 16px; }
+    .knowledge-category {
+      padding: 20px; border-radius: var(--radius-md);
+      background: var(--color-bg-card); border: 1px solid var(--color-border);
+    }
+    .knowledge-category h4 {
+      font-size: 0.9375rem; font-weight: 700; color: var(--color-heading); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .knowledge-category ul { list-style: none; }
+    .knowledge-category li { padding: 5px 0; font-size: 0.8125rem; display: flex; gap: 8px; }
+    .knowledge-category li .kf { color: var(--color-primary-bright); font-family: var(--font-mono); white-space: nowrap; min-width: fit-content; }
+    .knowledge-category li .kd { color: var(--color-text-dim); }
+
+    /* ── Install ── */
+    .install-section { text-align: center; }
+    .install-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 48px; }
+    .install-card {
+      padding: 32px; border-radius: var(--radius-lg);
+      background: var(--color-bg-card); border: 1px solid var(--color-border);
+      text-align: left; transition: all var(--transition-base);
+    }
+    .install-card:hover { border-color: var(--color-border-hover); transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+    .install-card.featured { border-color: var(--color-primary); background: rgba(129, 140, 248, 0.03); }
+    .install-card h3 { font-size: 1.125rem; font-weight: 700; color: var(--color-heading); margin-bottom: 8px; }
+    .install-card p { font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 16px; line-height: 1.6; }
+    .install-card pre { margin: 0; }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 48px 0 32px; border-top: 1px solid var(--color-border);
+      text-align: center; color: var(--color-text-dim); font-size: 0.8125rem;
+    }
+    .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 16px; flex-wrap: wrap; }
+    .footer-links a { color: var(--color-text-muted); }
+    .footer-links a:hover { color: var(--color-heading); }
+
+    /* ── Scroll Reveal ── */
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 100ms; }
+    .reveal-delay-2 { transition-delay: 200ms; }
+    .reveal-delay-3 { transition-delay: 300ms; }
+    .reveal-delay-4 { transition-delay: 400ms; }
+
+    /* ── Structured Data (hidden, for AI agents) ── */
+    .ai-structured-data { display: none; }
   </style>
 </head>
 <body>
 
-  <!-- ── Hero ── -->
-  <section class="hero">
-    <div class="hero-badge">v2.0.0 &mdash; Gen UI Skills for Any AI Client</div>
-    <h1>Your AI <span>Development Team</span></h1>
-    <p>Describe what you want to build. 7 specialist AI agents handle the rest. Works with any AI client that supports MCP.</p>
-    <div class="hero-actions">
-      <a href="https://github.com/10x-Anit/10x-development-team" class="btn btn-primary">View on GitHub</a>
-      <a href="#use-cases" class="btn btn-outline">See Use Cases</a>
-    </div>
-  </section>
-
-  <!-- ── Install ── -->
-  <section class="install" id="install">
-    <div class="install-code">npx 10x-development-team setup</div>
-    <div class="clients">
-      <span class="client-tag">Claude Desktop</span>
-      <span class="client-tag">Claude Code</span>
-      <span class="client-tag">OpenAI Codex</span>
-      <span class="client-tag">OpenCode</span>
-      <span class="client-tag">Any MCP Client</span>
-    </div>
-  </section>
-
-  <!-- ── Stats ── -->
-  <div class="stats">
-    <div class="stat"><div class="stat-num">7</div><div class="stat-label">AI Agents</div></div>
-    <div class="stat"><div class="stat-num">19</div><div class="stat-label">Skills</div></div>
-    <div class="stat"><div class="stat-num">40+</div><div class="stat-label">Knowledge Files</div></div>
-    <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Components</div></div>
-    <div class="stat"><div class="stat-num">12</div><div class="stat-label">MCP Tools</div></div>
-    <div class="stat"><div class="stat-num">8</div><div class="stat-label">Templates</div></div>
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- NAVBAR                                                   -->
+<!-- ════════════════════════════════════════════════════════ -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container">
+    <a href="#" class="nav-brand" aria-label="10x Development Team home">
+      <div class="nav-brand-icon">10x</div>
+      <span>10x Development Team</span>
+    </a>
+    <ul class="nav-links" id="navLinks" role="menubar">
+      <li role="none"><a href="#how-it-works" role="menuitem">How It Works</a></li>
+      <li role="none"><a href="#agents" role="menuitem">Agents</a></li>
+      <li role="none"><a href="#scopes" role="menuitem">Scopes</a></li>
+      <li role="none"><a href="#commands" role="menuitem">Commands</a></li>
+      <li role="none"><a href="#ai-reference" role="menuitem">AI Reference</a></li>
+    </ul>
+    <a href="#install" class="nav-cta">Get Started</a>
+    <button class="nav-mobile-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
   </div>
+</nav>
 
-  <!-- ══════════════════════════════════════════ -->
-  <!-- ── USE CASES — the main new section ── -->
-  <!-- ══════════════════════════════════════════ -->
-  <section class="section" id="use-cases">
-    <h2>Real Use Cases</h2>
-    <p class="subtitle">5 ways real people use the 10x Development Team to build apps &mdash; from zero to deployed, with minimal input.</p>
-
-    <div class="use-cases">
-
-      <!-- ── Use Case 1: Founder → MVP ── -->
-      <div class="use-case">
-        <div class="use-case-header">
-          <div class="use-case-icon uc-icon-1">&#x1F4A1;</div>
-          <div>
-            <h3>From Idea to MVP in One Conversation</h3>
-            <div class="uc-persona">Non-technical founder &middot; No coding experience</div>
-          </div>
-        </div>
-        <div class="use-case-body">
-          <p class="uc-scenario">Sarah has an idea for an invoice management tool for freelancers. She doesn't code. She opens Claude Desktop and starts talking.</p>
-          <div class="uc-flow">
-            <div class="uc-step uc-step-1">
-              <div class="uc-step-num">1</div>
-              <div class="uc-step-content">
-                <div class="uc-action">Sarah describes her vision</div>
-                <div class="uc-detail">"I want an app where freelancers can create invoices, send them to clients, and track payments."</div>
-              </div>
-            </div>
-            <div class="uc-step uc-step-2">
-              <div class="uc-step-num">2</div>
-              <div class="uc-step-content">
-                <div class="uc-action">Plugin asks 4 simple questions</div>
-                <div class="uc-detail">Who uses it? What do they see first? What are the 3 most important actions? Sarah picks <code>MVP</code> scope.</div>
-              </div>
-            </div>
-            <div class="uc-step uc-step-3">
-              <div class="uc-step-num">3</div>
-              <div class="uc-step-content">
-                <div class="uc-action">7 agents build the app</div>
-                <div class="uc-detail">UI Designer creates the design system. Frontend Dev builds pages. Backend Dev creates the database and API. QA Tester verifies it works.</div>
-              </div>
-            </div>
-            <div class="uc-step uc-step-4">
-              <div class="uc-step-num">4</div>
-              <div class="uc-step-content">
-                <div class="uc-action">Sarah gets a working app</div>
-                <div class="uc-detail">Login, dashboard, invoice creation, client list, payment tracking &mdash; all working with real data. She runs <code>npm run dev</code> and sees it.</div>
-              </div>
-            </div>
-            <div class="uc-step uc-step-5">
-              <div class="uc-step-num">5</div>
-              <div class="uc-step-content">
-                <div class="uc-action">She iterates with plain English</div>
-                <div class="uc-detail">"Add a PDF export for invoices." "Make the dashboard show monthly revenue." "Add Stripe payments." Each request &mdash; one command.</div>
-              </div>
-            </div>
-          </div>
-          <div class="uc-result">
-            <div class="uc-result-label">Result</div>
-            <p>A working MVP with auth, CRUD, dashboard, and payments &mdash; built from a conversation. No code written by Sarah. Deployed to Vercel with one more command.</p>
-          </div>
-          <div class="uc-tags">
-            <span class="uc-tag uc-tag-scope">MVP Scope</span>
-            <span class="uc-tag uc-tag-client">Claude Desktop</span>
-            <span class="uc-tag">Next.js + Prisma + Auth</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── Use Case 2: Dev + Existing Data ── -->
-      <div class="use-case">
-        <div class="use-case-header">
-          <div class="use-case-icon uc-icon-2">&#x1F4CA;</div>
-          <div>
-            <h3>Dashboard for Your Existing Data</h3>
-            <div class="uc-persona">Developer &middot; Has data in Supabase, needs a UI fast</div>
-          </div>
-        </div>
-        <div class="use-case-body">
-          <p class="uc-scenario">Marcus has 50,000 rows of product analytics in Supabase. He needs a dashboard to visualize it &mdash; but doesn't want to spend a week building one from scratch.</p>
-          <div class="uc-flow">
-            <div class="uc-step uc-step-1">
-              <div class="uc-step-num">1</div>
-              <div class="uc-step-content">
-                <div class="uc-action">Start a project</div>
-                <div class="uc-detail">"Build me a dashboard that shows product analytics &mdash; page views, conversions, revenue by product." Picks <code>MVP</code> scope.</div>
-              </div>
-            </div>
-            <div class="uc-step uc-step-2">
-              <div class="uc-step-num">2</div>
-              <div class="uc-step-content">
-                <div class="uc-action">Connect the data</div>
-                <div class="uc-detail">Runs <code>:connect-data Supabase</code>. The plugin sets up the Supabase client, creates API proxy routes, wires hooks into the pages.</div>
-              </div>
-            </div>
-            <div class="uc-step uc-step-3">
-              <div class="uc-step-num">3</div>
-              <div class="uc-step-content">
-                <div class="uc-action">Tweak the UI live</div>
-                <div class="uc-detail">"Change the cards to a data table with sorting." <code>:modify-ui change cards to sortable table</code>. Done in seconds.</div>
-              </div>
-            </div>
-            <div class="uc-step uc-step-4">
-              <div class="uc-step-num">4</div>
-              <div class="uc-step-content">
-                <div class="uc-action">Add real-time updates</div>
-                <div class="uc-detail">"Make the revenue chart update live." The plugin adds Supabase Realtime subscriptions &mdash; data flows in without page refresh.</div>
-              </div>
-            </div>
-          </div>
-          <div class="uc-result">
-            <div class="uc-result-label">Result</div>
-            <p>A live analytics dashboard connected to existing Supabase data. Stat cards, sortable tables, real-time charts. Built in under an hour, not a week.</p>
-          </div>
-          <div class="uc-tags">
-            <span class="uc-tag uc-tag-scope">MVP Scope</span>
-            <span class="uc-tag uc-tag-client">Claude Code</span>
-            <span class="uc-tag uc-tag-data">Supabase</span>
-            <span class="uc-tag">Realtime</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── Use Case 3: Freelancer → Landing Page ── -->
-      <div class="use-case">
-        <div class="use-case-header">
-          <div class="use-case-icon uc-icon-3">&#x26A1;</div>
-          <div>
-            <h3>Client Landing Page in 10 Minutes</h3>
-            <div class="uc-persona">Freelance designer &middot; Needs to deliver fast</div>
-          </div>
-        </div>
-        <div class="use-case-body">
-          <p class="uc-scenario">Priya has a client who needs a product landing page by tomorrow. Hero, features, pricing, testimonials, contact form. She opens her AI tool and starts.</p>
-          <div class="uc-flow">
-            <div class="uc-step uc-step-1">
-              <div class="uc-step-num">1</div>
-              <div class="uc-step-content">
-                <div class="uc-action">"Build a landing page for a fitness app"</div>
-                <div class="uc-detail">Picks <code>Simple</code> scope. No React, no npm &mdash; just HTML, CSS, and JavaScript that opens in any browser.</div>
-              </div>
-            </div>
-            <div class="uc-step uc-step-2">
-              <div class="uc-step-num">2</div>
-              <div class="uc-step-content">
-                <div class="uc-action">Gets a complete page in 2 minutes</div>
-                <div class="uc-detail">Hero with CTA, 4 feature cards, 3 pricing tiers, testimonials carousel, contact form. Fully responsive. Dark mode ready.</div>
-              </div>
-            </div>
-            <div class="uc-step uc-step-3">
-              <div class="uc-step-num">3</div>
-              <div class="uc-step-content">
-                <div class="uc-action">Customizes with plain language</div>
-                <div class="uc-detail">"Change the hero background to a gradient." "Make the pricing cards horizontal." "Add a video section." Each change &mdash; instant.</div>
-              </div>
-            </div>
-          </div>
-          <div class="uc-result">
-            <div class="uc-result-label">Result</div>
-            <p>A polished, responsive landing page &mdash; just HTML/CSS/JS files. Priya drags the folder to Netlify. Deployed. Client happy. Total time: 10 minutes.</p>
-          </div>
-          <div class="uc-tags">
-            <span class="uc-tag uc-tag-scope">Simple Scope</span>
-            <span class="uc-tag uc-tag-client">Any AI Client</span>
-            <span class="uc-tag">HTML + CSS + JS</span>
-            <span class="uc-tag">No Build Tools</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── Use Case 4: PM → Investor Prototype ── -->
-      <div class="use-case">
-        <div class="use-case-header">
-          <div class="use-case-icon uc-icon-4">&#x1F3AF;</div>
-          <div>
-            <h3>Clickable Prototype for Investor Demo</h3>
-            <div class="uc-persona">Product manager &middot; Needs to demo next week</div>
-          </div>
-        </div>
-        <div class="use-case-body">
-          <p class="uc-scenario">James needs to show investors a working demo of his team collaboration platform. It doesn't need real data &mdash; just needs to look and feel real.</p>
-          <div class="uc-flow">
-            <div class="uc-step uc-step-1">
-              <div class="uc-step-num">1</div>
-              <div class="uc-step-content">
-                <div class="uc-action">"Build a team workspace app &mdash; like Notion meets Slack"</div>
-                <div class="uc-detail">Picks <code>Prototype</code> scope. Gets Vite + React + Tailwind. All data comes from mock files &mdash; no backend needed.</div>
-              </div>
-            </div>
-            <div class="uc-step uc-step-2">
-              <div class="uc-step-num">2</div>
-              <div class="uc-step-content">
-                <div class="uc-action">Plugin builds 5 pages</div>
-                <div class="uc-detail">Login screen, workspace dashboard, project board, document editor, team settings. All with realistic mock data. Navigation works.</div>
-              </div>
-            </div>
-            <div class="uc-step uc-step-3">
-              <div class="uc-step-num">3</div>
-              <div class="uc-step-content">
-                <div class="uc-action">James adds pages for the demo flow</div>
-                <div class="uc-detail"><code>:add-page notifications panel with unread badges</code> and <code>:add-page analytics with charts showing team productivity</code></div>
-              </div>
-            </div>
-            <div class="uc-step uc-step-4">
-              <div class="uc-step-num">4</div>
-              <div class="uc-step-content">
-                <div class="uc-action">Polish the visuals</div>
-                <div class="uc-detail"><code>:modify-ui add smooth page transitions</code> and <code>:modify-ui make it dark mode with purple accents</code></div>
-              </div>
-            </div>
-          </div>
-          <div class="uc-result">
-            <div class="uc-result-label">Result</div>
-            <p>A 7-page interactive prototype that looks like a real product. Investors click through it live. James gets his funding round. When ready &mdash; upgrade scope to MVP and add real data.</p>
-          </div>
-          <div class="uc-tags">
-            <span class="uc-tag uc-tag-scope">Prototype Scope</span>
-            <span class="uc-tag uc-tag-client">Codex</span>
-            <span class="uc-tag">Vite + React</span>
-            <span class="uc-tag">Mock Data</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── Use Case 5: Growing App → Add Features ── -->
-      <div class="use-case">
-        <div class="use-case-header">
-          <div class="use-case-icon uc-icon-5">&#x1F680;</div>
-          <div>
-            <h3>Scale an Existing App with New Features</h3>
-            <div class="uc-persona">Startup CTO &middot; App is live, needs to ship faster</div>
-          </div>
-        </div>
-        <div class="use-case-body">
-          <p class="uc-scenario">Aisha's SaaS has 500 users. She needs to add Stripe payments, email notifications, and a settings page. Her team is small. She uses the plugin to move 3x faster.</p>
-          <div class="uc-flow">
-            <div class="uc-step uc-step-1">
-              <div class="uc-step-num">1</div>
-              <div class="uc-step-content">
-                <div class="uc-action">Resume the existing project</div>
-                <div class="uc-detail"><code>:resume</code> &mdash; the plugin loads the project from persistent memory. It knows every file, every feature, every decision from previous sessions.</div>
-              </div>
-            </div>
-            <div class="uc-step uc-step-2">
-              <div class="uc-step-num">2</div>
-              <div class="uc-step-content">
-                <div class="uc-action">"Add Stripe subscription payments"</div>
-                <div class="uc-detail"><code>:add-feature users can subscribe to monthly plans with Stripe</code>. Backend Dev creates Stripe webhooks + checkout. Frontend Dev adds the pricing page.</div>
-              </div>
-            </div>
-            <div class="uc-step uc-step-3">
-              <div class="uc-step-num">3</div>
-              <div class="uc-step-content">
-                <div class="uc-action">"Add email notifications"</div>
-                <div class="uc-detail"><code>:add-feature send welcome email on signup and invoice email on payment</code>. Backend Dev sets up Resend with React Email templates.</div>
-              </div>
-            </div>
-            <div class="uc-step uc-step-4">
-              <div class="uc-step-num">4</div>
-              <div class="uc-step-content">
-                <div class="uc-action">Add the settings page</div>
-                <div class="uc-detail"><code>:add-page account settings with profile, billing, and notification preferences</code>. Uses existing auth context and component registry.</div>
-              </div>
-            </div>
-            <div class="uc-step uc-step-5">
-              <div class="uc-step-num">5</div>
-              <div class="uc-step-content">
-                <div class="uc-action">Review and deploy</div>
-                <div class="uc-detail"><code>:review</code> runs QA checks. <code>:deploy</code> updates the CI/CD pipeline. Feature map tracks exactly which files changed for each feature.</div>
-              </div>
-            </div>
-          </div>
-          <div class="uc-result">
-            <div class="uc-result-label">Result</div>
-            <p>3 major features added to a live app in one session. The plugin knew the existing codebase, reused components, and updated the feature map. No breaking changes. Shipped same day.</p>
-          </div>
-          <div class="uc-tags">
-            <span class="uc-tag uc-tag-scope">Production Scope</span>
-            <span class="uc-tag uc-tag-client">Claude Code</span>
-            <span class="uc-tag uc-tag-data">Stripe + Resend</span>
-            <span class="uc-tag">Persistent Memory</span>
-          </div>
-        </div>
-      </div>
-
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- HERO                                                      -->
+<!-- ════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <div class="hero-grid"></div>
+  </div>
+  <div class="container hero-content">
+    <div class="hero-badge reveal">
+      <span class="hero-badge-dot" aria-hidden="true"></span>
+      Open Source MCP Plugin
     </div>
-  </section>
+    <h1 class="reveal reveal-delay-1">Your <span class="gradient-text">AI Development Team</span></h1>
+    <p class="hero-desc reveal reveal-delay-2">7 specialist agents that build complete apps from natural language. Describe what you want. They architect, code, test, and deploy it.</p>
+    <div class="hero-buttons reveal reveal-delay-3">
+      <a href="#install" class="btn-primary">Get Started</a>
+      <a href="https://github.com/10x-Anit/10x-development-team" class="btn-secondary" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </div>
+    <div class="hero-clients reveal reveal-delay-3" aria-label="Supported AI clients">
+      <span class="client-badge"><span class="icon" aria-hidden="true">&#9670;</span> Claude Code</span>
+      <span class="client-badge"><span class="icon" aria-hidden="true">&#9670;</span> Claude Desktop</span>
+      <span class="client-badge"><span class="icon" aria-hidden="true">&#9670;</span> Cursor</span>
+      <span class="client-badge"><span class="icon" aria-hidden="true">&#9670;</span> Windsurf</span>
+      <span class="client-badge"><span class="icon" aria-hidden="true">&#9670;</span> VS Code + Copilot</span>
+      <span class="client-badge"><span class="icon" aria-hidden="true">&#9670;</span> Cline</span>
+      <span class="client-badge"><span class="icon" aria-hidden="true">&#9670;</span> Continue.dev</span>
+      <span class="client-badge"><span class="icon" aria-hidden="true">&#9670;</span> Codex CLI</span>
+      <span class="client-badge"><span class="icon" aria-hidden="true">&#9670;</span> OpenCode</span>
+    </div>
+    <div class="hero-stats reveal reveal-delay-4">
+      <div class="stat"><div class="stat-value gradient-text">7</div><div class="stat-label">AI Agents</div></div>
+      <div class="stat"><div class="stat-value gradient-text">19</div><div class="stat-label">Commands</div></div>
+      <div class="stat"><div class="stat-value gradient-text">50+</div><div class="stat-label">Knowledge Files</div></div>
+      <div class="stat"><div class="stat-value gradient-text">9</div><div class="stat-label">AI Clients</div></div>
+    </div>
+  </div>
+</section>
 
-  <!-- ── How to Use ── -->
-  <section class="section">
-    <h2>3 Ways to Use It</h2>
-    <p class="subtitle">Pick the one that fits your workflow</p>
-    <div class="ways">
-      <div class="way">
-        <h3>MCP Server (Any AI Client)</h3>
-        <code>npx 10x-development-team setup</code>
-        <p>Auto-detects Claude Desktop, Claude Code, Codex, OpenCode. One command configures everything.</p>
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- HOW IT WORKS                                              -->
+<!-- ════════════════════════════════════════════════════════ -->
+<section class="how-it-works" id="how-it-works">
+  <div class="container">
+    <div class="section-label reveal">How It Works</div>
+    <h2 class="section-title reveal">Three steps. <span class="gradient-text">Zero boilerplate.</span></h2>
+    <p class="section-subtitle reveal">Describe your vision in plain language. The agents handle architecture, code, design, tests, and deployment.</p>
+    <div class="steps-grid">
+      <div class="step-card reveal">
+        <div class="step-number">1</div>
+        <h3>Describe Your App</h3>
+        <p>Tell the AI what you want to build. "A SaaS dashboard with user auth, Stripe billing, and an analytics page." That is enough.</p>
+        <span class="step-arrow" aria-hidden="true">&#8594;</span>
       </div>
-      <div class="way">
-        <h3>Claude Code Plugin (Direct)</h3>
-        <code>npx 10x-development-team install-plugin .</code>
-        <p>Copies the plugin into your project. Use slash commands directly.</p>
+      <div class="step-card reveal reveal-delay-1">
+        <div class="step-number">2</div>
+        <h3>Agents Build It</h3>
+        <p>The Team Lead plans the architecture. Frontend Dev builds the UI. Backend Dev writes the APIs. UI Designer polishes. QA tests. All coordinated through a shared index.</p>
+        <span class="step-arrow" aria-hidden="true">&#8594;</span>
       </div>
-      <div class="way">
-        <h3>npm Package</h3>
-        <code>npm install -g 10x-development-team</code>
-        <p>Install globally. Run 10x-mcp anywhere.</p>
+      <div class="step-card reveal reveal-delay-2">
+        <div class="step-number">3</div>
+        <h3>Ship It</h3>
+        <p>Get a complete, working application with clean code, proper file structure, responsive design, and deployment config. Iterate with natural language.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── Scopes ── -->
-  <section class="section">
-    <h2>Choose Your Scope</h2>
-    <p class="subtitle">Don't over-engineer. The plugin matches the tool to the job.</p>
-    <table class="scopes">
-      <thead><tr><th>Scope</th><th>What You Get</th><th>Tech Stack</th></tr></thead>
-      <tbody>
-        <tr><td><span class="scope-badge scope-simple">Simple</span></td><td>Static pages, no build tools</td><td>HTML + CSS + JavaScript</td></tr>
-        <tr><td><span class="scope-badge scope-proto">Prototype</span></td><td>Interactive demo with mock data</td><td>Vite + React + Tailwind</td></tr>
-        <tr><td><span class="scope-badge scope-mvp">MVP</span></td><td>Working app with real data</td><td>Next.js + Prisma + Auth</td></tr>
-        <tr><td><span class="scope-badge scope-prod">Production</span></td><td>Full app, tested, deployed</td><td>Next.js + Tests + CI/CD + Docker</td></tr>
-      </tbody>
-    </table>
-  </section>
-
-  <!-- ── The Team ── -->
-  <section class="section">
-    <h2>The Team</h2>
-    <p class="subtitle">7 specialists that coordinate on every project</p>
-    <div class="agents">
-      <div class="agent-card"><div class="agent-icon">&#x1F468;&#x200D;&#x1F4BC;</div><h3>Team Lead</h3><p>Plans work, delegates, tracks progress. Never writes code &mdash; only coordinates.</p></div>
-      <div class="agent-card"><div class="agent-icon">&#x1F3A8;</div><h3>Frontend Dev</h3><p>Pages, components, UI. 50+ pre-built components in the registry.</p></div>
-      <div class="agent-card"><div class="agent-icon">&#x2699;&#xFE0F;</div><h3>Backend Dev</h3><p>APIs, database, auth. Copies from 40+ knowledge file patterns.</p></div>
-      <div class="agent-card"><div class="agent-icon">&#x1F3AF;</div><h3>UI Designer</h3><p>Design tokens, color system, typography. Tailwind or CSS variables.</p></div>
-      <div class="agent-card"><div class="agent-icon">&#x1F9EA;</div><h3>QA Tester</h3><p>Tests, quality checks, dependency audits. Scope-appropriate depth.</p></div>
-      <div class="agent-card"><div class="agent-icon">&#x1F680;</div><h3>Deployer</h3><p>CI/CD, Docker, hosting config. Vercel, Railway, or Docker.</p></div>
-      <div class="agent-card"><div class="agent-icon">&#x1F527;</div><h3>Error Recovery</h3><p>Diagnoses and fixes what other agents can't. Max 3 attempts.</p></div>
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SUPPORTED CLIENTS                                         -->
+<!-- ════════════════════════════════════════════════════════ -->
+<section id="clients">
+  <div class="container">
+    <div class="section-label reveal">Supported Clients</div>
+    <h2 class="section-title reveal">Works with <span class="gradient-text">9 AI clients</span></h2>
+    <p class="section-subtitle reveal">One plugin, every major AI coding tool. Install once, use everywhere.</p>
+    <div class="clients-grid">
+      <div class="client-card reveal"><div class="client-icon" aria-hidden="true">&#9677;</div><h3>Claude Desktop</h3><p>MCP native</p></div>
+      <div class="client-card reveal reveal-delay-1"><div class="client-icon" aria-hidden="true">&#9002;</div><h3>Claude Code</h3><p>MCP or direct plugin</p></div>
+      <div class="client-card reveal reveal-delay-1"><div class="client-icon" aria-hidden="true">&#9112;</div><h3>Cursor</h3><p>MCP server</p></div>
+      <div class="client-card reveal reveal-delay-2"><div class="client-icon" aria-hidden="true">&#9096;</div><h3>Windsurf</h3><p>MCP server</p></div>
+      <div class="client-card reveal reveal-delay-2"><div class="client-icon" aria-hidden="true">&#9109;</div><h3>VS Code + Copilot</h3><p>MCP server</p></div>
+      <div class="client-card reveal reveal-delay-2"><div class="client-icon" aria-hidden="true">&#9670;</div><h3>Cline</h3><p>MCP server</p></div>
+      <div class="client-card reveal reveal-delay-3"><div class="client-icon" aria-hidden="true">&#9655;</div><h3>Continue.dev</h3><p>MCP server</p></div>
+      <div class="client-card reveal reveal-delay-3"><div class="client-icon" aria-hidden="true">&#9638;</div><h3>OpenAI Codex CLI</h3><p>MCP server</p></div>
+      <div class="client-card reveal reveal-delay-3"><div class="client-icon" aria-hidden="true">&#9656;</div><h3>OpenCode</h3><p>MCP server</p></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── Key Features ── -->
-  <section class="section">
-    <h2>What Makes It Different</h2>
-    <div class="features">
-      <div class="feature"><h3>Works Everywhere</h3><p>MCP server works with Claude Desktop, Claude Code, Codex, OpenCode. One plugin, any AI tool.</p></div>
-      <div class="feature"><h3>Connect Any Data</h3><p>Supabase, Firebase, Airtable, Google Sheets, Notion, REST APIs, CSV/JSON/Excel files.</p></div>
-      <div class="feature"><h3>Persistent Memory</h3><p>SQLite tracks every project across sessions. Switch between 20 apps. Resume any with full context.</p></div>
-      <div class="feature"><h3>40+ Knowledge Files</h3><p>Agents copy proven code &mdash; not reinvent. Next.js, Tailwind, Prisma, Stripe, Resend, and more.</p></div>
-      <div class="feature"><h3>Model-Aware</h3><p>Small models copy code exactly. Large models enhance with animations, a11y, dark mode, SEO.</p></div>
-      <div class="feature"><h3>Token-Efficient</h3><p>Project index means agents read one file instead of scanning hundreds. Saves tokens, saves money.</p></div>
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- AGENTS                                                    -->
+<!-- ════════════════════════════════════════════════════════ -->
+<section class="agents-section" id="agents" style="background: var(--color-bg-raised);">
+  <div class="container">
+    <div class="section-label reveal">The Team</div>
+    <h2 class="section-title reveal"><span class="gradient-text">7 Specialist Agents</span></h2>
+    <p class="section-subtitle reveal">Each agent has deep expertise in its domain, a full instruction set, and access to 50+ knowledge files with copy-paste-ready code.</p>
+    <div class="agents-grid">
+      <div class="agent-card reveal">
+        <div class="agent-header">
+          <div class="agent-avatar" style="background: linear-gradient(135deg, #818cf8, #6366f1);">&#9733;</div>
+          <div><h3>Team Lead</h3><div class="agent-role">Orchestrator</div></div>
+        </div>
+        <p>Plans architecture, decomposes features into tasks, delegates to specialists, tracks progress through the shared index.</p>
+        <span class="agent-scope-tag">All scopes</span>
+      </div>
+      <div class="agent-card reveal reveal-delay-1">
+        <div class="agent-header">
+          <div class="agent-avatar" style="background: linear-gradient(135deg, #22d3ee, #06b6d4);">&#9113;</div>
+          <div><h3>Frontend Dev</h3><div class="agent-role">UI Builder</div></div>
+        </div>
+        <p>Builds pages, components, layouts. HTML/CSS/JS for Simple scope, React for Prototype, Next.js for MVP/Production. Uses design system tokens.</p>
+        <span class="agent-scope-tag">All scopes</span>
+      </div>
+      <div class="agent-card reveal reveal-delay-2">
+        <div class="agent-header">
+          <div class="agent-avatar" style="background: linear-gradient(135deg, #c084fc, #a855f7);">&#9881;</div>
+          <div><h3>Backend Dev</h3><div class="agent-role">API & Data</div></div>
+        </div>
+        <p>API routes, database schemas, authentication, business logic, external integrations. Prisma ORM, NextAuth, Stripe, Zod validation.</p>
+        <span class="agent-scope-tag">MVP + Production</span>
+      </div>
+      <div class="agent-card reveal">
+        <div class="agent-header">
+          <div class="agent-avatar" style="background: linear-gradient(135deg, #f472b6, #ec4899);">&#9734;</div>
+          <div><h3>UI Designer</h3><div class="agent-role">Design System</div></div>
+        </div>
+        <p>Creates design tokens (globals.css, tailwind.config.ts), enforces visual consistency, typography hierarchy, color palettes, spacing rhythm.</p>
+        <span class="agent-scope-tag">Prototype+</span>
+      </div>
+      <div class="agent-card reveal reveal-delay-1">
+        <div class="agent-header">
+          <div class="agent-avatar" style="background: linear-gradient(135deg, #34d399, #10b981);">&#9745;</div>
+          <div><h3>QA Tester</h3><div class="agent-role">Quality</div></div>
+        </div>
+        <p>Writes tests (unit, integration, E2E), runs lint checks, audits accessibility, checks dependency versions, validates API contracts.</p>
+        <span class="agent-scope-tag">MVP + Production</span>
+      </div>
+      <div class="agent-card reveal reveal-delay-2">
+        <div class="agent-header">
+          <div class="agent-avatar" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">&#9729;</div>
+          <div><h3>Deployer</h3><div class="agent-role">Infrastructure</div></div>
+        </div>
+        <p>CI/CD pipelines, Docker configuration, hosting setup (Vercel, Netlify, Railway), environment variables, production optimization.</p>
+        <span class="agent-scope-tag">Production</span>
+      </div>
+      <div class="agent-card reveal">
+        <div class="agent-header">
+          <div class="agent-avatar" style="background: linear-gradient(135deg, #f87171, #ef4444);">&#9888;</div>
+          <div><h3>Error Recovery</h3><div class="agent-role">Debugger</div></div>
+        </div>
+        <p>Diagnoses build failures, runtime errors, dependency conflicts. Reads error logs, suggests fixes, applies patches. Called on-demand when things break.</p>
+        <span class="agent-scope-tag">On demand</span>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── Footer ── -->
-  <footer class="footer">
-    <p>Built by <strong>Anit Chaudhry</strong> at <a href="https://10x-anit.github.io/10x-development-team">10x</a></p>
-    <p style="margin-top: 8px;">MIT License &middot; <a href="https://github.com/10x-Anit/10x-development-team">GitHub</a></p>
-  </footer>
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- SCOPES                                                    -->
+<!-- ════════════════════════════════════════════════════════ -->
+<section id="scopes">
+  <div class="container">
+    <div class="section-label reveal">Scopes</div>
+    <h2 class="section-title reveal">Right tool for every <span class="gradient-text">project size</span></h2>
+    <p class="section-subtitle reveal">The scope controls the stack, which agents activate, and how much infrastructure gets built. Never overbuild.</p>
+    <div class="scopes-grid">
+      <div class="scope-card reveal">
+        <div class="scope-icon" aria-hidden="true">&#128196;</div>
+        <h3>Simple</h3>
+        <div class="scope-stack">HTML / CSS / JS</div>
+        <p>Landing pages, portfolios, static sites. No build tools, no frameworks.</p>
+        <ul class="scope-features">
+          <li>Pure HTML/CSS/JS</li>
+          <li>Frontend agent only</li>
+          <li>Static hosting</li>
+          <li>Zero dependencies</li>
+        </ul>
+      </div>
+      <div class="scope-card reveal reveal-delay-1">
+        <div class="scope-icon" aria-hidden="true">&#9889;</div>
+        <h3>Prototype</h3>
+        <div class="scope-stack">Vite + React + Tailwind</div>
+        <p>Interactive demos, proof-of-concepts. Fast iteration with mock data.</p>
+        <ul class="scope-features">
+          <li>Vite + React</li>
+          <li>Tailwind CSS</li>
+          <li>Mock data (no API)</li>
+          <li>UI + Frontend agents</li>
+        </ul>
+      </div>
+      <div class="scope-card reveal reveal-delay-2">
+        <div class="scope-icon" aria-hidden="true">&#128640;</div>
+        <h3>MVP</h3>
+        <div class="scope-stack">Next.js + Prisma + shadcn/ui</div>
+        <p>Full-stack apps with database, auth, and API routes. Ship to real users.</p>
+        <ul class="scope-features">
+          <li>Next.js App Router</li>
+          <li>Prisma + SQLite/Postgres</li>
+          <li>shadcn/ui components</li>
+          <li>Auth + API routes</li>
+          <li>Critical path tests</li>
+        </ul>
+      </div>
+      <div class="scope-card reveal reveal-delay-3">
+        <div class="scope-icon" aria-hidden="true">&#127959;</div>
+        <h3>Production</h3>
+        <div class="scope-stack">Full Stack + CI/CD + Docker</div>
+        <p>Production-grade apps. All agents active, full test suite, deployment pipeline.</p>
+        <ul class="scope-features">
+          <li>Everything in MVP</li>
+          <li>Full test suite</li>
+          <li>CI/CD pipeline</li>
+          <li>Docker config</li>
+          <li>Error tracking</li>
+          <li>All 7 agents active</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- COMMANDS                                                  -->
+<!-- ════════════════════════════════════════════════════════ -->
+<section class="commands-section" id="commands">
+  <div class="container">
+    <div class="section-label reveal">Commands</div>
+    <h2 class="section-title reveal">19 commands. <span class="gradient-text">Every workflow covered.</span></h2>
+    <p class="section-subtitle reveal">Natural language skills for every stage of development. Use as slash commands in Claude Code or MCP tools in any client.</p>
+    <div class="command-groups">
+      <div class="command-group reveal">
+        <h3>&#9654; Project Lifecycle</h3>
+        <ul class="command-list">
+          <li><span class="cmd-name">start</span><span class="cmd-desc">New project -- vision capture + scope selection</span></li>
+          <li><span class="cmd-name">build</span><span class="cmd-desc">Execute the full build pipeline</span></li>
+          <li><span class="cmd-name">resume</span><span class="cmd-desc">Continue from where you left off</span></li>
+          <li><span class="cmd-name">status</span><span class="cmd-desc">Quick project overview</span></li>
+          <li><span class="cmd-name">projects</span><span class="cmd-desc">List/switch between all your projects</span></li>
+        </ul>
+      </div>
+      <div class="command-group reveal reveal-delay-1">
+        <h3>&#10010; Add Features</h3>
+        <ul class="command-list">
+          <li><span class="cmd-name">add-page</span><span class="cmd-desc">Add a page to existing app</span></li>
+          <li><span class="cmd-name">add-feature</span><span class="cmd-desc">Add a feature (frontend + backend)</span></li>
+          <li><span class="cmd-name">generate</span><span class="cmd-desc">Generate component, api, hook, model, or test</span></li>
+          <li><span class="cmd-name">connect-data</span><span class="cmd-desc">Connect external data (API, Supabase, Firebase, CSV)</span></li>
+        </ul>
+      </div>
+      <div class="command-group reveal reveal-delay-2">
+        <h3>&#9998; Modify & Fix</h3>
+        <ul class="command-list">
+          <li><span class="cmd-name">modify-ui</span><span class="cmd-desc">Quick UI changes -- layout, theme, colors, dark mode</span></li>
+          <li><span class="cmd-name">fix</span><span class="cmd-desc">Fix a bug -- describe the problem</span></li>
+          <li><span class="cmd-name">refactor</span><span class="cmd-desc">Improve code quality</span></li>
+        </ul>
+      </div>
+      <div class="command-group reveal">
+        <h3>&#9881; Maintenance</h3>
+        <ul class="command-list">
+          <li><span class="cmd-name">review</span><span class="cmd-desc">Code quality review</span></li>
+          <li><span class="cmd-name">explain</span><span class="cmd-desc">Explain how something works</span></li>
+          <li><span class="cmd-name">deploy</span><span class="cmd-desc">Set up deployment</span></li>
+          <li><span class="cmd-name">update-deps</span><span class="cmd-desc">Check/update dependencies</span></li>
+          <li><span class="cmd-name">config</span><span class="cmd-desc">View/change project settings</span></li>
+          <li><span class="cmd-name">index</span><span class="cmd-desc">View/rebuild project index</span></li>
+          <li><span class="cmd-name">help</span><span class="cmd-desc">Show all commands and tips</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- USE CASES                                                 -->
+<!-- ════════════════════════════════════════════════════════ -->
+<section id="use-cases">
+  <div class="container">
+    <div class="section-label reveal">Use Cases</div>
+    <h2 class="section-title reveal">Real scenarios, <span class="gradient-text">real results</span></h2>
+    <div class="use-cases-grid">
+      <div class="use-case-card reveal">
+        <div class="use-case-icon" aria-hidden="true">&#128188;</div>
+        <h3>SaaS Dashboard</h3>
+        <p>Full-stack app with auth, Stripe billing, analytics charts, and admin panel. MVP scope with Next.js + Prisma.</p>
+        <div class="use-case-prompt">"Build a SaaS dashboard with user auth, Stripe billing, and usage analytics"</div>
+      </div>
+      <div class="use-case-card reveal reveal-delay-1">
+        <div class="use-case-icon" aria-hidden="true">&#127968;</div>
+        <h3>Portfolio Site</h3>
+        <p>Beautiful personal site with projects grid, about section, contact form. Simple scope -- pure HTML/CSS/JS, no frameworks.</p>
+        <div class="use-case-prompt">"Create a portfolio site with a dark theme, project showcase, and contact form"</div>
+      </div>
+      <div class="use-case-card reveal reveal-delay-2">
+        <div class="use-case-icon" aria-hidden="true">&#128722;</div>
+        <h3>E-commerce Store</h3>
+        <p>Product catalog, cart, checkout with Stripe, order management. Production scope with full test suite and CI/CD.</p>
+        <div class="use-case-prompt">"Build an online store for handmade jewelry with Stripe checkout"</div>
+      </div>
+      <div class="use-case-card reveal">
+        <div class="use-case-icon" aria-hidden="true">&#128202;</div>
+        <h3>Data Dashboard</h3>
+        <p>Interactive charts, real-time data, CSV import, filterable tables. Prototype scope with Vite + React + Recharts.</p>
+        <div class="use-case-prompt">"Create a dashboard that visualizes CSV data with charts and filters"</div>
+      </div>
+      <div class="use-case-card reveal reveal-delay-1">
+        <div class="use-case-icon" aria-hidden="true">&#128221;</div>
+        <h3>Internal Tool</h3>
+        <p>CRUD app connected to Supabase, role-based access, data tables with sort/filter/export. MVP scope.</p>
+        <div class="use-case-prompt">"Build an internal tool for managing customer support tickets with Supabase"</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- AI REFERENCE — SETUP                                      -->
+<!-- ════════════════════════════════════════════════════════ -->
+<section class="ai-ref" id="ai-reference">
+  <div class="container">
+    <div class="ai-ref-header">
+      <div class="section-label reveal">AI Agent Reference</div>
+      <h2 class="section-title reveal">Structured reference for <span class="gradient-text">AI agents</span></h2>
+      <p class="section-subtitle reveal">Everything an AI agent needs to understand, configure, and use 10x Development Team in a user's project.</p>
+    </div>
+
+    <div class="ai-ref-note reveal">
+      <span aria-hidden="true">&#9432;</span>
+      This section is designed for machine parsing. AI agents: read the code blocks and tables below for exact commands, config paths, and tool signatures.
+    </div>
+
+    <!-- Setup Reference -->
+    <div class="ref-block reveal" id="ref-setup">
+      <h3>Setup Commands</h3>
+      <pre><code># Auto-detect all installed AI clients and configure them
+npx 10x-development-team setup
+
+# Configure a specific client
+npx 10x-development-team setup --client cursor
+npx 10x-development-team setup --client claude-desktop
+npx 10x-development-team setup --client claude-code
+npx 10x-development-team setup --client windsurf
+npx 10x-development-team setup --client cline
+npx 10x-development-team setup --client vscode
+npx 10x-development-team setup --client continue
+npx 10x-development-team setup --client codex
+npx 10x-development-team setup --client opencode
+
+# Configure all clients at once
+npx 10x-development-team setup --all
+
+# Install as Claude Code direct plugin (no MCP)
+npx 10x-development-team install-plugin ~/my-app
+
+# Health check
+npx 10x-development-team doctor</code></pre>
+
+      <h4>Config File Locations (per client)</h4>
+      <table class="ref-table">
+        <thead><tr><th>Client</th><th>Config Path (macOS/Linux)</th><th>Config Path (Windows)</th></tr></thead>
+        <tbody>
+          <tr><td>Claude Desktop</td><td>~/Library/Application Support/Claude/claude_desktop_config.json</td><td>%APPDATA%\Claude\claude_desktop_config.json</td></tr>
+          <tr><td>Claude Code</td><td colspan="2">~/.claude/.mcp.json</td></tr>
+          <tr><td>Cursor</td><td colspan="2">~/.cursor/mcp.json</td></tr>
+          <tr><td>Windsurf</td><td colspan="2">~/.codeium/windsurf/mcp_config.json</td></tr>
+          <tr><td>Cline</td><td colspan="2">VS Code globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json</td></tr>
+          <tr><td>VS Code + Copilot</td><td colspan="2">.vscode/mcp.json (workspace) -- uses "servers" key, not "mcpServers"</td></tr>
+          <tr><td>Continue.dev</td><td colspan="2">~/.continue/mcp.json</td></tr>
+          <tr><td>Codex CLI</td><td colspan="2">~/.codex/mcp.json</td></tr>
+          <tr><td>OpenCode</td><td colspan="2">~/.config/opencode/mcp.json</td></tr>
+        </tbody>
+      </table>
+
+      <h4>MCP Config Format</h4>
+      <pre><code>{
+  "mcpServers": {
+    "10x-dev": {
+      "command": "node",
+      "args": ["/absolute/path/to/node_modules/10x-development-team/dist/index.js"],
+      "env": {
+        "PLUGIN_ROOT": "/absolute/path/to/node_modules/10x-development-team/plugin"
+      }
+    }
+  }
+}</code></pre>
+      <p style="font-size: 0.8125rem; color: var(--color-text-dim); margin-top: 8px;">VS Code uses <code>"servers"</code> as the top-level key instead of <code>"mcpServers"</code>.</p>
+    </div>
+
+    <!-- Tool Reference -->
+    <div class="ref-block reveal" id="ref-tools">
+      <h3>MCP Tool Reference (12 tools)</h3>
+      <table class="ref-table">
+        <thead><tr><th>Tool</th><th>Parameters</th><th>Returns</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>tenx_start</td>
+            <td>name (string), description (string), scope (simple|prototype|mvp|production), type (website|webapp|mobile|ecommerce|other), target_users? (string), core_features? (string[]), first_screen? (string)</td>
+            <td>Project JSON, creates .10x/ directory, registers in SQLite memory</td>
+          </tr>
+          <tr>
+            <td>tenx_build</td>
+            <td>vision_summary? (string)</td>
+            <td>Project data, existing files, tasks, build instructions from skill file</td>
+          </tr>
+          <tr>
+            <td>tenx_projects</td>
+            <td>action (list|search|info|delete), query? (string)</td>
+            <td>Project list, search results, project info with sessions/memories, or deletion confirmation</td>
+          </tr>
+          <tr>
+            <td>tenx_read_index</td>
+            <td>(none)</td>
+            <td>project.json + file-index.json + tasks.json + feature-map.json</td>
+          </tr>
+          <tr>
+            <td>tenx_update_index</td>
+            <td>file_index_updates? (object), task_updates? (array), dev_log_entry? (string), feature_map_updates? (object)</td>
+            <td>Confirmation of which files were updated</td>
+          </tr>
+          <tr>
+            <td>tenx_get_skill</td>
+            <td>skill_name (start|build|add-page|add-feature|connect-data|modify-ui|generate|fix|refactor|review|explain|deploy|resume|status|update-deps|config|index|projects|help)</td>
+            <td>Full skill markdown with step-by-step instructions</td>
+          </tr>
+          <tr>
+            <td>tenx_get_knowledge</td>
+            <td>category (frameworks|libraries|patterns|components-source), file_name (string, e.g. "nextjs.md")</td>
+            <td>Knowledge file content with copy-paste code patterns</td>
+          </tr>
+          <tr>
+            <td>tenx_list_knowledge</td>
+            <td>(none)</td>
+            <td>Full knowledge index JSON with all categories and file descriptions</td>
+          </tr>
+          <tr>
+            <td>tenx_get_components</td>
+            <td>(none)</td>
+            <td>Component registry JSON with props, variants, template paths</td>
+          </tr>
+          <tr>
+            <td>tenx_save_memory</td>
+            <td>category (decision|preference|issue|context|user_feedback), content (string)</td>
+            <td>Confirmation of saved memory</td>
+          </tr>
+          <tr>
+            <td>tenx_get_context</td>
+            <td>(none)</td>
+            <td>Project info, recent sessions, saved memories</td>
+          </tr>
+          <tr>
+            <td>tenx_get_agent</td>
+            <td>agent_name (team-lead|frontend-dev|backend-dev|ui-designer|qa-tester|deployer|error-recovery)</td>
+            <td>Full agent instruction markdown</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Knowledge Base Index -->
+    <div class="ref-block reveal" id="ref-knowledge">
+      <h3>Knowledge Base Index (50+ files)</h3>
+      <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 16px;">Agents should call <code>tenx_get_knowledge</code> with the category and filename before writing code. Each file contains copy-paste-ready patterns.</p>
+      <div class="knowledge-grid">
+        <div class="knowledge-category">
+          <h4>&#128193; Frameworks</h4>
+          <ul>
+            <li><span class="kf">framework-selection.md</span><span class="kd">Decision matrix: which framework for which scope</span></li>
+            <li><span class="kf">nextjs.md</span><span class="kd">Next.js App Router, API routes, layouts, metadata</span></li>
+            <li><span class="kf">vite-react.md</span><span class="kd">Vite + React setup, routing, build config</span></li>
+            <li><span class="kf">expo-react-native.md</span><span class="kd">Expo + React Native, navigation, native APIs</span></li>
+            <li><span class="kf">html-css-js.md</span><span class="kd">Vanilla HTML/CSS/JS for Simple scope</span></li>
+          </ul>
+        </div>
+        <div class="knowledge-category">
+          <h4>&#128218; Libraries</h4>
+          <ul>
+            <li><span class="kf">shadcn-ui.md</span><span class="kd">shadcn/ui install, component list, theming</span></li>
+            <li><span class="kf">tailwind.md</span><span class="kd">Tailwind utilities, responsive, dark mode, config</span></li>
+            <li><span class="kf">framer-motion.md</span><span class="kd">Animations: fade, slide, scale, stagger, scroll</span></li>
+            <li><span class="kf">prisma.md</span><span class="kd">Database ORM: schema, migrations, CRUD, relations</span></li>
+            <li><span class="kf">zod.md</span><span class="kd">Validation: schemas, parsing, error messages</span></li>
+            <li><span class="kf">nextauth.md</span><span class="kd">Auth: providers, session, middleware, protected routes</span></li>
+            <li><span class="kf">stripe.md</span><span class="kd">Payments: checkout, subscriptions, webhooks</span></li>
+            <li><span class="kf">zustand.md</span><span class="kd">State management: stores, selectors, persist</span></li>
+            <li><span class="kf">react-hook-form.md</span><span class="kd">Forms: validation, error display, submission</span></li>
+            <li><span class="kf">resend.md</span><span class="kd">Email: Resend API, React Email templates</span></li>
+            <li><span class="kf">charts-dataviz.md</span><span class="kd">Recharts, stat cards, sparklines, dashboards</span></li>
+          </ul>
+        </div>
+        <div class="knowledge-category">
+          <h4>&#128295; Patterns</h4>
+          <ul>
+            <li><span class="kf">ui-ux-principles.md</span><span class="kd">Typography, spacing, color tokens, accessibility</span></li>
+            <li><span class="kf">design-system.md</span><span class="kd">globals.css tokens, tailwind.config.ts, HSL system</span></li>
+            <li><span class="kf">react-components.md</span><span class="kd">Props, composition, conditional render, lists</span></li>
+            <li><span class="kf">api-patterns.md</span><span class="kd">CRUD routes, auth middleware, error handling</span></li>
+            <li><span class="kf">data-fetching.md</span><span class="kd">Server components, client fetch, SWR, loading states</span></li>
+            <li><span class="kf">auth-flow.md</span><span class="kd">Login, signup, session, protected routes</span></li>
+            <li><span class="kf">responsive-layout.md</span><span class="kd">Mobile-first, breakpoints, grid, flex</span></li>
+            <li><span class="kf">dark-mode.md</span><span class="kd">Tailwind class strategy, system preference, toggle</span></li>
+            <li><span class="kf">seo.md</span><span class="kd">Metadata, sitemap, robots, Open Graph</span></li>
+            <li><span class="kf">external-api.md</span><span class="kd">REST client, GraphQL, proxy routes, OAuth</span></li>
+            <li><span class="kf">data-sources.md</span><span class="kd">Supabase, Firebase, Airtable, Google Sheets, Notion</span></li>
+            <li><span class="kf">file-ingestion.md</span><span class="kd">CSV, JSON, Excel parsing, drag-drop upload</span></li>
+            <li><span class="kf">file-storage.md</span><span class="kd">S3/R2 presigned URLs, Supabase Storage</span></li>
+            <li><span class="kf">realtime.md</span><span class="kd">SSE, WebSocket, Supabase Realtime, polling</span></li>
+            <li><span class="kf">rate-limiting.md</span><span class="kd">Rate limiting, CORS, security headers</span></li>
+            <li><span class="kf">monitoring.md</span><span class="kd">Sentry, structured logging, health checks</span></li>
+            <li><span class="kf">plugin-memory.md</span><span class="kd">SQLite memory schema, cross-project tracking</span></li>
+          </ul>
+        </div>
+        <div class="knowledge-category">
+          <h4>&#128230; Components (copy-paste)</h4>
+          <ul>
+            <li><span class="kf">button.md</span><span class="kd">Button with variants, sizes, loading state</span></li>
+            <li><span class="kf">card.md</span><span class="kd">Card with image, content, actions</span></li>
+            <li><span class="kf">input.md</span><span class="kd">Input with label, error, icon</span></li>
+            <li><span class="kf">form.md</span><span class="kd">Complete form with validation</span></li>
+            <li><span class="kf">modal.md</span><span class="kd">Modal/dialog with backdrop, focus trap</span></li>
+            <li><span class="kf">navbar.md</span><span class="kd">Responsive navbar with mobile menu</span></li>
+            <li><span class="kf">sidebar.md</span><span class="kd">Collapsible sidebar for dashboards</span></li>
+            <li><span class="kf">data-table.md</span><span class="kd">Data table with sort, filter, pagination</span></li>
+            <li><span class="kf">toast.md</span><span class="kd">Toast notification system</span></li>
+            <li><span class="kf">auth-pages.md</span><span class="kd">Login + Signup pages</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Architecture -->
+    <div class="ref-block reveal" id="ref-architecture">
+      <h3>Architecture</h3>
+      <h4>Two Integration Modes</h4>
+      <table class="ref-table">
+        <thead><tr><th>Mode</th><th>How</th><th>Best For</th></tr></thead>
+        <tbody>
+          <tr><td>MCP Server</td><td>Runs as local MCP server. AI client connects via stdio. 12 tools exposed. Works with all 9 clients.</td><td>Any AI client with MCP support</td></tr>
+          <tr><td>Direct Plugin</td><td>Copies agents/, skills/, knowledge/, components/ into project's .claude/ directory. No server needed.</td><td>Claude Code only</td></tr>
+        </tbody>
+      </table>
+
+      <h4>Plugin File Structure</h4>
+      <pre><code>plugin/
+  agents/           # 7 agent instruction files (.md)
+    team-lead.md
+    frontend-dev.md
+    backend-dev.md
+    ui-designer.md
+    qa-tester.md
+    deployer.md
+    error-recovery.md
+  skills/           # 19 skill files (.md) -- step-by-step instructions
+    start.md, build.md, add-page.md, add-feature.md, ...
+  knowledge/        # 50+ reference files organized by category
+    frameworks/     # nextjs.md, vite-react.md, html-css-js.md, expo-react-native.md
+    libraries/      # shadcn-ui.md, tailwind.md, prisma.md, stripe.md, ...
+    patterns/       # ui-ux-principles.md, design-system.md, api-patterns.md, ...
+    components-source/  # button.md, card.md, navbar.md, modal.md, ...
+    index.json      # Master index -- read this first
+  components/
+    registry.json   # Component registry with props and variants
+  CLAUDE.md         # Master instructions for all agents</code></pre>
+
+      <h4>Project Index (.10x/ directory)</h4>
+      <pre><code>.10x/
+  project.json      # App name, scope, type, stack, vision
+  file-index.json   # Every file: type, description, exports, dependencies
+  tasks.json        # Task tracker: id, status, assigned_to, goal
+  feature-map.json  # Feature-to-file mapping with data flow wiring
+  dev-log.md        # Chronological log of all agent actions</code></pre>
+
+      <h4>Persistent Memory</h4>
+      <pre><code># SQLite database at ~/.10x/memory.db
+# Tables: projects, sessions, memories
+# Tracks all projects across sessions
+# Falls back to .10x/ files if SQLite unavailable</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- INSTALLATION                                              -->
+<!-- ════════════════════════════════════════════════════════ -->
+<section class="install-section" id="install">
+  <div class="container">
+    <div class="section-label reveal">Get Started</div>
+    <h2 class="section-title reveal">Install in <span class="gradient-text">30 seconds</span></h2>
+    <p class="section-subtitle reveal" style="margin: 0 auto 0;">Three ways to set up. Pick the one that matches your workflow.</p>
+    <div class="install-options">
+      <div class="install-card featured reveal">
+        <h3>Auto Setup (recommended)</h3>
+        <p>Detects your installed AI clients and configures them automatically.</p>
+        <pre><code>npm install -g 10x-development-team
+npx 10x-development-team setup</code></pre>
+      </div>
+      <div class="install-card reveal reveal-delay-1">
+        <h3>Specific Client</h3>
+        <p>Target a single AI client by name.</p>
+        <pre><code>npx 10x-development-team setup --client cursor
+npx 10x-development-team setup --client windsurf
+npx 10x-development-team setup --client claude-code</code></pre>
+      </div>
+      <div class="install-card reveal reveal-delay-2">
+        <h3>Claude Code Plugin (no MCP)</h3>
+        <p>Install directly into a project as a Claude Code plugin. No server needed.</p>
+        <pre><code>npx 10x-development-team install-plugin ~/my-app</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- FOOTER                                                    -->
+<!-- ════════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="https://github.com/10x-Anit/10x-development-team" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.npmjs.com/package/10x-development-team" target="_blank" rel="noopener">npm</a>
+      <a href="#ai-reference">AI Reference</a>
+      <a href="#commands">Commands</a>
+      <a href="#agents">Agents</a>
+    </nav>
+    <p>MIT License. Built by <a href="https://github.com/10x-Anit" target="_blank" rel="noopener">10x-Anit</a>.</p>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- STRUCTURED DATA (hidden, for AI agent parsing)            -->
+<!-- ════════════════════════════════════════════════════════ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "10x Development Team",
+  "description": "Multi-agent AI plugin. 7 specialist agents build complete apps from natural language.",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Windows, macOS, Linux",
+  "url": "https://github.com/10x-Anit/10x-development-team",
+  "downloadUrl": "https://www.npmjs.com/package/10x-development-team",
+  "softwareVersion": "1.0.2",
+  "license": "https://opensource.org/licenses/MIT",
+  "author": {
+    "@type": "Person",
+    "name": "10x-Anit",
+    "url": "https://github.com/10x-Anit"
+  }
+}
+</script>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- JAVASCRIPT                                                -->
+<!-- ════════════════════════════════════════════════════════ -->
+<script>
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  // Close mobile nav on link click
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Scroll reveal with IntersectionObserver
+  const revealElements = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  revealElements.forEach(el => revealObserver.observe(el));
+
+  // Navbar background on scroll
+  const navbar = document.querySelector('.navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      navbar.style.background = 'rgba(10, 10, 15, 0.95)';
+    } else {
+      navbar.style.background = 'rgba(10, 10, 15, 0.8)';
+    }
+  }, { passive: true });
+</script>
 
 </body>
 </html>

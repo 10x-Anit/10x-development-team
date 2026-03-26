@@ -21,6 +21,32 @@ You MUST adapt your behavior based on your context window size:
 
 This applies to ALL agents in this plugin. Every agent file contains its own model-aware instructions.
 
+## Design-First Principles (MANDATORY)
+
+> "The design system is everything. Never write custom styles in components. Always use the design system."
+
+These rules apply to ALL agents, ALL scopes, ALL models:
+
+### The 10 Commandments of Beautiful UI
+
+1. **Design system first, code second** — globals.css and tailwind.config.ts define ALL visual tokens. Components only reference semantic tokens.
+2. **NEVER use direct colors** — `text-white`, `bg-gray-*`, `bg-blue-*` are BANNED. Use `text-foreground`, `bg-primary`, `bg-muted`, etc.
+3. **Every interactive element needs states** — hover, focus-visible, active, disabled. Plus `transition-colors` on everything.
+4. **Spacing follows the base-4 rhythm** — 4px, 8px, 12px, 16px, 24px, 32px. No arbitrary values.
+5. **Typography has hierarchy** — display > headline > title > body-lg > body > caption > overline. Consistent across all pages.
+6. **One primary action per section** — Don't make buttons compete. One prominent CTA, rest are secondary/ghost.
+7. **Every data view has 3 states** — Loading skeleton, empty state, error state. Never a blank screen.
+8. **Mobile-first always** — Design for 320px, enhance for tablet (640px), then desktop (1024px+).
+9. **Accessibility is non-negotiable** — Labels, contrast (4.5:1), focus indicators, semantic HTML, aria attributes.
+10. **Animations add delight** — Scroll reveals, hover lifts, page transitions, staggered lists. Framer Motion for React, CSS for Simple scope.
+
+### New Knowledge Files (Read Before Building UI)
+| Need | Read |
+|------|------|
+| UI/UX design rules | `knowledge/patterns/ui-ux-principles.md` |
+| Design system tokens | `knowledge/patterns/design-system.md` |
+| Charts & data viz | `knowledge/libraries/charts-dataviz.md` |
+
 ## Index-First Rule (MANDATORY)
 
 Before ANY work, read these files in order:
@@ -69,6 +95,7 @@ Before writing code, check `.claude/knowledge/index.json` and read the relevant 
 | Payments | `knowledge/libraries/stripe.md` |
 | Forms | `knowledge/libraries/react-hook-form.md` |
 | Email / notifications | `knowledge/libraries/resend.md` |
+| Charts & data visualization | `knowledge/libraries/charts-dataviz.md` |
 | External REST/GraphQL APIs | `knowledge/patterns/external-api.md` |
 | Supabase/Firebase/Airtable/Sheets/Notion | `knowledge/patterns/data-sources.md` |
 | CSV/JSON/Excel file parsing | `knowledge/patterns/file-ingestion.md` |
@@ -76,6 +103,8 @@ Before writing code, check `.claude/knowledge/index.json` and read the relevant 
 | Realtime data (SSE/WebSocket/polling) | `knowledge/patterns/realtime.md` |
 | Rate limiting & security | `knowledge/patterns/rate-limiting.md` |
 | Error tracking & logging | `knowledge/patterns/monitoring.md` |
+| UI/UX design rules | `knowledge/patterns/ui-ux-principles.md` |
+| Design system creation | `knowledge/patterns/design-system.md` |
 | Copy-paste components | `knowledge/components-source/*.md` |
 
 Read the knowledge file FIRST, then build. Don't reinvent patterns that are already documented.
@@ -111,6 +140,9 @@ Read `.claude/components/registry.json` before building any UI.
 - NEVER create a component that already exists in the registry
 - NEVER put reusable components inside page files
 - Global components go in `src/components/` (or root `components/` for Simple scope)
+- NEVER use hardcoded colors in components — use semantic tokens only (bg-primary, text-foreground, border-border)
+- ALL components must include transitions on interactive elements
+- ALL components must be responsive by default
 
 ## User Communication
 

@@ -128,6 +128,27 @@ Tell user: "Done. [one sentence describing the visual change]. Run `npm run dev`
 
 For scope = "simple": "Done. [one sentence]. Open index.html in your browser to see it."
 
+## Design System Changes
+
+When the user asks for visual changes (colors, theme, dark mode, etc.):
+1. ALWAYS modify globals.css and/or tailwind.config.ts FIRST
+2. NEVER change individual component files for color changes — update the design tokens
+3. For dark mode: ensure all tokens have .dark overrides in globals.css
+4. For color changes: update --primary HSL values, not individual className props
+5. Reference: .claude/knowledge/patterns/design-system.md for token presets
+
+## Animation Changes
+
+When the user asks to add/change animations:
+1. Read .claude/knowledge/libraries/framer-motion.md for animation patterns
+2. For simple additions: use CSS animations in tailwind.config.ts keyframes
+3. For complex animations: use Framer Motion components
+4. Common requests:
+   - "Add scroll animations" → wrap sections in ScrollReveal from framer-motion.md
+   - "Add page transitions" → add template.tsx with AnimatePresence
+   - "Make it more dynamic" → add staggered children to grids/lists
+   - "Add a cool background" → gradient orbs or floating particles from framer-motion.md
+
 <large-model-instructions>
 ## Enhanced UI Modifications (Opus)
 - For theme changes: ensure all color contrast ratios meet WCAG AA

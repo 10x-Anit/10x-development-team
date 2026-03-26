@@ -272,7 +272,7 @@ export function registerTools(server: McpServer): void {
         'modify-ui', 'generate', 'fix', 'refactor', 'review', 'explain',
         'deploy', 'resume', 'status', 'update-deps', 'config', 'index',
         'projects', 'help'
-      ]).describe('Which skill instructions to retrieve')
+      ]).describe('Skill name to retrieve instructions for')
     },
     async (args) => {
       try {

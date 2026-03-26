@@ -156,7 +156,8 @@ export function listSkills(): string[] {
   return [
     'start', 'build', 'add-page', 'add-feature', 'connect-data',
     'modify-ui', 'generate', 'fix', 'refactor', 'review', 'explain',
-    'deploy', 'resume', 'status', 'update-deps', 'config', 'index', 'projects'
+    'deploy', 'resume', 'status', 'update-deps', 'config', 'index',
+    'projects', 'help'
   ];
 }
 

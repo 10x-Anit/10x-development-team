@@ -50,6 +50,8 @@ What level of build do you need?
 5. Let me decide — just pick what fits my description
 ```
 
+> Regardless of scope, every project gets a polished design system with semantic color tokens, proper typography, and responsive layout. Even Simple scope projects look professional.
+
 If the user picks option 5, choose based on their description:
 - No backend mentioned + simple site → Simple
 - "demo", "mockup", "show to investors" → Prototype
@@ -90,7 +92,12 @@ Create `.10x/project.json`:
   "vision": {
     "target_users": "[who]",
     "core_features": ["feature1", "feature2", "feature3"],
-    "first_screen": "[description of what user sees first]"
+    "first_screen": "[description of what user sees first]",
+    "branding": {
+      "vibe": "[extracted from conversation: professional/playful/luxury/minimal/bold/warm]",
+      "primary_color": "[if mentioned, or 'auto']",
+      "style_keywords": ["clean", "modern", "etc. from conversation"]
+    }
   },
   "status": "initialized",
   "created_at": "[ISO date]",
@@ -133,7 +140,15 @@ Create `.10x/dev-log.md`:
 ---
 ```
 
-## Step 6: Register in Persistent Memory
+## Step 6: Design System Brief
+
+Before handing off to the build phase, create a brief design direction:
+1. Choose a color palette based on the vibe (see `.claude/knowledge/patterns/design-system.md` for presets)
+2. Choose border radius (sharp for professional, rounded for friendly, pill for playful)
+3. Choose animation level (none for simple, subtle for professional, expressive for creative)
+4. Save these decisions in project.json under `branding`
+
+## Step 7: Register in Persistent Memory
 
 Save the project to the SQLite memory database so it persists across sessions:
 
@@ -155,7 +170,7 @@ fi
 
 Also save the confirmed vision to auto memory with type `project`.
 
-## Step 7: Hand Off
+## Step 8: Hand Off
 
 Tell the user:
 - "Your project is set up. All progress will be tracked in `.10x/`."

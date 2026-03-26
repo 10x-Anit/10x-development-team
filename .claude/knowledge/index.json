@@ -26,7 +26,8 @@
     "nextauth.md": "Authentication: providers, session, middleware, protected routes",
     "stripe.md": "Payments: checkout, subscriptions, webhooks, customer portal",
     "zod.md": "Input validation: schemas, parsing, error messages, form integration",
-    "resend.md": "Email: Resend API, React Email templates, Nodemailer fallback"
+    "resend.md": "Email: Resend API, React Email templates, Nodemailer fallback",
+    "charts-dataviz.md": "Charts and data visualization: Recharts, shadcn Chart, Plotly, stat cards, sparklines, dashboard layouts, heatmaps, animated numbers"
   },
   "patterns": {
     "react-components.md": "Component patterns: props, composition, conditional render, lists",
@@ -43,7 +44,9 @@
     "realtime.md": "Realtime data: SSE, WebSocket/Socket.io, Supabase Realtime, polling, live dashboard",
     "rate-limiting.md": "Security: rate limiting (in-memory + Redis), CORS, security headers, input sanitization",
     "monitoring.md": "Observability: Sentry error tracking, structured logging, health checks, Web Vitals",
-    "plugin-memory.md": "Plugin internals: SQLite persistent memory schema, cross-project tracking, session history"
+    "plugin-memory.md": "Plugin internals: SQLite persistent memory schema, cross-project tracking, session history",
+    "ui-ux-principles.md": "THE design bible — typography, spacing, color tokens, hierarchy, buttons, cards, forms, accessibility, micro-interactions. READ THIS BEFORE ANY UI WORK.",
+    "design-system.md": "How to create rich design systems — globals.css tokens, tailwind.config.ts setup, color presets, HSL system, gradients, shadows, animations"
   },
   "components-source": {
     "button.md": "Button component with variants, sizes, loading state — copy-paste ready",

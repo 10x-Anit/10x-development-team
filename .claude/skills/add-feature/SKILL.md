@@ -86,6 +86,16 @@ After agents complete:
 
 Tell user: "Feature '[name]' complete. [summary of what changed]."
 
+## Visual Integration
+
+New features MUST visually integrate with the existing design system:
+1. Read the design tokens from .10x/file-index.json → design_tokens
+2. Use the same semantic tokens as existing components
+3. Match the existing animation level (check if Framer Motion is used)
+4. Include loading/empty/error states
+5. Add to the navigation if it's a new page
+6. Reference: .claude/knowledge/patterns/ui-ux-principles.md
+
 <large-model-instructions>
 ## Production Feature Standards (Opus)
 - Data migration for DB changes

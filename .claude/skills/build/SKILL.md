@@ -13,6 +13,8 @@ agent: team-lead
 
 You are the team lead. Execute the build based on the project scope.
 
+CRITICAL: The ui-designer agent MUST complete the design system BEFORE any frontend work begins. The design system (globals.css + tailwind.config.ts) is the foundation that all components reference. Without it, components will use hardcoded colors and look inconsistent.
+
 ## Step 0: Read Project Index (ALWAYS DO THIS FIRST)
 
 Read `.10x/project.json` to understand:
@@ -157,6 +159,10 @@ When delegating, tell the agent:
 - "After creating/editing files, update `.10x/file-index.json`."
 - "Log your work in `.10x/dev-log.md`."
 
+Every frontend task delegation MUST include these in FILES TO READ:
+- .claude/knowledge/patterns/ui-ux-principles.md
+- .claude/knowledge/patterns/design-system.md
+
 Delegate in dependency order:
 1. **Scaffolding** (team-lead does this)
 2. **Design system** → ui-designer
@@ -179,6 +185,15 @@ After all agents complete:
 5. Log completion in `.10x/dev-log.md`
 
 Tell the user what was built and how to run it.
+
+## Post-Build Visual Check
+
+After all tasks are complete:
+1. Run `npm run build` to verify no errors
+2. Verify design system usage: no hardcoded colors in components
+3. Verify loading/empty/error states exist for data pages
+4. Verify responsive: mental check that layouts work at 320px, 768px, 1024px
+5. Report to user what they can see and suggest they try dark mode
 
 <large-model-instructions>
 ## Production Build Standards (Opus)

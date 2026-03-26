@@ -94,6 +94,165 @@ ENHANCE workflow:
 
 ---
 
+## FRONTEND-AWARE API DESIGN (MANDATORY)
+
+The frontend displays your API responses directly to users. Every API you build must be designed with the UI in mind.
+
+### HTTP Status Codes — Use the Right One Every Time
+
+The frontend maps status codes to user-facing states. Using the wrong code breaks the UI.
+
+```
+200 OK           → Success, show data
+201 Created      → Resource created, show success toast / redirect
+204 No Content   → Deleted successfully, remove from UI
+400 Bad Request  → Validation error, show field-level error messages
+401 Unauthorized → Not logged in, redirect to login page
+403 Forbidden    → Logged in but not allowed, show "access denied" state
+404 Not Found    → Resource missing, show empty/not-found state
+409 Conflict     → Duplicate resource, show "already exists" message
+422 Unprocessable → Business logic rejection, show explanation to user
+429 Too Many Req → Rate limited, show "slow down" message with retry-after
+500 Server Error → Something broke, show generic error state
+```
+
+NEVER return 500 for validation errors. NEVER return 200 for failures. The frontend relies on status codes to decide what to show.
+
+### User-Friendly Error Messages (MANDATORY)
+
+The frontend displays `error.message` directly in the UI. Write messages for HUMANS, not developers.
+
+```tsx
+// WRONG — Technical jargon the user cannot act on
+{ error: { message: "UNIQUE constraint failed: users.email" } }
+{ error: { message: "Prisma.PrismaClientKnownRequestError" } }
+{ error: { message: "Expected string, received number at path 'price'" } }
+
+// CORRECT — Clear, actionable messages users understand
+{ error: { message: "An account with this email already exists. Try logging in instead." } }
+{ error: { message: "Something went wrong on our end. Please try again in a moment." } }
+{ error: { message: "Please enter a valid price (must be a number greater than 0)." } }
+```
+
+Rules for error messages:
+1. NEVER expose database error strings, stack traces, or internal field names
+2. ALWAYS explain what went wrong AND what the user can do about it
+3. Validation errors: return per-field messages so the frontend can highlight specific inputs
+4. Use sentence case, end with a period, keep under 120 characters
+5. For 500 errors: always return a generic message — log the real error server-side
+
+```tsx
+// Per-field validation errors — frontend maps these to form fields
+{
+  data: null,
+  error: {
+    message: "Please fix the following errors.",
+    fields: {
+      email: "Please enter a valid email address.",
+      price: "Price must be a number greater than 0.",
+      name: "Name is required and must be at least 2 characters."
+    }
+  }
+}
+```
+
+### Pagination from Day One (MANDATORY)
+
+EVERY list endpoint MUST support pagination. No exceptions, even if you think the list will be small.
+
+```tsx
+// EVERY GET list endpoint follows this pattern
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url)
+    const page = Math.max(1, parseInt(searchParams.get('page') || '1'))
+    const limit = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') || '10')))
+    const search = searchParams.get('search') || ''
+
+    const where = search ? {
+      OR: [
+        { name: { contains: search, mode: 'insensitive' as const } },
+        { description: { contains: search, mode: 'insensitive' as const } },
+      ]
+    } : {}
+
+    const [data, total] = await Promise.all([
+      db.resource.findMany({
+        where,
+        skip: (page - 1) * limit,
+        take: limit,
+        orderBy: { createdAt: 'desc' },
+      }),
+      db.resource.count({ where }),
+    ])
+
+    return NextResponse.json({
+      data,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit),
+        hasMore: page * limit < total,
+      },
+      error: null,
+    })
+  } catch (error) {
+    console.error('[GET /api/resource]', error)
+    return NextResponse.json(
+      { data: null, pagination: null, error: { message: 'Unable to load items. Please try again.' } },
+      { status: 500 }
+    )
+  }
+}
+```
+
+The frontend needs `pagination.total` for "Showing X of Y", `pagination.hasMore` for "Load more" buttons, and `pagination.totalPages` for page number navigation. Without pagination metadata, the frontend cannot build proper list UIs.
+
+### CORS Configuration (MANDATORY)
+
+If the frontend and API are on different origins (common during development), CORS must be configured.
+
+```tsx
+// src/middleware.ts — CORS middleware for API routes
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+
+export function middleware(request: NextRequest) {
+  // Only apply CORS to API routes
+  if (request.nextUrl.pathname.startsWith('/api/')) {
+    const response = NextResponse.next()
+    const origin = request.headers.get('origin') || ''
+    const allowedOrigins = [
+      process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+    ]
+
+    if (allowedOrigins.includes(origin)) {
+      response.headers.set('Access-Control-Allow-Origin', origin)
+      response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
+      response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+      response.headers.set('Access-Control-Allow-Credentials', 'true')
+      response.headers.set('Access-Control-Max-Age', '86400')
+    }
+
+    // Handle preflight
+    if (request.method === 'OPTIONS') {
+      return new NextResponse(null, { status: 204, headers: response.headers })
+    }
+
+    return response
+  }
+}
+
+export const config = {
+  matcher: '/api/:path*',
+}
+```
+
+NEVER use `Access-Control-Allow-Origin: *` with credentials. ALWAYS whitelist specific origins.
+
+---
+
 ## API ROUTE STRUCTURE (exact pattern — follow precisely)
 
 Every API route file MUST follow this structure:
@@ -109,13 +268,33 @@ const CreateSchema = z.object({
   // fields here
 })
 
-// 2. GET — list resources
+// 2. GET — list resources (ALWAYS with pagination)
 export async function GET(request: NextRequest) {
   try {
-    const data = await db.[resource].findMany()
-    return NextResponse.json({ data, error: null })
+    const { searchParams } = new URL(request.url)
+    const page = Math.max(1, parseInt(searchParams.get('page') || '1'))
+    const limit = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') || '10')))
+
+    const [data, total] = await Promise.all([
+      db.[resource].findMany({
+        skip: (page - 1) * limit,
+        take: limit,
+        orderBy: { createdAt: 'desc' },
+      }),
+      db.[resource].count(),
+    ])
+
+    return NextResponse.json({
+      data,
+      pagination: { page, limit, total, totalPages: Math.ceil(total / limit), hasMore: page * limit < total },
+      error: null,
+    })
   } catch (error) {
-    return NextResponse.json({ data: null, error: { message: 'Failed to fetch' } }, { status: 500 })
+    console.error('[GET /api/[resource]]', error)
+    return NextResponse.json(
+      { data: null, pagination: null, error: { message: 'Unable to load items. Please try again.' } },
+      { status: 500 }
+    )
   }
 }
 
@@ -125,20 +304,42 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const result = CreateSchema.safeParse(body)
     if (!result.success) {
-      return NextResponse.json({ data: null, error: { message: 'Validation failed', details: result.error.issues } }, { status: 400 })
+      const fields: Record<string, string> = {}
+      result.error.issues.forEach((issue) => {
+        const path = issue.path.join('.')
+        fields[path] = issue.message
+      })
+      return NextResponse.json(
+        { data: null, error: { message: 'Please fix the following errors.', fields } },
+        { status: 400 }
+      )
     }
     const data = await db.[resource].create({ data: result.data })
     return NextResponse.json({ data, error: null }, { status: 201 })
-  } catch (error) {
-    return NextResponse.json({ data: null, error: { message: 'Failed to create' } }, { status: 500 })
+  } catch (error: any) {
+    // Handle unique constraint violations
+    if (error?.code === 'P2002') {
+      const field = error.meta?.target?.[0] || 'field'
+      return NextResponse.json(
+        { data: null, error: { message: `A record with this ${field} already exists.` } },
+        { status: 409 }
+      )
+    }
+    console.error('[POST /api/[resource]]', error)
+    return NextResponse.json(
+      { data: null, error: { message: 'Unable to create item. Please try again.' } },
+      { status: 500 }
+    )
   }
 }
 ```
 
 RESPONSE SHAPE — ALWAYS this format. No exceptions:
 ```json
-{ "data": {}, "error": null }
-{ "data": null, "error": { "message": "string", "code": "string" } }
+{ "data": {}, "pagination": null, "error": null }
+{ "data": [], "pagination": { "page": 1, "limit": 10, "total": 42, "totalPages": 5, "hasMore": true }, "error": null }
+{ "data": null, "error": { "message": "User-friendly message here." } }
+{ "data": null, "error": { "message": "Please fix the following errors.", "fields": { "email": "Invalid email." } } }
 ```
 
 ---
@@ -151,14 +352,31 @@ Business logic goes in service files. Route handlers are THIN.
 // src/lib/services/[resource].ts
 import { db } from '@/lib/db'
 
-export async function list[Resource]s(params?: { page?: number; limit?: number }) {
+export async function list[Resource]s(params?: { page?: number; limit?: number; search?: string }) {
   const page = params?.page || 1
   const limit = params?.limit || 10
-  return db.[resource].findMany({
-    skip: (page - 1) * limit,
-    take: limit,
-    orderBy: { createdAt: 'desc' },
-  })
+  const search = params?.search || ''
+
+  const where = search ? {
+    OR: [
+      { name: { contains: search, mode: 'insensitive' as const } },
+    ]
+  } : {}
+
+  const [data, total] = await Promise.all([
+    db.[resource].findMany({
+      where,
+      skip: (page - 1) * limit,
+      take: limit,
+      orderBy: { createdAt: 'desc' },
+    }),
+    db.[resource].count({ where }),
+  ])
+
+  return {
+    data,
+    pagination: { page, limit, total, totalPages: Math.ceil(total / limit), hasMore: page * limit < total },
+  }
 }
 
 export async function get[Resource](id: string) {
@@ -196,11 +414,15 @@ Update `.10x/file-index.json` — for EVERY API file, include the `api_shape`:
     "api_shape": {
       "GET /api/products": {
         "query": "?page=1&limit=10&search=term",
-        "response": "{ data: Product[], error: null }"
+        "response": "{ data: Product[], pagination: { page, limit, total, totalPages, hasMore }, error: null }"
       },
       "POST /api/products": {
         "body": "{ name: string, price: number, description?: string }",
-        "response": "{ data: Product, error: null }"
+        "response": "{ data: Product, error: null }",
+        "errors": {
+          "400": "{ error: { message: 'Please fix the following errors.', fields: { [field]: 'message' } } }",
+          "409": "{ error: { message: 'A record with this [field] already exists.' } }"
+        }
       }
     }
   }

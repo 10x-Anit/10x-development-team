@@ -97,6 +97,16 @@ Use the pattern as a base. Add TypeScript types, error handling, loading states,
 
 Tell user: "Generated [type] [name]. File: [path]."
 
+## Design System Compliance
+
+Every generated component MUST:
+- Use semantic tokens only (bg-primary, text-foreground, etc.)
+- Include proper TypeScript props interface
+- Include hover/focus/active/disabled states
+- Include transitions on interactive elements
+- Be responsive by default
+- Reference: .claude/knowledge/patterns/ui-ux-principles.md
+
 <large-model-instructions>
 ## Enhanced Generation (Opus)
 - Components: add Framer Motion entrance animation, dark mode support, responsive variants

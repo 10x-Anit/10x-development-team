@@ -92,6 +92,18 @@ Update task status in `.10x/tasks.json` if applicable.
 
 Tell the user: "Added [page name]. [X] files created, [Y] components used."
 
+## Page Design Requirements
+
+Every new page MUST include:
+1. SEO metadata (title, description, OG tags)
+2. Responsive layout (mobile-first)
+3. Loading state (loading.tsx with skeletons)
+4. Error state (error.tsx with friendly message)
+5. Proper heading hierarchy (one h1, then h2/h3)
+6. Semantic HTML structure (main, section, nav)
+7. Animations: fade-in on page load, scroll reveals for sections
+8. Reference: .claude/knowledge/patterns/ui-ux-principles.md
+
 <large-model-instructions>
 ## Production Page Standards (Opus)
 - Page metadata (title, description, OG tags)

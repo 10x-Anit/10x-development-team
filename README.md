@@ -1,36 +1,39 @@
 # 10x Development Team
 
-> AI-powered development team plugin for Claude Code. Describe your app — 7 specialist agents build it.
+> Multi-agent AI plugin that builds complete apps from your vision. Works with **Claude Code**, **Claude Desktop**, **OpenAI Codex**, and any MCP-compatible AI client.
+
+## 3 Ways to Use It
+
+### 1. Claude Code (Direct Plugin)
+```bash
+git clone https://github.com/10x-Anit/10x-development-team.git
+cp -r 10x-development-team/.claude /path/to/your/project/.claude
+# Open Claude Code, type: /10x-development-team:start
+```
+
+### 2. MCP Server (Any AI Client)
+```bash
+npx @10x-dev/mcp-server setup    # auto-configures Claude Desktop + Claude Code
+```
+
+### 3. npm Package
+```bash
+npx @10x-dev/mcp-server install-plugin /path/to/project   # copy plugin files
+```
 
 ## What It Does
 
-You describe what you want to build. The plugin's team of AI agents handles everything:
+You describe what you want. 7 specialist AI agents build it:
 
-- **Team Lead** — plans the work, delegates to specialists, tracks progress
-- **Frontend Dev** — builds pages and UI using global components
-- **Backend Dev** — creates APIs, database, authentication
-- **UI Designer** — sets up design system, colors, typography
-- **QA Tester** — writes tests, runs quality checks
-- **Deployer** — configures CI/CD, Docker, hosting
-- **Error Recovery** — fixes build errors and crashes
-
-## Install
-
-### Option 1: Claude Code Plugin
-```
-/plugin install 10x-development-team
-```
-
-### Option 2: Copy into your project
-```bash
-git clone https://github.com/AnitChaudhry/10x-development-team.git
-cp -r 10x-development-team/.claude /path/to/your/project/.claude
-```
-
-### Option 3: Local plugin testing
-```bash
-claude --plugin-dir /path/to/10x-development-team
-```
+| Agent | Role |
+|-------|------|
+| **Team Lead** | Plans work, delegates, tracks progress |
+| **Frontend Dev** | Pages, components, UI |
+| **Backend Dev** | APIs, database, auth |
+| **UI Designer** | Design system, colors, typography |
+| **QA Tester** | Tests, quality checks |
+| **Deployer** | CI/CD, Docker, hosting |
+| **Error Recovery** | Fixes build errors |
 
 ## Quick Start
 
@@ -38,7 +41,7 @@ claude --plugin-dir /path/to/10x-development-team
 /10x-development-team:start
 ```
 
-The agent asks 4-5 simple questions about your vision — no engineering jargon. Then it builds.
+4 plain-English questions. No engineering jargon. Then it builds.
 
 ## Choose Your Scope
 
@@ -49,14 +52,16 @@ The agent asks 4-5 simple questions about your vision — no engineering jargon.
 | **MVP** | Working app with real data | Next.js + Prisma + Auth |
 | **Production** | Full app, tested, deployed | Next.js + Tests + CI/CD + Docker |
 
-## All Commands
+## All Commands (19)
 
 | Command | What It Does |
 |---------|-------------|
 | `:start` | Start a new project |
 | `:build` | Full build from vision |
 | `:add-page` | Add a page |
-| `:add-feature` | Add a feature |
+| `:add-feature` | Add a feature (frontend + backend) |
+| `:connect-data` | Connect external data (API, Supabase, Firebase, CSV, etc.) |
+| `:modify-ui` | Quick UI changes — layout, theme, dark mode |
 | `:generate` | Generate component, API, hook, model, or test |
 | `:fix` | Fix a bug |
 | `:refactor` | Improve code quality |
@@ -65,53 +70,91 @@ The agent asks 4-5 simple questions about your vision — no engineering jargon.
 | `:deploy` | Set up deployment |
 | `:resume` | Continue where you left off |
 | `:status` | Project dashboard |
+| `:projects` | List/switch between all your projects |
 | `:update-deps` | Update dependencies |
 | `:config` | Change project settings |
 | `:index` | View/rebuild file index |
 | `:help` | Show all commands |
 
-## Key Features
+## What's Inside
 
-### Smart Scope Selection
-Don't over-engineer. A simple landing page gets HTML/CSS/JS — not React.
+```
+ 19 skills         — every user action covered
+  7 agents         — full team + error recovery
+ 40 knowledge files — frameworks, libraries, patterns, copy-paste code
+ 50+ components    — web + mobile blueprints with registry
+  8 templates      — project scaffolds for every scope
+  1 MCP server     — 12 tools, 10 resources, 8 prompts
+  1 SQLite DB      — persistent memory across all projects
+```
 
-### Knowledge Base (32 files)
-Agents don't reinvent code. They read from a knowledge base with actual code samples for Next.js, Tailwind, shadcn/ui, Framer Motion, Prisma, Zod, Stripe, and more.
+### Knowledge Base (40 files)
 
-### Model-Aware
+Agents don't reinvent code. They copy from proven patterns:
+
+| Category | Covers |
+|----------|--------|
+| **Frameworks** | Next.js, Vite+React, Expo, vanilla HTML/CSS/JS |
+| **Libraries** | shadcn/ui, Tailwind, Framer Motion, Prisma, Zod, NextAuth, Stripe, Zustand, React Hook Form, Resend |
+| **Patterns** | External APIs, data sources (Supabase/Firebase/Airtable/Sheets/Notion), file ingestion, file storage, realtime, rate limiting, monitoring, auth flows, dark mode, SEO |
+| **Components** | Button, navbar, sidebar, cards, modals, tables, forms, auth pages — all copy-paste ready |
+
+### MCP Server
+
+The full plugin exposed as MCP tools for any AI client:
+
+```bash
+npx @10x-dev/mcp-server setup     # auto-configure
+npx @10x-dev/mcp-server doctor    # health check
+npx @10x-dev/mcp-server --help    # all commands
+```
+
+**12 tools** — project lifecycle, knowledge access, persistent memory
+**10 resources** — knowledge files, component registry, project index, agent/skill instructions
+**8 prompts** — agent roles, task-specific workflows
+
+See [mcp-server/README.md](mcp-server/README.md) for full docs.
+
+### Persistent Memory
+
+Every project is tracked in `~/.10x/memory.db`:
+- Switch between projects: `:projects`
+- Resume any project: `:resume`
+- Decisions and context remembered across sessions
+
+### Model-Aware Execution
+
 - **Small models** (Haiku/Sonnet): COPY code from knowledge base, change only names and content
 - **Large models** (Opus): USE knowledge as a base, ENHANCE with animations, accessibility, dark mode, SEO
 
 ### Project Index System
-Every project gets a `.10x/` directory that tracks:
+
+Every project gets a `.10x/` directory:
 - `project.json` — vision, scope, stack
-- `file-index.json` — every file with descriptions (agents read this instead of scanning)
-- `feature-map.json` — feature wiring (which files, which agents, data flow)
+- `file-index.json` — every file indexed (agents read this instead of scanning)
+- `feature-map.json` — feature wiring (files, agents, data flow)
 - `tasks.json` — task tracker with goals and status
-- `dev-log.md` — complete history
+- `dev-log.md` — complete build history
 
-### Global Component Registry
-39 component blueprints. Agents compose from these — write once, use everywhere.
-
-### 17 Lifecycle Hooks
-PreToolUse, PostToolUse, Stop, SessionStart, SubagentStart, SubagentStop, and more — enforcing quality, component reuse, and index updates.
-
-## What's Inside
+## Architecture
 
 ```
-119 files:
-  16 skills      — every user action covered
-   7 agents      — full team + error recovery
-  32 knowledge   — frameworks, libraries, patterns, copy-paste components
-  39 components   — web + mobile blueprints + registry
-  16 templates    — 8 project types + index system + standards
-   1 hooks file   — 17 lifecycle hooks
-   6 config files — plugin manifest, settings, MCP, LSP
+User (any AI client)
+  |
+  +-- Claude Code -----> .claude/ skills + agents (direct)
+  |
+  +-- Claude Desktop --> MCP Server (stdio) --> tools + resources + prompts
+  |
+  +-- Codex / Other ---> MCP Server (stdio) --> tools + resources + prompts
+  |
+  +-- All modes -------> ~/.10x/memory.db (persistent cross-project memory)
+  |
+  +-- All modes -------> .10x/ (per-project index, tasks, dev log)
 ```
 
 ## Built by
 
-**[10x.in](https://10x.in)** — AI-powered development tools.
+**[10x.in](https://10x-anit.github.io/10x-development-team)** — AI-powered development tools.
 
 Developed by **Anit Chaudhry** — Product Manager & Developer at 10x.in
 

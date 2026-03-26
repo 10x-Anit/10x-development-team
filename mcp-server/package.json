@@ -35,7 +35,16 @@
   },
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "../.claude/skills",
+    "../.claude/agents",
+    "../.claude/knowledge",
+    "../.claude/components",
+    "../.claude/templates",
+    "../.claude/scripts",
+    "../.claude/CLAUDE.md",
+    "../.claude/QUICKSTART.md",
+    "../.claude/settings.json"
   ],
   "engines": {
     "node": ">=18"

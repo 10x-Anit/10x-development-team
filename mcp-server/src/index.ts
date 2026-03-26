@@ -4,18 +4,18 @@
  * 10x Development Team — MCP Server & CLI
  *
  * Two modes:
- *   1. MCP Server (default): `10x-mcp` or `npx @10x-dev/mcp-server`
+ *   1. MCP Server (default): `10x-mcp` or `npx 10x-development-team`
  *   2. CLI commands: `10x-mcp setup`, `10x-mcp install-plugin`, `10x-mcp doctor`
  *
  * MCP Server usage:
- *   npx @10x-dev/mcp-server                                    # stdio transport
- *   PROJECT_DIR=/path/to/project npx @10x-dev/mcp-server       # specify project
+ *   npx 10x-development-team                                    # stdio transport
+ *   PROJECT_DIR=/path/to/project npx 10x-development-team       # specify project
  *
  * CLI usage:
- *   npx @10x-dev/mcp-server setup                              # auto-configure
- *   npx @10x-dev/mcp-server setup --client claude-desktop      # specific client
- *   npx @10x-dev/mcp-server install-plugin /path/to/project    # copy plugin files
- *   npx @10x-dev/mcp-server doctor                             # health check
+ *   npx 10x-development-team setup                              # auto-configure
+ *   npx 10x-development-team setup --client claude-desktop      # specific client
+ *   npx 10x-development-team install-plugin /path/to/project    # copy plugin files
+ *   npx 10x-development-team doctor                             # health check
  */
 
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';

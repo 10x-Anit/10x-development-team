@@ -28,7 +28,7 @@ A plugin that turns any AI assistant into a full development team. You describe 
 
 ```bash
 # One command sets up everything
-npx @10x-dev/mcp-server setup
+npx 10x-development-team setup
 ```
 
 ---
@@ -37,14 +37,14 @@ npx @10x-dev/mcp-server setup
 
 ### Option A: MCP Server (recommended for Claude Desktop, Codex, OpenCode)
 ```bash
-npx @10x-dev/mcp-server setup          # auto-detects your AI clients
-npx @10x-dev/mcp-server doctor         # verify everything works
+npx 10x-development-team setup          # auto-detects your AI clients
+npx 10x-development-team doctor         # verify everything works
 ```
 Open your AI client. Say: **"Start a new project — I want an invoice app for freelancers."**
 
 ### Option B: Claude Code Plugin (direct slash commands)
 ```bash
-npx @10x-dev/mcp-server install-plugin /path/to/your/project
+npx 10x-development-team install-plugin /path/to/your/project
 cd /path/to/your/project
 ```
 In Claude Code, type: `/10x-development-team:start`
@@ -186,9 +186,9 @@ Agents don't invent code. They copy proven patterns:
 ### MCP Server
 
 ```bash
-npx @10x-dev/mcp-server setup     # auto-configure for your AI clients
-npx @10x-dev/mcp-server doctor    # verify installation
-npx @10x-dev/mcp-server --help    # all CLI commands
+npx 10x-development-team setup     # auto-configure for your AI clients
+npx 10x-development-team doctor    # verify installation
+npx 10x-development-team --help    # all CLI commands
 ```
 
 | Capability | Count | Examples |

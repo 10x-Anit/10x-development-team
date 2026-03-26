@@ -8,10 +8,10 @@ Works with: **Claude Desktop**, **Claude Code**, **OpenAI Codex**, and any MCP-c
 
 ```bash
 # One-command setup (auto-detects your AI clients)
-npx @10x-dev/mcp-server setup
+npx 10x-development-team setup
 
 # Check everything is working
-npx @10x-dev/mcp-server doctor
+npx 10x-development-team doctor
 ```
 
 That's it. Open your AI client and say: **"Start a new project"**.
@@ -21,7 +21,7 @@ That's it. Open your AI client and say: **"Start a new project"**.
 ### Claude Desktop
 
 ```bash
-npx @10x-dev/mcp-server setup --client claude-desktop
+npx 10x-development-team setup --client claude-desktop
 ```
 
 Or manually add to `claude_desktop_config.json`:
@@ -30,7 +30,7 @@ Or manually add to `claude_desktop_config.json`:
   "mcpServers": {
     "10x-dev": {
       "command": "npx",
-      "args": ["@10x-dev/mcp-server"],
+      "args": ["10x-development-team"],
       "env": {
         "PROJECT_DIR": "/path/to/your/project"
       }
@@ -42,12 +42,12 @@ Or manually add to `claude_desktop_config.json`:
 ### Claude Code
 
 ```bash
-npx @10x-dev/mcp-server setup --client claude-code
+npx 10x-development-team setup --client claude-code
 ```
 
 Or for direct plugin mode (no MCP, uses slash commands):
 ```bash
-npx @10x-dev/mcp-server install-plugin /path/to/your/project
+npx 10x-development-team install-plugin /path/to/your/project
 cd /path/to/your/project
 # Now use /10x-development-team:start in Claude Code
 ```
@@ -55,25 +55,25 @@ cd /path/to/your/project
 ### OpenAI Codex CLI
 
 ```bash
-npx @10x-dev/mcp-server setup --client codex
+npx 10x-development-team setup --client codex
 ```
 
 ### OpenCode
 
 ```bash
-npx @10x-dev/mcp-server setup --client opencode
+npx 10x-development-team setup --client opencode
 ```
 
 ### Any MCP Client
 
 Start the server with stdio transport:
 ```bash
-npx @10x-dev/mcp-server
+npx 10x-development-team
 ```
 
 Set `PROJECT_DIR` to point to the project you're building:
 ```bash
-PROJECT_DIR=/path/to/project npx @10x-dev/mcp-server
+PROJECT_DIR=/path/to/project npx 10x-development-team
 ```
 
 ## What's Available

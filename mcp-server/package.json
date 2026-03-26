@@ -1,0 +1,43 @@
+{
+  "name": "@10x-dev/mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for the 10x Development Team — exposes app-building skills as tools for any AI client",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "10x-mcp": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/index.js",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai",
+    "development",
+    "code-generation",
+    "10x"
+  ],
+  "author": "10x-Anit",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "better-sqlite3": "^11.0.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}

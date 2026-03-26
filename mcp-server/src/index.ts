@@ -1,36 +1,33 @@
 #!/usr/bin/env node
 
 /**
- * 10x Development Team — MCP Server
+ * 10x Development Team — MCP Server & CLI
  *
- * Exposes the full 10x plugin as MCP tools, resources, and prompts
- * that any AI client (Claude Desktop, ChatGPT, Codex, etc.) can use.
+ * Two modes:
+ *   1. MCP Server (default): `10x-mcp` or `npx @10x-dev/mcp-server`
+ *   2. CLI commands: `10x-mcp setup`, `10x-mcp install-plugin`, `10x-mcp doctor`
  *
- * Usage:
- *   npx @10x-dev/mcp-server                    # stdio transport (default)
- *   PROJECT_DIR=/path/to/project npx @10x-dev/mcp-server  # specify project dir
+ * MCP Server usage:
+ *   npx @10x-dev/mcp-server                                    # stdio transport
+ *   PROJECT_DIR=/path/to/project npx @10x-dev/mcp-server       # specify project
  *
- * Configure in Claude Desktop (claude_desktop_config.json):
- *   {
- *     "mcpServers": {
- *       "10x-dev": {
- *         "command": "npx",
- *         "args": ["@10x-dev/mcp-server"],
- *         "env": { "PROJECT_DIR": "/path/to/your/project" }
- *       }
- *     }
- *   }
+ * CLI usage:
+ *   npx @10x-dev/mcp-server setup                              # auto-configure
+ *   npx @10x-dev/mcp-server setup --client claude-desktop      # specific client
+ *   npx @10x-dev/mcp-server install-plugin /path/to/project    # copy plugin files
+ *   npx @10x-dev/mcp-server doctor                             # health check
  */
 
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { createServer } from './server.js';
 import { closeDb } from './db.js';
 
-async function main() {
+const CLI_COMMANDS = ['setup', 'install-plugin', 'doctor', 'version', '--version', '-v', '--help', '-h'];
+
+async function startServer() {
   const server = createServer();
   const transport = new StdioServerTransport();
 
-  // Graceful shutdown
   process.on('SIGINT', async () => {
     closeDb();
     await server.close();
@@ -43,14 +40,26 @@ async function main() {
     process.exit(0);
   });
 
-  // Never write to stdout — it corrupts JSON-RPC messages
-  // Use stderr for any debug output
   console.error('[10x-mcp] Starting 10x Development Team MCP server...');
   console.error(`[10x-mcp] Project dir: ${process.env.PROJECT_DIR || process.cwd()}`);
   console.error(`[10x-mcp] Plugin root: ${process.env.PLUGIN_ROOT || 'auto-detect'}`);
 
   await server.connect(transport);
   console.error('[10x-mcp] Server connected and ready.');
+}
+
+async function main() {
+  const args = process.argv.slice(2);
+
+  // If first arg is a CLI command, run CLI mode
+  if (args.length > 0 && CLI_COMMANDS.includes(args[0])) {
+    const { runCli } = await import('./cli.js');
+    await runCli(args);
+    return;
+  }
+
+  // Otherwise, start the MCP server
+  await startServer();
 }
 
 main().catch((err) => {

@@ -11,6 +11,9 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "start": "node dist/index.js",
+    "prebuild:package": "node scripts/bundle-plugin.js",
+    "build:package": "npm run prebuild:package && tsc",
+    "prepublishOnly": "npm run build:package",
     "prepare": "npm run build"
   },
   "keywords": [
@@ -35,16 +38,9 @@
   },
   "files": [
     "dist",
-    "README.md",
-    "../.claude/skills",
-    "../.claude/agents",
-    "../.claude/knowledge",
-    "../.claude/components",
-    "../.claude/templates",
-    "../.claude/scripts",
-    "../.claude/CLAUDE.md",
-    "../.claude/QUICKSTART.md",
-    "../.claude/settings.json"
+    "plugin",
+    "scripts",
+    "README.md"
   ],
   "engines": {
     "node": ">=18"

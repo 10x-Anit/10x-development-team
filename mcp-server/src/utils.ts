@@ -8,11 +8,21 @@ const __dirname = dirname(__filename);
 
 /**
  * Resolve the plugin's .claude/ directory.
- * Walks up from __dirname to find the repo root containing .claude/
+ * Checks in order:
+ *   1. mcp-server/plugin/ (npm package mode — files bundled at publish time)
+ *   2. <repo>/.claude/ (development mode — running from repo)
+ *   3. cwd/.claude/ (fallback)
  */
 export function getPluginRoot(): string {
-  // The MCP server lives at <repo>/mcp-server/dist/
-  // The plugin files live at <repo>/.claude/
+  // Check for bundled plugin files inside the npm package
+  const packagePlugin = resolve(__dirname, '..', 'plugin');
+  if (existsSync(join(packagePlugin, 'CLAUDE.md'))) {
+    // Return a fake root where .claude/ would be packagePlugin's parent
+    // We handle this in readPluginFile by checking both paths
+    return resolve(packagePlugin, '..');
+  }
+
+  // Development mode: repo root
   const repoRoot = resolve(__dirname, '..', '..');
   if (existsSync(join(repoRoot, '.claude'))) {
     return repoRoot;
@@ -35,9 +45,17 @@ export function resolvePluginRoot(): string {
 }
 
 /**
- * Read a file from the plugin's .claude/ directory
+ * Read a file from the plugin's .claude/ directory.
+ * Checks bundled plugin/ dir first (npm mode), then .claude/ (dev mode).
  */
 export function readPluginFile(relativePath: string): string {
+  // Check bundled plugin dir first (npm package mode)
+  const bundledPath = join(resolve(__dirname, '..', 'plugin'), relativePath);
+  if (existsSync(bundledPath)) {
+    return readFileSync(bundledPath, 'utf-8');
+  }
+
+  // Fall back to .claude/ dir (development mode)
   const root = resolvePluginRoot();
   const fullPath = join(root, '.claude', relativePath);
   if (!existsSync(fullPath)) {

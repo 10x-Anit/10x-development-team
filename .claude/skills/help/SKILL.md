@@ -29,6 +29,12 @@ BUILD & CREATE
   /10x-development-team:generate       Generate a specific piece of code
                                        (component, api, hook, model, test)
 
+CONNECT & MODIFY
+  /10x-development-team:connect-data   Connect external data (API, Supabase,
+                                       Firebase, Sheets, CSV, etc.)
+  /10x-development-team:modify-ui      Quick UI changes — layout, theme,
+                                       colors, components, dark mode
+
 FIX & IMPROVE
   /10x-development-team:fix            Fix a bug — describe the problem
   /10x-development-team:refactor       Improve code quality
@@ -39,6 +45,7 @@ UNDERSTAND & TRACK
   /10x-development-team:explain        Explain how something works
   /10x-development-team:status         Quick project overview
   /10x-development-team:index          View/rebuild project index
+  /10x-development-team:projects       List/switch between all your projects
 
 CONFIGURE & DEPLOY
   /10x-development-team:config         View/change project settings

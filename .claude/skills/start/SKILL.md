@@ -133,9 +133,27 @@ Create `.10x/dev-log.md`:
 ---
 ```
 
-## Step 6: Save to Memory
+## Step 6: Register in Persistent Memory
 
-Save the confirmed vision to auto memory with type `project`.
+Save the project to the SQLite memory database so it persists across sessions:
+
+```bash
+# Ensure database exists
+if [ ! -f ~/.10x/memory.db ]; then
+  node .claude/scripts/db-init.js 2>/dev/null || echo "SQLite memory not available — using file-based tracking only"
+fi
+
+# Register project (if db exists)
+if [ -f ~/.10x/memory.db ]; then
+  sqlite3 ~/.10x/memory.db "INSERT OR REPLACE INTO projects (id, name, description, scope, type, stack_json, vision_json, path)
+    VALUES (lower(hex(randomblob(8))), '[app name]', '[description]', '[scope]', '[type]', '[stack JSON]', '[vision JSON]', '$(pwd)');"
+
+  sqlite3 ~/.10x/memory.db "INSERT INTO sessions (id, project_id, summary, started_at)
+    VALUES (lower(hex(randomblob(8))), (SELECT id FROM projects WHERE path = '$(pwd)'), 'Project initialized', datetime('now'));"
+fi
+```
+
+Also save the confirmed vision to auto memory with type `project`.
 
 ## Step 7: Hand Off
 

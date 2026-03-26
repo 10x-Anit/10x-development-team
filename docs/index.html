@@ -24,10 +24,13 @@
       --purple: #a855f7;
       --orange: #f97316;
       --pink: #ec4899;
+      --cyan: #06b6d4;
     }
     body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
     a { color: var(--primary); text-decoration: none; }
     a:hover { text-decoration: underline; }
+
+    /* Hero */
     .hero { text-align: center; padding: 80px 20px 60px; max-width: 800px; margin: 0 auto; }
     .hero-badge { display: inline-block; padding: 4px 14px; border-radius: 9999px; border: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted); margin-bottom: 24px; }
     .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 20px; }
@@ -39,23 +42,70 @@
     .btn-primary:hover { background: var(--primary-dark); text-decoration: none; }
     .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
     .btn-outline:hover { border-color: var(--text-muted); text-decoration: none; }
+
+    /* Install */
     .install { text-align: center; padding: 0 20px 60px; }
     .install-code { display: inline-block; background: var(--bg-card); border: 1px solid var(--border); padding: 14px 28px; border-radius: 8px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.95rem; color: var(--green); }
     .clients { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
     .client-tag { padding: 6px 16px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.85rem; color: var(--text-muted); }
+
+    /* Stats */
     .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px; max-width: 1000px; margin: 0 auto 60px; padding: 0 20px; }
     .stat { text-align: center; padding: 24px 12px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; }
     .stat-num { font-size: 2rem; font-weight: 800; }
     .stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
-    .section { max-width: 1000px; margin: 0 auto; padding: 60px 20px; }
+
+    /* Section */
+    .section { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
     .section h2 { font-size: 1.8rem; font-weight: 700; text-align: center; margin-bottom: 12px; }
-    .section .subtitle { text-align: center; color: var(--text-muted); margin-bottom: 40px; font-size: 1rem; }
+    .section .subtitle { text-align: center; color: var(--text-muted); margin-bottom: 40px; font-size: 1rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+    /* Use Cases */
+    .use-cases { display: flex; flex-direction: column; gap: 32px; }
+    .use-case { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+    .use-case-header { display: flex; align-items: center; gap: 16px; padding: 28px 32px 0; }
+    .use-case-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+    .uc-icon-1 { background: #3b82f620; }
+    .uc-icon-2 { background: #22c55e20; }
+    .uc-icon-3 { background: #f9731620; }
+    .uc-icon-4 { background: #a855f720; }
+    .uc-icon-5 { background: #ec489920; }
+    .use-case-header h3 { font-size: 1.2rem; font-weight: 700; }
+    .use-case-header .uc-persona { font-size: 0.85rem; color: var(--text-muted); margin-top: 2px; }
+    .use-case-body { padding: 20px 32px 28px; }
+    .use-case-body .uc-scenario { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 20px; line-height: 1.6; }
+    .uc-flow { display: flex; flex-direction: column; gap: 0; }
+    .uc-step { display: flex; gap: 16px; align-items: flex-start; position: relative; padding-bottom: 16px; }
+    .uc-step:last-child { padding-bottom: 0; }
+    .uc-step-num { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; flex-shrink: 0; position: relative; z-index: 1; }
+    .uc-step:not(:last-child)::before { content: ''; position: absolute; left: 15px; top: 32px; bottom: 0; width: 2px; background: var(--border); }
+    .uc-step-1 .uc-step-num { background: var(--primary); color: white; }
+    .uc-step-2 .uc-step-num { background: var(--purple); color: white; }
+    .uc-step-3 .uc-step-num { background: var(--orange); color: white; }
+    .uc-step-4 .uc-step-num { background: var(--green); color: white; }
+    .uc-step-5 .uc-step-num { background: var(--pink); color: white; }
+    .uc-step-content { flex: 1; }
+    .uc-step-content .uc-action { font-weight: 600; font-size: 0.92rem; margin-bottom: 4px; }
+    .uc-step-content .uc-detail { color: var(--text-muted); font-size: 0.85rem; }
+    .uc-step-content code { background: var(--bg); padding: 2px 8px; border-radius: 4px; font-size: 0.82rem; color: var(--green); }
+    .uc-result { margin-top: 20px; padding: 16px 20px; background: var(--bg); border-radius: 8px; border-left: 3px solid var(--green); }
+    .uc-result-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--green); font-weight: 700; margin-bottom: 6px; }
+    .uc-result p { font-size: 0.88rem; color: var(--text-muted); }
+    .uc-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+    .uc-tag { padding: 3px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; border: 1px solid var(--border); color: var(--text-muted); }
+    .uc-tag-scope { color: var(--primary); border-color: var(--primary); }
+    .uc-tag-client { color: var(--purple); border-color: var(--purple); }
+    .uc-tag-data { color: var(--orange); border-color: var(--orange); }
+
+    /* Agents Grid */
     .agents { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
     .agent-card { padding: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; transition: border-color 0.15s; }
     .agent-card:hover { border-color: var(--primary); }
     .agent-icon { font-size: 1.5rem; margin-bottom: 8px; }
     .agent-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 6px; }
     .agent-card p { font-size: 0.88rem; color: var(--text-muted); }
+
+    /* Scopes Table */
     .scopes { width: 100%; border-collapse: collapse; }
     .scopes th, .scopes td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border); }
     .scopes th { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
@@ -66,40 +116,47 @@
     .scope-proto { background: #f9731620; color: var(--orange); }
     .scope-mvp { background: #3b82f620; color: var(--primary); }
     .scope-prod { background: #a855f720; color: var(--purple); }
-    .commands { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
-    .cmd { display: flex; gap: 12px; padding: 12px 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; align-items: baseline; }
-    .cmd-name { font-family: monospace; font-weight: 600; color: var(--green); white-space: nowrap; font-size: 0.88rem; }
-    .cmd-desc { font-size: 0.85rem; color: var(--text-muted); }
-    .features { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-    .feature { padding: 28px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; }
-    .feature h3 { font-size: 1.05rem; margin-bottom: 8px; }
-    .feature p { font-size: 0.88rem; color: var(--text-muted); }
+
+    /* Ways */
     .ways { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px; }
     .way { padding: 28px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; }
     .way h3 { font-size: 1.1rem; margin-bottom: 12px; }
     .way code { display: block; background: var(--bg); padding: 12px 16px; border-radius: 6px; font-size: 0.85rem; color: var(--green); margin: 8px 0; overflow-x: auto; }
     .way p { font-size: 0.88rem; color: var(--text-muted); }
+
+    /* Features */
+    .features { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .feature { padding: 28px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; }
+    .feature h3 { font-size: 1.05rem; margin-bottom: 8px; }
+    .feature p { font-size: 0.88rem; color: var(--text-muted); }
+
+    /* Footer */
     .footer { text-align: center; padding: 40px 20px; border-top: 1px solid var(--border); margin-top: 60px; }
     .footer p { color: var(--text-muted); font-size: 0.88rem; }
+
     @media (max-width: 640px) {
       .hero { padding: 50px 16px 40px; }
       .hero-actions { flex-direction: column; align-items: center; }
       .stats { grid-template-columns: repeat(3, 1fr); }
+      .use-case-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .use-case-body { padding: 16px 20px 24px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ── Hero ── -->
   <section class="hero">
-    <div class="hero-badge">v2.0.0 &mdash; MCP Server + Multi-Client</div>
+    <div class="hero-badge">v2.0.0 &mdash; Gen UI Skills for Any AI Client</div>
     <h1>Your AI <span>Development Team</span></h1>
     <p>Describe what you want to build. 7 specialist AI agents handle the rest. Works with any AI client that supports MCP.</p>
     <div class="hero-actions">
       <a href="https://github.com/10x-Anit/10x-development-team" class="btn btn-primary">View on GitHub</a>
-      <a href="#install" class="btn btn-outline">Get Started</a>
+      <a href="#use-cases" class="btn btn-outline">See Use Cases</a>
     </div>
   </section>
 
+  <!-- ── Install ── -->
   <section class="install" id="install">
     <div class="install-code">npx @10x-dev/mcp-server setup</div>
     <div class="clients">
@@ -111,15 +168,305 @@
     </div>
   </section>
 
+  <!-- ── Stats ── -->
   <div class="stats">
     <div class="stat"><div class="stat-num">7</div><div class="stat-label">AI Agents</div></div>
     <div class="stat"><div class="stat-num">19</div><div class="stat-label">Skills</div></div>
-    <div class="stat"><div class="stat-num">40</div><div class="stat-label">Knowledge Files</div></div>
+    <div class="stat"><div class="stat-num">40+</div><div class="stat-label">Knowledge Files</div></div>
     <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Components</div></div>
     <div class="stat"><div class="stat-num">12</div><div class="stat-label">MCP Tools</div></div>
     <div class="stat"><div class="stat-num">8</div><div class="stat-label">Templates</div></div>
   </div>
 
+  <!-- ══════════════════════════════════════════ -->
+  <!-- ── USE CASES — the main new section ── -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="section" id="use-cases">
+    <h2>Real Use Cases</h2>
+    <p class="subtitle">5 ways real people use the 10x Development Team to build apps &mdash; from zero to deployed, with minimal input.</p>
+
+    <div class="use-cases">
+
+      <!-- ── Use Case 1: Founder → MVP ── -->
+      <div class="use-case">
+        <div class="use-case-header">
+          <div class="use-case-icon uc-icon-1">&#x1F4A1;</div>
+          <div>
+            <h3>From Idea to MVP in One Conversation</h3>
+            <div class="uc-persona">Non-technical founder &middot; No coding experience</div>
+          </div>
+        </div>
+        <div class="use-case-body">
+          <p class="uc-scenario">Sarah has an idea for an invoice management tool for freelancers. She doesn't code. She opens Claude Desktop and starts talking.</p>
+          <div class="uc-flow">
+            <div class="uc-step uc-step-1">
+              <div class="uc-step-num">1</div>
+              <div class="uc-step-content">
+                <div class="uc-action">Sarah describes her vision</div>
+                <div class="uc-detail">"I want an app where freelancers can create invoices, send them to clients, and track payments."</div>
+              </div>
+            </div>
+            <div class="uc-step uc-step-2">
+              <div class="uc-step-num">2</div>
+              <div class="uc-step-content">
+                <div class="uc-action">Plugin asks 4 simple questions</div>
+                <div class="uc-detail">Who uses it? What do they see first? What are the 3 most important actions? Sarah picks <code>MVP</code> scope.</div>
+              </div>
+            </div>
+            <div class="uc-step uc-step-3">
+              <div class="uc-step-num">3</div>
+              <div class="uc-step-content">
+                <div class="uc-action">7 agents build the app</div>
+                <div class="uc-detail">UI Designer creates the design system. Frontend Dev builds pages. Backend Dev creates the database and API. QA Tester verifies it works.</div>
+              </div>
+            </div>
+            <div class="uc-step uc-step-4">
+              <div class="uc-step-num">4</div>
+              <div class="uc-step-content">
+                <div class="uc-action">Sarah gets a working app</div>
+                <div class="uc-detail">Login, dashboard, invoice creation, client list, payment tracking &mdash; all working with real data. She runs <code>npm run dev</code> and sees it.</div>
+              </div>
+            </div>
+            <div class="uc-step uc-step-5">
+              <div class="uc-step-num">5</div>
+              <div class="uc-step-content">
+                <div class="uc-action">She iterates with plain English</div>
+                <div class="uc-detail">"Add a PDF export for invoices." "Make the dashboard show monthly revenue." "Add Stripe payments." Each request &mdash; one command.</div>
+              </div>
+            </div>
+          </div>
+          <div class="uc-result">
+            <div class="uc-result-label">Result</div>
+            <p>A working MVP with auth, CRUD, dashboard, and payments &mdash; built from a conversation. No code written by Sarah. Deployed to Vercel with one more command.</p>
+          </div>
+          <div class="uc-tags">
+            <span class="uc-tag uc-tag-scope">MVP Scope</span>
+            <span class="uc-tag uc-tag-client">Claude Desktop</span>
+            <span class="uc-tag">Next.js + Prisma + Auth</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Use Case 2: Dev + Existing Data ── -->
+      <div class="use-case">
+        <div class="use-case-header">
+          <div class="use-case-icon uc-icon-2">&#x1F4CA;</div>
+          <div>
+            <h3>Dashboard for Your Existing Data</h3>
+            <div class="uc-persona">Developer &middot; Has data in Supabase, needs a UI fast</div>
+          </div>
+        </div>
+        <div class="use-case-body">
+          <p class="uc-scenario">Marcus has 50,000 rows of product analytics in Supabase. He needs a dashboard to visualize it &mdash; but doesn't want to spend a week building one from scratch.</p>
+          <div class="uc-flow">
+            <div class="uc-step uc-step-1">
+              <div class="uc-step-num">1</div>
+              <div class="uc-step-content">
+                <div class="uc-action">Start a project</div>
+                <div class="uc-detail">"Build me a dashboard that shows product analytics &mdash; page views, conversions, revenue by product." Picks <code>MVP</code> scope.</div>
+              </div>
+            </div>
+            <div class="uc-step uc-step-2">
+              <div class="uc-step-num">2</div>
+              <div class="uc-step-content">
+                <div class="uc-action">Connect the data</div>
+                <div class="uc-detail">Runs <code>:connect-data Supabase</code>. The plugin sets up the Supabase client, creates API proxy routes, wires hooks into the pages.</div>
+              </div>
+            </div>
+            <div class="uc-step uc-step-3">
+              <div class="uc-step-num">3</div>
+              <div class="uc-step-content">
+                <div class="uc-action">Tweak the UI live</div>
+                <div class="uc-detail">"Change the cards to a data table with sorting." <code>:modify-ui change cards to sortable table</code>. Done in seconds.</div>
+              </div>
+            </div>
+            <div class="uc-step uc-step-4">
+              <div class="uc-step-num">4</div>
+              <div class="uc-step-content">
+                <div class="uc-action">Add real-time updates</div>
+                <div class="uc-detail">"Make the revenue chart update live." The plugin adds Supabase Realtime subscriptions &mdash; data flows in without page refresh.</div>
+              </div>
+            </div>
+          </div>
+          <div class="uc-result">
+            <div class="uc-result-label">Result</div>
+            <p>A live analytics dashboard connected to existing Supabase data. Stat cards, sortable tables, real-time charts. Built in under an hour, not a week.</p>
+          </div>
+          <div class="uc-tags">
+            <span class="uc-tag uc-tag-scope">MVP Scope</span>
+            <span class="uc-tag uc-tag-client">Claude Code</span>
+            <span class="uc-tag uc-tag-data">Supabase</span>
+            <span class="uc-tag">Realtime</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Use Case 3: Freelancer → Landing Page ── -->
+      <div class="use-case">
+        <div class="use-case-header">
+          <div class="use-case-icon uc-icon-3">&#x26A1;</div>
+          <div>
+            <h3>Client Landing Page in 10 Minutes</h3>
+            <div class="uc-persona">Freelance designer &middot; Needs to deliver fast</div>
+          </div>
+        </div>
+        <div class="use-case-body">
+          <p class="uc-scenario">Priya has a client who needs a product landing page by tomorrow. Hero, features, pricing, testimonials, contact form. She opens her AI tool and starts.</p>
+          <div class="uc-flow">
+            <div class="uc-step uc-step-1">
+              <div class="uc-step-num">1</div>
+              <div class="uc-step-content">
+                <div class="uc-action">"Build a landing page for a fitness app"</div>
+                <div class="uc-detail">Picks <code>Simple</code> scope. No React, no npm &mdash; just HTML, CSS, and JavaScript that opens in any browser.</div>
+              </div>
+            </div>
+            <div class="uc-step uc-step-2">
+              <div class="uc-step-num">2</div>
+              <div class="uc-step-content">
+                <div class="uc-action">Gets a complete page in 2 minutes</div>
+                <div class="uc-detail">Hero with CTA, 4 feature cards, 3 pricing tiers, testimonials carousel, contact form. Fully responsive. Dark mode ready.</div>
+              </div>
+            </div>
+            <div class="uc-step uc-step-3">
+              <div class="uc-step-num">3</div>
+              <div class="uc-step-content">
+                <div class="uc-action">Customizes with plain language</div>
+                <div class="uc-detail">"Change the hero background to a gradient." "Make the pricing cards horizontal." "Add a video section." Each change &mdash; instant.</div>
+              </div>
+            </div>
+          </div>
+          <div class="uc-result">
+            <div class="uc-result-label">Result</div>
+            <p>A polished, responsive landing page &mdash; just HTML/CSS/JS files. Priya drags the folder to Netlify. Deployed. Client happy. Total time: 10 minutes.</p>
+          </div>
+          <div class="uc-tags">
+            <span class="uc-tag uc-tag-scope">Simple Scope</span>
+            <span class="uc-tag uc-tag-client">Any AI Client</span>
+            <span class="uc-tag">HTML + CSS + JS</span>
+            <span class="uc-tag">No Build Tools</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Use Case 4: PM → Investor Prototype ── -->
+      <div class="use-case">
+        <div class="use-case-header">
+          <div class="use-case-icon uc-icon-4">&#x1F3AF;</div>
+          <div>
+            <h3>Clickable Prototype for Investor Demo</h3>
+            <div class="uc-persona">Product manager &middot; Needs to demo next week</div>
+          </div>
+        </div>
+        <div class="use-case-body">
+          <p class="uc-scenario">James needs to show investors a working demo of his team collaboration platform. It doesn't need real data &mdash; just needs to look and feel real.</p>
+          <div class="uc-flow">
+            <div class="uc-step uc-step-1">
+              <div class="uc-step-num">1</div>
+              <div class="uc-step-content">
+                <div class="uc-action">"Build a team workspace app &mdash; like Notion meets Slack"</div>
+                <div class="uc-detail">Picks <code>Prototype</code> scope. Gets Vite + React + Tailwind. All data comes from mock files &mdash; no backend needed.</div>
+              </div>
+            </div>
+            <div class="uc-step uc-step-2">
+              <div class="uc-step-num">2</div>
+              <div class="uc-step-content">
+                <div class="uc-action">Plugin builds 5 pages</div>
+                <div class="uc-detail">Login screen, workspace dashboard, project board, document editor, team settings. All with realistic mock data. Navigation works.</div>
+              </div>
+            </div>
+            <div class="uc-step uc-step-3">
+              <div class="uc-step-num">3</div>
+              <div class="uc-step-content">
+                <div class="uc-action">James adds pages for the demo flow</div>
+                <div class="uc-detail"><code>:add-page notifications panel with unread badges</code> and <code>:add-page analytics with charts showing team productivity</code></div>
+              </div>
+            </div>
+            <div class="uc-step uc-step-4">
+              <div class="uc-step-num">4</div>
+              <div class="uc-step-content">
+                <div class="uc-action">Polish the visuals</div>
+                <div class="uc-detail"><code>:modify-ui add smooth page transitions</code> and <code>:modify-ui make it dark mode with purple accents</code></div>
+              </div>
+            </div>
+          </div>
+          <div class="uc-result">
+            <div class="uc-result-label">Result</div>
+            <p>A 7-page interactive prototype that looks like a real product. Investors click through it live. James gets his funding round. When ready &mdash; upgrade scope to MVP and add real data.</p>
+          </div>
+          <div class="uc-tags">
+            <span class="uc-tag uc-tag-scope">Prototype Scope</span>
+            <span class="uc-tag uc-tag-client">Codex</span>
+            <span class="uc-tag">Vite + React</span>
+            <span class="uc-tag">Mock Data</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Use Case 5: Growing App → Add Features ── -->
+      <div class="use-case">
+        <div class="use-case-header">
+          <div class="use-case-icon uc-icon-5">&#x1F680;</div>
+          <div>
+            <h3>Scale an Existing App with New Features</h3>
+            <div class="uc-persona">Startup CTO &middot; App is live, needs to ship faster</div>
+          </div>
+        </div>
+        <div class="use-case-body">
+          <p class="uc-scenario">Aisha's SaaS has 500 users. She needs to add Stripe payments, email notifications, and a settings page. Her team is small. She uses the plugin to move 3x faster.</p>
+          <div class="uc-flow">
+            <div class="uc-step uc-step-1">
+              <div class="uc-step-num">1</div>
+              <div class="uc-step-content">
+                <div class="uc-action">Resume the existing project</div>
+                <div class="uc-detail"><code>:resume</code> &mdash; the plugin loads the project from persistent memory. It knows every file, every feature, every decision from previous sessions.</div>
+              </div>
+            </div>
+            <div class="uc-step uc-step-2">
+              <div class="uc-step-num">2</div>
+              <div class="uc-step-content">
+                <div class="uc-action">"Add Stripe subscription payments"</div>
+                <div class="uc-detail"><code>:add-feature users can subscribe to monthly plans with Stripe</code>. Backend Dev creates Stripe webhooks + checkout. Frontend Dev adds the pricing page.</div>
+              </div>
+            </div>
+            <div class="uc-step uc-step-3">
+              <div class="uc-step-num">3</div>
+              <div class="uc-step-content">
+                <div class="uc-action">"Add email notifications"</div>
+                <div class="uc-detail"><code>:add-feature send welcome email on signup and invoice email on payment</code>. Backend Dev sets up Resend with React Email templates.</div>
+              </div>
+            </div>
+            <div class="uc-step uc-step-4">
+              <div class="uc-step-num">4</div>
+              <div class="uc-step-content">
+                <div class="uc-action">Add the settings page</div>
+                <div class="uc-detail"><code>:add-page account settings with profile, billing, and notification preferences</code>. Uses existing auth context and component registry.</div>
+              </div>
+            </div>
+            <div class="uc-step uc-step-5">
+              <div class="uc-step-num">5</div>
+              <div class="uc-step-content">
+                <div class="uc-action">Review and deploy</div>
+                <div class="uc-detail"><code>:review</code> runs QA checks. <code>:deploy</code> updates the CI/CD pipeline. Feature map tracks exactly which files changed for each feature.</div>
+              </div>
+            </div>
+          </div>
+          <div class="uc-result">
+            <div class="uc-result-label">Result</div>
+            <p>3 major features added to a live app in one session. The plugin knew the existing codebase, reused components, and updated the feature map. No breaking changes. Shipped same day.</p>
+          </div>
+          <div class="uc-tags">
+            <span class="uc-tag uc-tag-scope">Production Scope</span>
+            <span class="uc-tag uc-tag-client">Claude Code</span>
+            <span class="uc-tag uc-tag-data">Stripe + Resend</span>
+            <span class="uc-tag">Persistent Memory</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── How to Use ── -->
   <section class="section">
     <h2>3 Ways to Use It</h2>
     <p class="subtitle">Pick the one that fits your workflow</p>
@@ -132,33 +479,20 @@
       <div class="way">
         <h3>Claude Code Plugin (Direct)</h3>
         <code>npx @10x-dev/mcp-server install-plugin .</code>
-        <p>Copies the plugin into your project. Use slash commands: /10x-development-team:start</p>
+        <p>Copies the plugin into your project. Use slash commands directly.</p>
       </div>
       <div class="way">
         <h3>npm Package</h3>
         <code>npm install -g @10x-dev/mcp-server</code>
-        <p>Install globally. Run 10x-mcp anywhere. Use doctor to verify.</p>
+        <p>Install globally. Run 10x-mcp anywhere.</p>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <h2>The Team</h2>
-    <p class="subtitle">7 specialists that work together on every project</p>
-    <div class="agents">
-      <div class="agent-card"><div class="agent-icon">&#x1F468;&#x200D;&#x1F4BC;</div><h3>Team Lead</h3><p>Plans work, delegates, tracks progress. The single coordinator between your vision and code.</p></div>
-      <div class="agent-card"><div class="agent-icon">&#x1F3A8;</div><h3>Frontend Dev</h3><p>Pages, components, UI. HTML for simple sites, React/Next.js for apps.</p></div>
-      <div class="agent-card"><div class="agent-icon">&#x2699;&#xFE0F;</div><h3>Backend Dev</h3><p>APIs, database, auth. Prisma, Supabase, NextAuth &mdash; picks the right tool.</p></div>
-      <div class="agent-card"><div class="agent-icon">&#x1F3AF;</div><h3>UI Designer</h3><p>Design system, color tokens, typography. Tailwind config or CSS variables.</p></div>
-      <div class="agent-card"><div class="agent-icon">&#x1F9EA;</div><h3>QA Tester</h3><p>Tests, quality checks, dependency audits. Light for MVP, full suite for production.</p></div>
-      <div class="agent-card"><div class="agent-icon">&#x1F680;</div><h3>Deployer</h3><p>CI/CD, Docker, hosting. Vercel, Railway, or Docker based on your stack.</p></div>
-      <div class="agent-card"><div class="agent-icon">&#x1F527;</div><h3>Error Recovery</h3><p>Diagnoses build errors, crashes, dependency conflicts. Max 3 attempts then escalates.</p></div>
-    </div>
-  </section>
-
+  <!-- ── Scopes ── -->
   <section class="section">
     <h2>Choose Your Scope</h2>
-    <p class="subtitle">Don't over-engineer. A landing page doesn't need React.</p>
+    <p class="subtitle">Don't over-engineer. The plugin matches the tool to the job.</p>
     <table class="scopes">
       <thead><tr><th>Scope</th><th>What You Get</th><th>Tech Stack</th></tr></thead>
       <tbody>
@@ -170,44 +504,35 @@
     </table>
   </section>
 
+  <!-- ── The Team ── -->
   <section class="section">
-    <h2>19 Commands</h2>
-    <p class="subtitle">Slash commands in Claude Code, or MCP tools from any client</p>
-    <div class="commands">
-      <div class="cmd"><span class="cmd-name">:start</span><span class="cmd-desc">Start a new project</span></div>
-      <div class="cmd"><span class="cmd-name">:build</span><span class="cmd-desc">Full build from vision</span></div>
-      <div class="cmd"><span class="cmd-name">:add-page</span><span class="cmd-desc">Add a page</span></div>
-      <div class="cmd"><span class="cmd-name">:add-feature</span><span class="cmd-desc">Add a feature</span></div>
-      <div class="cmd"><span class="cmd-name">:connect-data</span><span class="cmd-desc">Connect external data</span></div>
-      <div class="cmd"><span class="cmd-name">:modify-ui</span><span class="cmd-desc">Quick UI changes</span></div>
-      <div class="cmd"><span class="cmd-name">:generate</span><span class="cmd-desc">Generate code</span></div>
-      <div class="cmd"><span class="cmd-name">:fix</span><span class="cmd-desc">Fix a bug</span></div>
-      <div class="cmd"><span class="cmd-name">:refactor</span><span class="cmd-desc">Improve code quality</span></div>
-      <div class="cmd"><span class="cmd-name">:review</span><span class="cmd-desc">Code review</span></div>
-      <div class="cmd"><span class="cmd-name">:explain</span><span class="cmd-desc">Explain how it works</span></div>
-      <div class="cmd"><span class="cmd-name">:deploy</span><span class="cmd-desc">Set up deployment</span></div>
-      <div class="cmd"><span class="cmd-name">:resume</span><span class="cmd-desc">Continue building</span></div>
-      <div class="cmd"><span class="cmd-name">:projects</span><span class="cmd-desc">Manage all projects</span></div>
-      <div class="cmd"><span class="cmd-name">:status</span><span class="cmd-desc">Project dashboard</span></div>
-      <div class="cmd"><span class="cmd-name">:update-deps</span><span class="cmd-desc">Update packages</span></div>
-      <div class="cmd"><span class="cmd-name">:config</span><span class="cmd-desc">Project settings</span></div>
-      <div class="cmd"><span class="cmd-name">:index</span><span class="cmd-desc">File index</span></div>
-      <div class="cmd"><span class="cmd-name">:help</span><span class="cmd-desc">All commands</span></div>
+    <h2>The Team</h2>
+    <p class="subtitle">7 specialists that coordinate on every project</p>
+    <div class="agents">
+      <div class="agent-card"><div class="agent-icon">&#x1F468;&#x200D;&#x1F4BC;</div><h3>Team Lead</h3><p>Plans work, delegates, tracks progress. Never writes code &mdash; only coordinates.</p></div>
+      <div class="agent-card"><div class="agent-icon">&#x1F3A8;</div><h3>Frontend Dev</h3><p>Pages, components, UI. 50+ pre-built components in the registry.</p></div>
+      <div class="agent-card"><div class="agent-icon">&#x2699;&#xFE0F;</div><h3>Backend Dev</h3><p>APIs, database, auth. Copies from 40+ knowledge file patterns.</p></div>
+      <div class="agent-card"><div class="agent-icon">&#x1F3AF;</div><h3>UI Designer</h3><p>Design tokens, color system, typography. Tailwind or CSS variables.</p></div>
+      <div class="agent-card"><div class="agent-icon">&#x1F9EA;</div><h3>QA Tester</h3><p>Tests, quality checks, dependency audits. Scope-appropriate depth.</p></div>
+      <div class="agent-card"><div class="agent-icon">&#x1F680;</div><h3>Deployer</h3><p>CI/CD, Docker, hosting config. Vercel, Railway, or Docker.</p></div>
+      <div class="agent-card"><div class="agent-icon">&#x1F527;</div><h3>Error Recovery</h3><p>Diagnoses and fixes what other agents can't. Max 3 attempts.</p></div>
     </div>
   </section>
 
+  <!-- ── Key Features ── -->
   <section class="section">
     <h2>What Makes It Different</h2>
     <div class="features">
-      <div class="feature"><h3>Works Everywhere</h3><p>MCP server works with Claude Desktop, Claude Code, Codex, OpenCode, and any MCP-compatible AI client. One plugin, any tool.</p></div>
-      <div class="feature"><h3>Connect Any Data</h3><p>Supabase, Firebase, Airtable, Google Sheets, Notion, REST APIs, CSV files. Your data, your app.</p></div>
-      <div class="feature"><h3>Persistent Memory</h3><p>SQLite database remembers every project across sessions. Switch between 20 apps, resume any of them with full context.</p></div>
-      <div class="feature"><h3>40 Knowledge Files</h3><p>Agents copy proven code patterns &mdash; not reinvent. Next.js, Tailwind, Prisma, Stripe, Resend, and more.</p></div>
-      <div class="feature"><h3>Model-Aware</h3><p>Small models copy code exactly. Large models enhance with animations, accessibility, dark mode, and SEO.</p></div>
+      <div class="feature"><h3>Works Everywhere</h3><p>MCP server works with Claude Desktop, Claude Code, Codex, OpenCode. One plugin, any AI tool.</p></div>
+      <div class="feature"><h3>Connect Any Data</h3><p>Supabase, Firebase, Airtable, Google Sheets, Notion, REST APIs, CSV/JSON/Excel files.</p></div>
+      <div class="feature"><h3>Persistent Memory</h3><p>SQLite tracks every project across sessions. Switch between 20 apps. Resume any with full context.</p></div>
+      <div class="feature"><h3>40+ Knowledge Files</h3><p>Agents copy proven code &mdash; not reinvent. Next.js, Tailwind, Prisma, Stripe, Resend, and more.</p></div>
+      <div class="feature"><h3>Model-Aware</h3><p>Small models copy code exactly. Large models enhance with animations, a11y, dark mode, SEO.</p></div>
       <div class="feature"><h3>Token-Efficient</h3><p>Project index means agents read one file instead of scanning hundreds. Saves tokens, saves money.</p></div>
     </div>
   </section>
 
+  <!-- ── Footer ── -->
   <footer class="footer">
     <p>Built by <strong>Anit Chaudhry</strong> at <a href="https://10x-anit.github.io/10x-development-team">10x</a></p>
     <p style="margin-top: 8px;">MIT License &middot; <a href="https://github.com/10x-Anit/10x-development-team">GitHub</a></p>

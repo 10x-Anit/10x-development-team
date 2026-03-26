@@ -1,6 +1,6 @@
 {
   "name": "10x-development-team",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "MCP server for the 10x Development Team — exposes app-building skills as tools for any AI client",
   "type": "module",
   "main": "dist/index.js",
@@ -11,6 +11,7 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "start": "node dist/index.js",
+    "postinstall": "node scripts/postinstall.js || true",
     "prebuild:package": "node scripts/bundle-plugin.js",
     "build:package": "npm run prebuild:package && tsc",
     "prepublishOnly": "npm run build:package",

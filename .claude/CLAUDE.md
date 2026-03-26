@@ -38,6 +38,17 @@ After ANY work, update:
 If `.10x/` doesn't exist, the project hasn't been initialized. Tell the user:
 "Run `/10x-development-team:start` to begin."
 
+## Persistent Memory (Cross-Project)
+
+The plugin uses a SQLite database at `~/.10x/memory.db` to remember ALL projects across sessions:
+- Every project created with `/start` is registered in the database
+- Session history (what was built, what failed) persists across Claude restarts
+- Key decisions and user preferences are saved per-project
+- Users can switch between projects with `/projects`
+
+On `/start`: register project in SQLite. On `/resume`: load context from SQLite. On session end: save summary.
+If SQLite is unavailable (no `better-sqlite3`, web sandbox), fall back to `.10x/` files only — never fail because of missing database.
+
 ## Knowledge Base (READ BEFORE CODING)
 
 Before writing code, check `.claude/knowledge/index.json` and read the relevant file:
@@ -57,6 +68,14 @@ Before writing code, check `.claude/knowledge/index.json` and read the relevant 
 | Authentication | `knowledge/libraries/nextauth.md` |
 | Payments | `knowledge/libraries/stripe.md` |
 | Forms | `knowledge/libraries/react-hook-form.md` |
+| Email / notifications | `knowledge/libraries/resend.md` |
+| External REST/GraphQL APIs | `knowledge/patterns/external-api.md` |
+| Supabase/Firebase/Airtable/Sheets/Notion | `knowledge/patterns/data-sources.md` |
+| CSV/JSON/Excel file parsing | `knowledge/patterns/file-ingestion.md` |
+| File uploads (S3/R2/Supabase) | `knowledge/patterns/file-storage.md` |
+| Realtime data (SSE/WebSocket/polling) | `knowledge/patterns/realtime.md` |
+| Rate limiting & security | `knowledge/patterns/rate-limiting.md` |
+| Error tracking & logging | `knowledge/patterns/monitoring.md` |
 | Copy-paste components | `knowledge/components-source/*.md` |
 
 Read the knowledge file FIRST, then build. Don't reinvent patterns that are already documented.
@@ -175,6 +194,8 @@ Every task:
 | `/10x-development-team:add-page` | Add a page to existing app |
 | `/10x-development-team:add-feature` | Add a feature (frontend + backend) |
 | `/10x-development-team:generate` | Generate specific code (component, api, hook, model, test) |
+| `/10x-development-team:connect-data` | Connect external data (API, Supabase, Firebase, CSV, etc.) |
+| `/10x-development-team:modify-ui` | Quick UI changes — layout, theme, colors, dark mode |
 | `/10x-development-team:fix` | Fix a bug — describe the problem |
 | `/10x-development-team:refactor` | Improve code quality |
 | `/10x-development-team:review` | Code quality review |
@@ -185,6 +206,7 @@ Every task:
 | `/10x-development-team:update-deps` | Check/update dependencies |
 | `/10x-development-team:config` | View/change project settings |
 | `/10x-development-team:index` | View/rebuild project index |
+| `/10x-development-team:projects` | List/switch between all your projects |
 
 ## Available Agents
 

@@ -25,7 +25,8 @@
     "prisma.md": "Database ORM: schema, migrations, CRUD queries, relations",
     "nextauth.md": "Authentication: providers, session, middleware, protected routes",
     "stripe.md": "Payments: checkout, subscriptions, webhooks, customer portal",
-    "zod.md": "Input validation: schemas, parsing, error messages, form integration"
+    "zod.md": "Input validation: schemas, parsing, error messages, form integration",
+    "resend.md": "Email: Resend API, React Email templates, Nodemailer fallback"
   },
   "patterns": {
     "react-components.md": "Component patterns: props, composition, conditional render, lists",
@@ -34,7 +35,15 @@
     "auth-flow.md": "Authentication flow: login, signup, session, protected routes, middleware",
     "responsive-layout.md": "Responsive patterns: mobile-first, breakpoints, grid, flex, container queries",
     "dark-mode.md": "Dark mode: Tailwind class strategy, system preference, toggle, persistence",
-    "seo.md": "SEO patterns: metadata, sitemap, robots, Open Graph, structured data"
+    "seo.md": "SEO patterns: metadata, sitemap, robots, Open Graph, structured data",
+    "external-api.md": "External API consumption: REST client, GraphQL, proxy routes, OAuth, retry/timeout",
+    "data-sources.md": "External data sources: Supabase, Firebase, Airtable, Google Sheets, Notion API",
+    "file-ingestion.md": "File parsing: CSV (papaparse), JSON, Excel (SheetJS), drag-drop upload component",
+    "file-storage.md": "File uploads: S3/R2 presigned URLs, direct upload, Supabase Storage, upload component",
+    "realtime.md": "Realtime data: SSE, WebSocket/Socket.io, Supabase Realtime, polling, live dashboard",
+    "rate-limiting.md": "Security: rate limiting (in-memory + Redis), CORS, security headers, input sanitization",
+    "monitoring.md": "Observability: Sentry error tracking, structured logging, health checks, Web Vitals",
+    "plugin-memory.md": "Plugin internals: SQLite persistent memory schema, cross-project tracking, session history"
   },
   "components-source": {
     "button.md": "Button component with variants, sizes, loading state — copy-paste ready",

@@ -25,6 +25,8 @@ skills:
   - build
   - add-page
   - add-feature
+  - connect-data
+  - modify-ui
   - fix
   - refactor
   - review
@@ -34,6 +36,7 @@ skills:
   - status
   - update-deps
   - index
+  - projects
 ---
 
 # ROLE: Team Lead — 10x Development Team

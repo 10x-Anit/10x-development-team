@@ -47,6 +47,8 @@ The team lead automatically delegates to specialist agents:
 ```
 /10x-development-team:add-page pricing page with 3 plans
 /10x-development-team:add-feature user can save items to favorites
+/10x-development-team:connect-data my Supabase database
+/10x-development-team:modify-ui make it dark mode with blue accents
 /10x-development-team:fix the login button doesn't work
 ```
 
@@ -76,8 +78,16 @@ No duplicate code. Write once, use everywhere.
 /10x-development-team:help
 ```
 
+### Persistent Memory
+Your projects are tracked across sessions in `~/.10x/memory.db`:
+- Switch between projects: `/10x-development-team:projects`
+- Resume any project: `/10x-development-team:resume`
+- All decisions and context are remembered automatically
+
 ## Tips
 - Use `@filename` to point agents to specific files
 - Use `/memory` to see what's remembered across sessions
 - Type `!npm run dev` to test your app without leaving Claude
 - The agents save progress — come back anytime and run `:resume`
+- Connect your existing data: `:connect-data my REST API at api.example.com`
+- Quick visual changes: `:modify-ui change cards to a table view`

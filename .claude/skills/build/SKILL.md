@@ -41,6 +41,7 @@ NEVER scan the filesystem to understand the project. The index IS the truth.
 - Mock data in `src/mock/data.ts` — NO real backend
 - Use the `prototype` template
 - Only use: **ui-designer** + **frontend-dev** agents
+- IF `vision.three_d` or `vision.immersive` is true: also use **3d-designer** agent
 - Skip: backend-dev, qa-tester, deployer
 
 ### MVP
@@ -49,12 +50,13 @@ NEVER scan the filesystem to understand the project. The index IS the truth.
 - Real data but minimal features
 - Use the `mvp` template
 - Use: **ui-designer** + **frontend-dev** + **backend-dev** agents
+- IF `vision.three_d` or `vision.immersive` or `vision.scroll_animations` is true: also use **3d-designer** agent
 - Skip: deployer (unless asked), lighter testing
 
 ### Production
 - Full stack: Next.js + Tailwind + PostgreSQL + Auth + Testing + CI/CD
 - Pick the right template: `saas-webapp`, `dashboard`, `e-commerce`, or `landing-page`
-- Use ALL agents: ui-designer, frontend-dev, backend-dev, qa-tester, deployer
+- Use ALL agents: ui-designer, frontend-dev, backend-dev, **3d-designer** (if 3D/immersive), qa-tester, deployer
 
 Update `.10x/project.json` with the chosen stack:
 ```json
@@ -166,10 +168,11 @@ Every frontend task delegation MUST include these in FILES TO READ:
 Delegate in dependency order:
 1. **Scaffolding** (team-lead does this)
 2. **Design system** → ui-designer
-3. **Frontend pages** → frontend-dev
-4. **Backend APIs** → backend-dev (if scope requires)
-5. **Tests** → qa-tester (if scope requires)
-6. **Deployment** → deployer (if scope requires)
+3. **3D experiences** → 3d-designer (if `vision.three_d` or `vision.immersive` or `vision.scroll_animations` is true — install R3F/GSAP deps, build scenes, particles, scroll effects)
+4. **Frontend pages** → frontend-dev (imports 3D components created by 3d-designer)
+5. **Backend APIs** → backend-dev (if scope requires)
+6. **Tests** → qa-tester (if scope requires)
+7. **Deployment** → deployer (if scope requires)
 
 ## Step 6: Verify and Complete
 

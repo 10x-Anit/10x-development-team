@@ -38,9 +38,9 @@ export function ProductList() {
       .finally(() => setLoading(false))
   }, [])
 
-  if (loading) return <div className="animate-pulse space-y-4">{[...Array(3)].map((_, i) => <div key={i} className="h-24 rounded bg-gray-200" />)}</div>
-  if (error) return <div className="rounded bg-red-50 p-4 text-red-600">{error}</div>
-  if (products.length === 0) return <div className="py-12 text-center text-gray-500">No products found</div>
+  if (loading) return <div className="animate-pulse space-y-4">{[...Array(3)].map((_, i) => <div key={i} className="h-24 rounded-lg bg-muted" />)}</div>
+  if (error) return <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4 text-sm text-destructive">{error}</div>
+  if (products.length === 0) return <div className="flex flex-col items-center justify-center py-16 text-center"><p className="text-muted-foreground">No products found</p></div>
 
   return <div className="grid grid-cols-1 md:grid-cols-3 gap-6">{products.map(p => <ProductCard key={p.id} product={p} />)}</div>
 }

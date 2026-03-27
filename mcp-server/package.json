@@ -1,7 +1,7 @@
 {
   "name": "10x-development-team",
-  "version": "2.0.0",
-  "description": "MCP server for the 10x Development Team — exposes app-building skills as tools for any AI client",
+  "version": "3.0.0",
+  "description": "AI-powered multi-agent development team — builds stunning apps with 3D scenes, scroll animations, glassmorphism, particle effects, and production-grade UI",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
@@ -23,7 +23,17 @@
     "ai",
     "development",
     "code-generation",
-    "10x"
+    "10x",
+    "3d",
+    "three-js",
+    "react-three-fiber",
+    "gsap",
+    "scroll-animations",
+    "glassmorphism",
+    "particles",
+    "webgl",
+    "design-system",
+    "multi-agent"
   ],
   "author": "10x-Anit",
   "license": "MIT",

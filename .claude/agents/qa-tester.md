@@ -16,6 +16,7 @@ tools:
   - TaskUpdate
   - TaskGet
   - TaskList
+  - NotebookEdit
 model: inherit
 effort: high
 maxTurns: 50

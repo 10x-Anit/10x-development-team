@@ -46,6 +46,15 @@ These rules apply to ALL agents, ALL scopes, ALL models:
 | UI/UX design rules | `knowledge/patterns/ui-ux-principles.md` |
 | Design system tokens | `knowledge/patterns/design-system.md` |
 | Charts & data viz | `knowledge/libraries/charts-dataviz.md` |
+| 3D scenes & objects | `knowledge/libraries/react-three-fiber.md` |
+| 3D helpers (Float, Stars, etc.) | `knowledge/libraries/drei.md` |
+| Scroll animations | `knowledge/libraries/gsap-scrolltrigger.md` |
+| Post-processing (Bloom, etc.) | `knowledge/libraries/three-postprocessing.md` |
+| 3D scene recipes | `knowledge/patterns/3d-scenes.md` |
+| Particle effects | `knowledge/patterns/particle-systems.md` |
+| Scroll-driven 3D | `knowledge/patterns/scroll-driven-3d.md` |
+| Glassmorphism & effects | `knowledge/patterns/glassmorphism.md` |
+| 3D hero patterns | `knowledge/patterns/3d-hero-sections.md` |
 
 ## Index-First Rule (MANDATORY)
 
@@ -103,8 +112,20 @@ Before writing code, check `.claude/knowledge/index.json` and read the relevant 
 | Realtime data (SSE/WebSocket/polling) | `knowledge/patterns/realtime.md` |
 | Rate limiting & security | `knowledge/patterns/rate-limiting.md` |
 | Error tracking & logging | `knowledge/patterns/monitoring.md` |
+| Frontend security (XSS, CSRF, CSP) | `knowledge/patterns/security-frontend.md` |
+| Error handling (boundaries, retry, toast) | `knowledge/patterns/error-handling.md` |
+| Loading skeletons (all component types) | `knowledge/patterns/loading-states.md` |
 | UI/UX design rules | `knowledge/patterns/ui-ux-principles.md` |
 | Design system creation | `knowledge/patterns/design-system.md` |
+| 3D scenes (R3F) | `knowledge/libraries/react-three-fiber.md` |
+| 3D helpers (Drei) | `knowledge/libraries/drei.md` |
+| Scroll animations (GSAP) | `knowledge/libraries/gsap-scrolltrigger.md` |
+| Post-processing (Bloom, etc.) | `knowledge/libraries/three-postprocessing.md` |
+| 3D scene composition | `knowledge/patterns/3d-scenes.md` |
+| Particle systems | `knowledge/patterns/particle-systems.md` |
+| Scroll-driven 3D | `knowledge/patterns/scroll-driven-3d.md` |
+| Glassmorphism & CSS effects | `knowledge/patterns/glassmorphism.md` |
+| 3D hero sections | `knowledge/patterns/3d-hero-sections.md` |
 | Copy-paste components | `knowledge/components-source/*.md` |
 
 Read the knowledge file FIRST, then build. Don't reinvent patterns that are already documented.
@@ -128,9 +149,9 @@ The `scope` field in `.10x/project.json` controls everything:
 | Scope | Stack | Agents | Testing | Deployment |
 |-------|-------|--------|---------|------------|
 | simple | HTML/CSS/JS | frontend only | manual check | static hosting |
-| prototype | Vite+React | ui + frontend | none | quick deploy |
-| mvp | Next.js | ui + front + back | critical paths | basic CI |
-| production | Full stack | ALL agents | full suite | CI/CD + Docker |
+| prototype | Vite+React | ui + frontend + 3d-designer | none | quick deploy |
+| mvp | Next.js | ui + front + back + 3d-designer | critical paths | basic CI |
+| production | Full stack | ALL agents (incl. 3d-designer) | full suite | CI/CD + Docker |
 
 NEVER overbuild for the scope. A simple landing page does NOT need React.
 
@@ -248,6 +269,7 @@ Every task:
 | frontend-dev | UI, pages, components, HTML/CSS/JS | All scopes |
 | backend-dev | APIs, database, auth, business logic | MVP + Production |
 | ui-designer | Design system, tokens, visual consistency | Prototype + MVP + Production |
+| 3d-designer | 3D scenes, particles, scroll-driven 3D, R3F, GSAP, WebGL effects | All scopes (CSS 3D for Simple, R3F for others) |
 | qa-tester | Tests, lint, quality, dependency updates | MVP + Production |
 | deployer | CI/CD, Docker, hosting | Production (or on request) |
 | error-recovery | Fix build errors, crashes, conflicts | All scopes (on demand) |

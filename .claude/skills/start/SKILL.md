@@ -247,7 +247,7 @@ Tell the user:
 - "Your project is set up. Building now..."
 - Show a quick progress checklist of what's coming
 
-Then invoke `/10x-development-team:build` with the vision summary.
+Then invoke `/build` with the vision summary.
 
 Do NOT wait for another confirmation. The user already said "go". Build.
 

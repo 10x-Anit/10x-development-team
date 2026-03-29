@@ -60,7 +60,7 @@ npx 10x-development-team setup --all             # All 9 clients
 
 ```bash
 npx 10x-development-team install-plugin ~/my-app
-# Then: /10x-development-team:start
+# Then: /start
 ```
 
 ---
@@ -202,7 +202,7 @@ Inspired by **Lovable**, **v0**, and **Bolt.new** -- output is polished, not jus
 | `/index` | View or rebuild the file index |
 | `/help` | Show all commands |
 
-All commands are prefixed with `/10x-development-team:` in Claude Code.
+In Claude Code, type `/start` to begin. All commands use short names: `/build`, `/add-page`, `/fix`, etc.
 
 ---
 

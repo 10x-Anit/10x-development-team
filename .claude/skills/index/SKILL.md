@@ -16,7 +16,7 @@ Read `$ARGUMENTS`. Execute the matching command:
 - "rebuild" → go to COMMAND: REBUILD
 - "verify" → go to COMMAND: VERIFY
 
-If `.10x/` does not exist, STOP. Tell user: "No project found. Run /10x-development-team:start first."
+If `.10x/` does not exist, STOP. Tell user: "No project found. Run /start first."
 
 ---
 

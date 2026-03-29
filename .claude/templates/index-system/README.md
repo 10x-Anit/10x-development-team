@@ -22,4 +22,4 @@ Agents waste tokens scanning the filesystem to understand a project. This index 
 ## Keeping It In Sync
 
 The plugin's hooks automatically remind agents to update the index.
-If things get out of sync, run: `/10x-development-team:index rebuild`
+If things get out of sync, run: `/index rebuild`

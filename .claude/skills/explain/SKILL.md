@@ -11,7 +11,7 @@ effort: medium
 
 ## STEP 0: Check Project Index Exists
 
-Read `.10x/project.json`. If it does not exist, STOP. Tell user: "Run /10x-development-team:start first."
+Read `.10x/project.json`. If it does not exist, STOP. Tell user: "Run /start first."
 
 ## STEP 1: Read Index Files (MANDATORY)
 

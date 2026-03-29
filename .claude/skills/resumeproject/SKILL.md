@@ -72,11 +72,11 @@ Files: [count from file index]
 
 Based on answer, invoke the right skill:
 - Continue → pick next pending task from `.10x/tasks.json` and execute
-- New page → `/10x-development-team:add-page`
-- New feature → `/10x-development-team:add-feature`
-- Review → `/10x-development-team:review`
-- Deploy → `/10x-development-team:deploy`
-- Rebuild index → `/10x-development-team:index rebuild`
+- New page → `/add-page`
+- New feature → `/add-feature`
+- Review → `/review`
+- Deploy → `/deploy`
+- Rebuild index → `/index rebuild`
 
 ## Step 4: Update Memory
 

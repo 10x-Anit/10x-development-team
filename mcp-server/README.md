@@ -112,7 +112,7 @@ npx 10x-development-team install-plugin /path/to/your/project
 cd /path/to/your/project
 ```
 
-In Claude Code, type: `/10x-development-team:start`
+In Claude Code, type: `/start`
 
 ### Option D: Clone the repo
 

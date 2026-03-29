@@ -103,7 +103,7 @@ After ANY work, update:
 4. `.10x/dev-log.md` — log what you did
 
 If `.10x/` doesn't exist, the project hasn't been initialized. Tell the user:
-"Run `/10x-development-team:start` to begin."
+"Run `/start` to begin."
 
 ## Persistent Memory (Cross-Project)
 
@@ -289,25 +289,25 @@ Every task:
 
 | Skill | Purpose |
 |-------|---------|
-| `/10x-development-team:help` | Show all commands and tips |
-| `/10x-development-team:start` | New project — vision capture + scope selection |
-| `/10x-development-team:build` | Execute the full build |
-| `/10x-development-team:add-page` | Add a page to existing app |
-| `/10x-development-team:add-feature` | Add a feature (frontend + backend) |
-| `/10x-development-team:generate` | Generate specific code (component, api, hook, model, test) |
-| `/10x-development-team:connect-data` | Connect external data (API, Supabase, Firebase, CSV, etc.) |
-| `/10x-development-team:modify-ui` | Quick UI changes — layout, theme, colors, dark mode |
-| `/10x-development-team:fix` | Fix a bug — describe the problem |
-| `/10x-development-team:refactor` | Improve code quality |
-| `/10x-development-team:review` | Code quality review |
-| `/10x-development-team:explain` | Explain how something works |
-| `/10x-development-team:deploy` | Set up deployment |
-| `/10x-development-team:resumeproject` | Continue from where you left off |
-| `/10x-development-team:status` | Quick project overview |
-| `/10x-development-team:update-deps` | Check/update dependencies |
-| `/10x-development-team:config` | View/change project settings |
-| `/10x-development-team:index` | View/rebuild project index |
-| `/10x-development-team:projects` | List/switch between all your projects |
+| `/help` | Show all commands and tips |
+| `/start` | New project — vision capture + scope selection |
+| `/build` | Execute the full build |
+| `/add-page` | Add a page to existing app |
+| `/add-feature` | Add a feature (frontend + backend) |
+| `/generate` | Generate specific code (component, api, hook, model, test) |
+| `/connect-data` | Connect external data (API, Supabase, Firebase, CSV, etc.) |
+| `/modify-ui` | Quick UI changes — layout, theme, colors, dark mode |
+| `/fix` | Fix a bug — describe the problem |
+| `/refactor` | Improve code quality |
+| `/review` | Code quality review |
+| `/explain` | Explain how something works |
+| `/deploy` | Set up deployment |
+| `/resumeproject` | Continue from where you left off |
+| `/status` | Quick project overview |
+| `/update-deps` | Check/update dependencies |
+| `/config` | View/change project settings |
+| `/index` | View/rebuild project index |
+| `/projects` | List/switch between all your projects |
 
 ## Available Agents
 

@@ -69,7 +69,7 @@ Your Projects:
 1. Find the project by name in the database
 2. Read its `path` column
 3. Check if the path still exists on disk
-4. If exists: tell user "To continue working on [name], open Claude Code in [path] and run `/10x-development-team:resumeproject`"
+4. If exists: tell user "To continue working on [name], open Claude Code in [path] and run `/resumeproject`"
 5. If not exists: warn "The project folder at [path] no longer exists. Remove it from tracking?"
 6. Update `last_opened_at` in the database
 

@@ -1,6 +1,6 @@
 {
   "name": "10x-development-team",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "AI-powered multi-agent development team — builds stunning apps with 3D scenes, scroll animations, glassmorphism, particle effects, and production-grade UI",
   "type": "module",
   "main": "dist/index.js",

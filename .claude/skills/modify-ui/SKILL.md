@@ -22,7 +22,7 @@ ACTION 3: Read .claude/components/registry.json → check available components
 ACTION 4: Read .10x/feature-map.json → understand which feature the UI belongs to
 ```
 
-If `.10x/` does not exist, STOP. Tell user: "Run /10x-development-team:start first."
+If `.10x/` does not exist, STOP. Tell user: "Run /start first."
 
 ## Step 1: Parse the Change
 

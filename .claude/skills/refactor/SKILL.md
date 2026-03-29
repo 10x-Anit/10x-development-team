@@ -23,7 +23,7 @@ ACTION 3: Read .10x/feature-map.json → understand feature boundaries
 
 ### scope = "simple"
 ALLOWED refactors: CSS cleanup, HTML semantics, JS simplification.
-FORBIDDEN: suggesting migration to a framework. STOP if user asks for this — say "That would be a scope upgrade, not a refactor. Use /10x-development-team:config set scope mvp."
+FORBIDDEN: suggesting migration to a framework. STOP if user asks for this — say "That would be a scope upgrade, not a refactor. Use /config set scope mvp."
 
 ### scope = "prototype"
 Tell user: "This is a prototype. Refactoring may not be worth the time. Proceed?" STOP and wait for confirmation.

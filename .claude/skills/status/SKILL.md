@@ -11,7 +11,7 @@ effort: low
 ## STEP 0: Check Project Exists
 
 Check if `.10x/project.json` exists.
-If NO → tell user: "No project found. Run /10x-development-team:start to begin." STOP.
+If NO → tell user: "No project found. Run /start to begin." STOP.
 
 ## STEP 1: Read Index Files (all 4)
 

@@ -62,7 +62,7 @@ ACTION 3: Read .10x/tasks.json
 ```
 
 If ANY of these files do not exist, STOP. Tell the user:
-"This project hasn't been set up yet. Run /10x-development-team:start first."
+"This project hasn't been set up yet. Run /start first."
 
 AFTER reading, extract and hold these values:
 - `scope` = project.json → scope (one of: simple, prototype, mvp, production)

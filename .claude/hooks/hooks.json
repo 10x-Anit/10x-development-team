@@ -72,7 +72,7 @@
         "matcher": "startup",
         "type": "command",
         "description": "Detect project state and suggest next action",
-        "command": "if [ -f '.10x/project.json' ]; then echo '{\"status\": \"project_exists\", \"message\": \"Existing 10x project found. Use /10x-development-team:resumeproject to continue.\"}'; cat .10x/project.json 2>/dev/null | head -5; elif [ -f 'package.json' ]; then echo '{\"status\": \"non_10x_project\", \"message\": \"Project found but not initialized with 10x. Use /10x-development-team:start to set up.\"}'; else echo '{\"status\": \"no_project\", \"message\": \"No project found. Use /10x-development-team:start to begin.\"}'; fi"
+        "command": "if [ -f '.10x/project.json' ]; then echo '{\"status\": \"project_exists\", \"message\": \"Existing 10x project found. Use /resumeproject to continue.\"}'; cat .10x/project.json 2>/dev/null | head -5; elif [ -f 'package.json' ]; then echo '{\"status\": \"non_10x_project\", \"message\": \"Project found but not initialized with 10x. Use /start to set up.\"}'; else echo '{\"status\": \"no_project\", \"message\": \"No project found. Use /start to begin.\"}'; fi"
       }
     ],
     "TaskCompleted": [

@@ -485,7 +485,7 @@
   <div class="container hero-content">
     <div class="hero-badge reveal">
       <span class="hero-badge-dot" aria-hidden="true"></span>
-      v3.1.0 &mdash; Open Source MCP Plugin
+      v3.2.0 &mdash; Open Source MCP Plugin
     </div>
     <h1 class="reveal reveal-delay-1">Your <span class="gradient-text">AI Development Team</span></h1>
     <p class="hero-desc reveal reveal-delay-2">8 specialist agents with a shared index system for lightning-fast context. Build stunning apps with 3D scenes, scroll animations, glassmorphism, particles, and production-grade UI. Describe what you want. They architect, design, code, test, and deploy it.</p>
@@ -717,14 +717,14 @@
   <div class="container">
     <div class="section-label reveal">Commands</div>
     <h2 class="section-title reveal">19 slash commands. <span class="gradient-text">22 MCP tools.</span></h2>
-    <p class="section-subtitle reveal">Natural language skills for every stage of development. Use as <code>/10x-development-team:command</code> in Claude Code, or call MCP tools programmatically from any AI client.</p>
+    <p class="section-subtitle reveal">Natural language skills for every stage of development. Type <code>/start</code> in Claude Code to begin, or call MCP tools programmatically from any AI client.</p>
     <div class="command-groups">
       <div class="command-group reveal">
         <h3>&#9654; Project Lifecycle</h3>
         <ul class="command-list">
           <li><span class="cmd-name">start</span><span class="cmd-desc">New project -- vision capture + scope selection</span></li>
           <li><span class="cmd-name">build</span><span class="cmd-desc">Execute the full build pipeline</span></li>
-          <li><span class="cmd-name">resume</span><span class="cmd-desc">Continue from where you left off</span></li>
+          <li><span class="cmd-name">resumeproject</span><span class="cmd-desc">Continue from where you left off</span></li>
           <li><span class="cmd-name">status</span><span class="cmd-desc">Quick project overview</span></li>
           <li><span class="cmd-name">projects</span><span class="cmd-desc">List/switch between all your projects</span></li>
         </ul>
@@ -930,7 +930,7 @@ npx 10x-development-team doctor</code></pre>
         <tbody>
           <tr>
             <td>tenx_get_skill</td>
-            <td>skill_name (start|build|add-page|add-feature|connect-data|modify-ui|generate|fix|refactor|review|explain|deploy|resume|status|update-deps|config|index|projects|help)</td>
+            <td>skill_name (start|build|add-page|add-feature|connect-data|modify-ui|generate|fix|refactor|review|explain|deploy|resumeproject|status|update-deps|config|index|projects|help)</td>
             <td>Full skill markdown with step-by-step instructions</td>
           </tr>
           <tr>
@@ -1054,7 +1054,7 @@ npx 10x-development-team doctor</code></pre>
 
     <!-- Knowledge Base Index -->
     <div class="ref-block reveal" id="ref-knowledge">
-      <h3>Knowledge Base Index (50+ files)</h3>
+      <h3>Knowledge Base Index (61 files)</h3>
       <p style="font-size: 0.875rem; color: var(--color-text-muted); margin-bottom: 16px;">Agents should call <code>tenx_get_knowledge</code> with the category and filename before writing code. Each file contains copy-paste-ready patterns.</p>
       <div class="knowledge-grid">
         <div class="knowledge-category">
@@ -1157,7 +1157,7 @@ npx 10x-development-team doctor</code></pre>
     error-recovery.md   # Fix build errors, crashes
   skills/           # 19 skill files (.md) -- step-by-step instructions
     start.md, build.md, add-page.md, add-feature.md, ...
-  knowledge/        # 50+ reference files organized by category
+  knowledge/        # 61 reference files organized by category
     frameworks/     # nextjs.md, vite-react.md, html-css-js.md, expo-react-native.md
     libraries/      # shadcn-ui.md, tailwind.md, prisma.md, stripe.md,
                     # react-three-fiber.md, drei.md, gsap-scrolltrigger.md, three-postprocessing.md
@@ -1300,7 +1300,7 @@ npm install 10x-development-team
 
 # Everything is auto-created!
 # Open Claude Code and type:
-# /10x-development-team:start</code></pre>
+# /start</code></pre>
       </div>
     </div>
     <div class="install-options" style="grid-template-columns: repeat(2, 1fr); margin-top:20px;">
@@ -1316,7 +1316,7 @@ npx 10x-development-team setup --all</code></pre>
         <p>Copy plugin files directly into a project. Claude Code reads <code>.claude/</code> natively &mdash; no server needed.</p>
         <pre><code>npx 10x-development-team install-plugin ~/my-app
 # Then: cd ~/my-app && claude
-# Type: /10x-development-team:start</code></pre>
+# Type: /start</code></pre>
       </div>
     </div>
 
@@ -1358,25 +1358,25 @@ npx 10x-development-team --version                 # Show version</code></pre>
     <div style="margin-top:32px; text-align:left; max-width:720px; margin-left:auto; margin-right:auto;">
       <h3 class="reveal" style="font-size:1.25rem; font-weight:700; color:var(--color-heading); margin-bottom:16px;">Slash Commands (Claude Code)</h3>
       <pre class="reveal"><code># In Claude Code, type any of these:
-/10x-development-team:start          # New project -- describe what you want to build
-/10x-development-team:build          # Execute the full build pipeline
-/10x-development-team:add-page       # Add a new page to your app
-/10x-development-team:add-feature    # Add a feature (frontend + backend)
-/10x-development-team:generate       # Generate component, api, hook, model, or test
-/10x-development-team:connect-data   # Connect external data (API, Supabase, Firebase, CSV)
-/10x-development-team:modify-ui      # Quick UI changes -- layout, theme, colors, dark mode
-/10x-development-team:fix            # Fix a bug -- describe the problem
-/10x-development-team:refactor       # Improve code quality
-/10x-development-team:review         # Code quality review
-/10x-development-team:explain        # Explain how something works
-/10x-development-team:deploy         # Set up deployment
-/10x-development-team:resumeproject         # Continue from where you left off
-/10x-development-team:status         # Quick project overview
-/10x-development-team:update-deps    # Check/update dependencies
-/10x-development-team:config         # View/change project settings
-/10x-development-team:index          # View/rebuild project index
-/10x-development-team:projects       # List/switch between all projects
-/10x-development-team:help           # Show all commands and tips</code></pre>
+/start          # New project -- describe what you want to build
+/build          # Execute the full build pipeline
+/add-page       # Add a new page to your app
+/add-feature    # Add a feature (frontend + backend)
+/generate       # Generate component, api, hook, model, or test
+/connect-data   # Connect external data (API, Supabase, Firebase, CSV)
+/modify-ui      # Quick UI changes -- layout, theme, colors, dark mode
+/fix            # Fix a bug -- describe the problem
+/refactor       # Improve code quality
+/review         # Code quality review
+/explain        # Explain how something works
+/deploy         # Set up deployment
+/resumeproject  # Continue from where you left off
+/status         # Quick project overview
+/update-deps    # Check/update dependencies
+/config         # View/change project settings
+/index          # View/rebuild project index
+/projects       # List/switch between all projects
+/help           # Show all commands and tips</code></pre>
     </div>
   </div>
 </section>

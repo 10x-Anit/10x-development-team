@@ -22,7 +22,7 @@ ACTION 3: Read .10x/tasks.json → context
 ACTION 4: Read .10x/feature-map.json → existing features and wiring
 ```
 
-If `.10x/` does not exist, STOP. Tell user: "Run /10x-development-team:start first."
+If `.10x/` does not exist, STOP. Tell user: "Run /start first."
 
 ## Step 1: Identify the Data Source
 

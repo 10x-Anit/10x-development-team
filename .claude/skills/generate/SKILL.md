@@ -19,7 +19,7 @@ ACTION 2: Read .10x/file-index.json → extract: existing files, naming patterns
 ACTION 3: Read .claude/knowledge/index.json → find the knowledge file for the generation type
 ```
 
-If `.10x/` does not exist, STOP. Tell user: "Run /10x-development-team:start first."
+If `.10x/` does not exist, STOP. Tell user: "Run /start first."
 
 ## STEP 1: Parse Request
 

@@ -14,43 +14,43 @@ Show the user everything available.
 ## Output This Exactly:
 
 ```
-╔══════════════════════════════════════════════╗
-║     10x Development Team — Commands          ║
-╚══════════════════════════════════════════════╝
++----------------------------------------------+
+|     10x Development Team — Commands          |
++----------------------------------------------+
 
 GETTING STARTED
-  /10x-development-team:start          Start a new project
-  /10x-development-team:help           This help screen
+  /start              Start a new project
+  /help               This help screen
 
 BUILD & CREATE
-  /10x-development-team:build          Full build from vision
-  /10x-development-team:add-page       Add a page to your app
-  /10x-development-team:add-feature    Add a feature (frontend + backend)
-  /10x-development-team:generate       Generate a specific piece of code
-                                       (component, api, hook, model, test)
+  /build              Full build from vision
+  /add-page           Add a page to your app
+  /add-feature        Add a feature (frontend + backend)
+  /generate           Generate a specific piece of code
+                      (component, api, hook, model, test)
 
 CONNECT & MODIFY
-  /10x-development-team:connect-data   Connect external data (API, Supabase,
-                                       Firebase, Sheets, CSV, etc.)
-  /10x-development-team:modify-ui      Quick UI changes — layout, theme,
-                                       colors, components, dark mode
+  /connect-data       Connect external data (API, Supabase,
+                      Firebase, Sheets, CSV, etc.)
+  /modify-ui          Quick UI changes — layout, theme,
+                      colors, components, dark mode
 
 FIX & IMPROVE
-  /10x-development-team:fix            Fix a bug — describe the problem
-  /10x-development-team:refactor       Improve code quality
-  /10x-development-team:review         Full code review
-  /10x-development-team:update-deps    Check/update dependencies
+  /fix                Fix a bug — describe the problem
+  /refactor           Improve code quality
+  /review             Full code review
+  /update-deps        Check/update dependencies
 
 UNDERSTAND & TRACK
-  /10x-development-team:explain        Explain how something works
-  /10x-development-team:status         Quick project overview
-  /10x-development-team:index          View/rebuild project index
-  /10x-development-team:projects       List/switch between all your projects
+  /explain            Explain how something works
+  /status             Quick project overview
+  /index              View/rebuild project index
+  /projects           List/switch between all your projects
 
 CONFIGURE & DEPLOY
-  /10x-development-team:config         View/change project settings
-  /10x-development-team:deploy         Set up deployment
-  /10x-development-team:resumeproject         Continue from where you left off
+  /config             View/change project settings
+  /deploy             Set up deployment
+  /resumeproject      Continue from where you left off
 
 PROJECT SCOPES
   simple      HTML/CSS/JS — no frameworks, no build tools
@@ -59,9 +59,8 @@ PROJECT SCOPES
   production  Full stack — tested, CI/CD, optimized
 
 TIPS
-  • Use @ to reference files: @src/components/Button.tsx
-  • Use Ctrl+T to see task progress
-  • Your project state is saved in .10x/ directory
-  • Use /memory to see what's remembered across sessions
-  • Type ! before a command to run it in terminal: !npm run dev
+  - Use @ to reference files: @src/components/Button.tsx
+  - Use Ctrl+T to see task progress
+  - Your project state is saved in .10x/ directory
+  - Type ! before a command to run it in terminal: !npm run dev
 ```

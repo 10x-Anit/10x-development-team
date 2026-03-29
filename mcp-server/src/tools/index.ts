@@ -940,7 +940,7 @@ export function registerTools(server: McpServer): void {
           type: 'text' as const,
           text: JSON.stringify({
             status: 'healthy',
-            version: '3.1.0',
+            version: '3.2.0',
             checks,
             project_dir: getProjectDir()
           }, null, 2)

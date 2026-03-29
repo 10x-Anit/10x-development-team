@@ -1,171 +1,200 @@
 # 10x Development Team
 
-**Gen UI Skills Plugin** — Describe your app in plain English. 7 specialist AI agents build it. Works with any AI client.
+**AI-Powered Multi-Agent Development Team** -- 8 specialist agents with a shared index system. Describe your app. They architect, design, code, test, and deploy it.
 
+[![npm v3.1.0](https://img.shields.io/npm/v/10x-development-team?color=red&logo=npm)](https://www.npmjs.com/package/10x-development-team)
 [![GitHub](https://img.shields.io/badge/GitHub-10x--Anit-blue?logo=github)](https://github.com/10x-Anit/10x-development-team)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-purple)](https://modelcontextprotocol.io)
-[![npm](https://img.shields.io/badge/npm-10x--development--team-red?logo=npm)](https://www.npmjs.com/package/10x-development-team)
 
 ---
 
 ## What Is This?
 
-A plugin that turns any AI assistant into a full development team. You describe what you want. The plugin's 7 agents plan, build, test, and deploy it.
+A plugin that turns any AI assistant into a coordinated development team. You describe what you want. 8 agents plan, build, test, and deploy it -- sharing context through a lightweight index system that saves 60-80% on tokens.
 
-**No templates. No boilerplate. No "here's some code, figure it out."** The agents coordinate, track files, reuse components, and remember everything across sessions.
+**No templates. No boilerplate.** The agents coordinate through a shared file index, reuse components, enforce design quality, and remember everything across sessions.
 
 ---
 
-## Design-First Philosophy
+## Install
 
-Inspired by **Lovable**, **v0**, and **Bolt.new** — the output isn't just functional, it's beautiful.
+### Global (recommended)
 
-- **"The design system is everything"** — globals.css + tailwind.config.ts define ALL visual tokens. Components only reference semantic tokens.
-- **No hardcoded colors** — `text-white`, `bg-gray-*` are banned. Only `bg-primary`, `text-foreground`, `border-border`.
-- **Rich animations** — Framer Motion scroll reveals, staggered lists, hero effects, micro-interactions (1,949-line reference).
-- **shadcn/ui** with custom variants — premium buttons, glass cards, animated dialogs (2,041-line reference).
-- **Every page has 3 states** — loading skeleton, empty state, error state. Never a blank screen.
-- **Dark mode automatic** — semantic tokens handle light/dark. No separate `dark:` classes needed.
-- **Responsive mobile-first** — design for 320px, enhance up. Touch targets, proper spacing.
-- **Accessible** — WCAG AA contrast, focus indicators, semantic HTML, aria attributes.
+```bash
+npm install -g 10x-development-team
+
+# Configure all your AI clients
+10x-mcp setup
+
+# Add plugin to any project
+10x-mcp install-plugin ~/my-app
+
+# Health check
+10x-mcp doctor
+```
+
+### Per-Project
+
+```bash
+cd my-project
+npm install 10x-development-team
+
+# Postinstall auto-creates:
+# .claude/  (agents, skills, knowledge, hooks)
+# .10x/     (project index)
+# .mcp.json (Playwright + 10x MCP)
+# .env      (skeleton)
+# public/models/ (3D assets)
+```
+
+### MCP Server (any AI client)
+
+```bash
+npx 10x-development-team setup                  # Auto-detect all clients
+npx 10x-development-team setup --client cursor   # Specific client
+npx 10x-development-team setup --all             # All 9 clients
+```
+
+### Claude Code Direct Plugin (no MCP)
+
+```bash
+npx 10x-development-team install-plugin ~/my-app
+# Then: /10x-development-team:start
+```
 
 ---
 
 ## Works With 9 AI Clients
 
-| Client | Config Path | Setup Command | Status |
-|--------|------------|---------------|--------|
-| **Claude Desktop** | `claude_desktop_config.json` | `npx 10x-development-team setup --client claude-desktop` | Ready |
-| **Claude Code** | `~/.claude/.mcp.json` or direct plugin | `npx 10x-development-team install-plugin .` | Ready |
-| **Cursor** | `~/.cursor/mcp.json` | `npx 10x-development-team setup --client cursor` | Ready |
-| **Windsurf** | `~/.codeium/windsurf/mcp_config.json` | `npx 10x-development-team setup --client windsurf` | Ready |
-| **Cline** | `cline_mcp_settings.json` | `npx 10x-development-team setup --client cline` | Ready |
-| **VS Code + Copilot** | `.vscode/mcp.json` | `npx 10x-development-team setup --client vscode` | Ready |
-| **Continue.dev** | `~/.continue/mcp.json` | `npx 10x-development-team setup --client continue` | Ready |
-| **OpenAI Codex** | `~/.codex/mcp.json` | `npx 10x-development-team setup --client codex` | Ready |
-| **OpenCode** | `~/.config/opencode/mcp.json` | `npx 10x-development-team setup --client opencode` | Ready |
+| Client | Setup Command |
+|--------|---------------|
+| **Claude Desktop** | `10x-mcp setup --client claude-desktop` |
+| **Claude Code** | `10x-mcp install-plugin .` or `10x-mcp setup --client claude-code` |
+| **Cursor** | `10x-mcp setup --client cursor` |
+| **Windsurf** | `10x-mcp setup --client windsurf` |
+| **Cline** | `10x-mcp setup --client cline` |
+| **VS Code + Copilot** | `10x-mcp setup --client vscode` |
+| **Continue.dev** | `10x-mcp setup --client continue` |
+| **OpenAI Codex** | `10x-mcp setup --client codex` |
+| **OpenCode** | `10x-mcp setup --client opencode` |
 
-The MCP server runs **locally** on your machine. No hosting, no API keys, no cloud services needed.
-
----
-
-## Quick Start
-
-```bash
-# Auto-detect and configure ALL your AI clients
-npx 10x-development-team setup
-
-# Or configure a specific client
-npx 10x-development-team setup --client cursor
-
-# Or configure ALL supported clients at once
-npx 10x-development-team setup --all
-
-# Claude Code direct plugin (no MCP needed)
-npx 10x-development-team install-plugin /path/to/project
-
-# Health check
-npx 10x-development-team doctor
-```
-
-Then open your AI client and say: **"Start a new project — I want an invoice app for freelancers."**
-
-For Claude Code users: `cd /path/to/project` then type `/10x-development-team:start`
+Runs **100% locally**. No hosting, no API keys, no cloud services.
 
 ---
 
-## 5 Real Use Cases
+## The Index System -- Shared Brain for All Agents
 
-### 1. Founder with an idea, no coding skills
-> "I want an app where freelancers create invoices and track payments."
+The secret sauce. Agents don't scan your filesystem. They read a lightweight index.
 
-**What happens:** The plugin asks 4 plain-English questions. Picks MVP scope. 7 agents build login, dashboard, invoice CRUD, client list, payment tracking — all with a polished design system, animations, and dark mode. She runs `npm run dev` and sees a beautiful working app.
+### Project Index (`.10x/` -- inside each project)
 
-**Scope:** MVP | **Client:** Claude Desktop | **Stack:** Next.js + Prisma + Auth
+| File | What It Tracks |
+|------|---------------|
+| `project.json` | App name, scope, stack, vision, status |
+| `file-index.json` | Every file: type, description, exports, dependencies |
+| `tasks.json` | Task tracker with goals, assignments, status |
+| `feature-map.json` | Feature-to-file mapping with data flow wiring |
+| `dev-log.md` | Chronological log of all agent actions |
+| `assets.json` | Downloaded 3D models, textures, HDRIs with licenses |
 
----
+### Global Memory (`~/.10x/memory.db` -- SQLite)
 
-### 2. Developer with existing data, needs a dashboard
-> "I have 50K rows of analytics in Supabase. Build me a dashboard."
+| Table | What It Remembers |
+|-------|------------------|
+| `projects` | Every project you've ever built |
+| `sessions` | Build history, files created, tasks completed |
+| `memories` | Decisions, preferences, user feedback |
+| `shared_patterns` | Reusable code across projects |
 
-**What happens:** `:connect-data Supabase` wires up the client and proxy routes. The plugin builds stat cards with animated counters, sortable tables, and Recharts data visualizations. `:modify-ui add realtime updates` makes the data flow live. Built in under an hour.
+SQLite is **optional** -- the server works without it (graceful fallback to `.10x/` files).
 
-**Scope:** MVP | **Client:** Claude Code | **Data:** Supabase + Realtime
+### Why This Matters
 
----
-
-### 3. Freelancer who needs a client landing page in 10 minutes
-> "Build a landing page for a fitness app — hero, features, pricing, testimonials."
-
-**What happens:** Simple scope. No React, no npm. Just HTML/CSS/JS with CSS custom properties, smooth animations, and responsive design. Priya customizes colors and layout with `:modify-ui`. Drags the folder to Netlify. Done.
-
-**Scope:** Simple | **Client:** Any | **Output:** HTML + CSS + JS (no build tools)
-
----
-
-### 4. Product manager who needs a prototype for investors
-> "Build a team workspace app — like Notion meets Slack. Needs to look real."
-
-**What happens:** Prototype scope. Vite + React with mock data. The plugin builds 5 pages with Framer Motion transitions, scroll animations, and glassmorphism effects. Investors click through it live. When funded, upgrade to MVP scope — same project, real data.
-
-**Scope:** Prototype | **Client:** Cursor | **Stack:** Vite + React + Tailwind
-
----
-
-### 5. Startup CTO scaling a live app
-> "We have 500 users. Add Stripe payments, email notifications, and a settings page."
-
-**What happens:** `:resume` loads the project from persistent memory. `:add-feature Stripe subscriptions` builds checkout + webhooks + pricing page. `:add-feature welcome and invoice emails` sets up Resend with React Email templates. `:add-page account settings` uses existing auth and components. `:review` runs QA. `:deploy` updates CI/CD. Three features shipped in one session.
-
-**Scope:** Production | **Client:** Claude Code | **Stack:** Next.js + Stripe + Resend
+| Without Index | With Index |
+|--------------|-----------|
+| Agent scans filesystem (~80K tokens) | Agent reads index (~2K tokens) |
+| Each agent re-explores the codebase | Each agent knows exactly what exists |
+| Duplicate components created | Component registry prevents duplication |
+| API mismatches between front/back | API shapes documented in file-index |
+| Session breaks lose context | Index persists, agents resume instantly |
 
 ---
 
-## The 7 Agents
+## The 8 Agents
 
-| Agent | What It Does | When It's Used |
-|-------|-------------|---------------|
-| **Team Lead** | Plans, delegates, tracks progress, verifies design quality. Never writes code. | All scopes |
-| **Frontend Dev** | Pages, components, UI. 35+ components in registry. Design-system enforced. | All scopes |
-| **Backend Dev** | APIs, database schemas, auth, business logic. Frontend-friendly error messages. | MVP + Production |
-| **UI Designer** | Rich design system: semantic tokens, gradients, shadows, animations, dark mode. | Prototype + MVP + Production |
+| Agent | Role | Scope |
+|-------|------|-------|
+| **Team Lead** | Plans, delegates, tracks progress, verifies design quality. Never writes code. | All |
+| **Frontend Dev** | Pages, components, UI. 35+ components in registry. Design-system enforced. | All |
+| **Backend Dev** | APIs, database schemas, auth, business logic. | MVP + Production |
+| **UI Designer** | Design system: semantic tokens, gradients, shadows, animations, dark mode. | Prototype+ |
+| **3D Designer** | 3D scenes, particle systems, scroll-driven animations, WebGL effects (R3F, Drei, GSAP). | All |
 | **QA Tester** | Type checks, build verification, visual quality audit, accessibility scan. | MVP + Production |
-| **Deployer** | CI/CD pipelines, Docker, hosting config, performance headers, Web Vitals. | Production (or on request) |
-| **Error Recovery** | Diagnoses build failures, design system errors, Framer Motion issues. Max 3 attempts. | On demand |
+| **Deployer** | CI/CD pipelines, Docker, hosting config, performance headers. | Production |
+| **Error Recovery** | Diagnoses build failures, runtime errors, dependency conflicts. Max 3 attempts. | On demand |
 
 ---
 
-## 4 Scopes — Never Over-Engineer
+## 4 Scopes -- Never Over-Engineer
 
-| Scope | Output | Tech | Agents | Design Quality |
-|-------|--------|------|--------|---------------|
-| **Simple** | Static pages, opens in browser | HTML + CSS + JS | Frontend only | CSS variables, responsive |
-| **Prototype** | Clickable demo with fake data | Vite + React + Tailwind | UI + Frontend | Full design tokens, animations |
-| **MVP** | Working app with real data | Next.js + Prisma + Auth | UI + Front + Back | shadcn/ui, Framer Motion, dark mode |
-| **Production** | Full app, tested, CI/CD | Next.js + Tests + Docker | All 7 agents | Everything above + a11y, SEO, perf |
+| Scope | Output | Tech | Agents |
+|-------|--------|------|--------|
+| **Simple** | Static pages | HTML + CSS + JS | Frontend only |
+| **Prototype** | Clickable demo with mock data | Vite + React + Tailwind | UI + Frontend + 3D |
+| **MVP** | Working app with real data | Next.js + Prisma + Auth | UI + Front + Back + 3D |
+| **Production** | Full app, tested, deployed | Next.js + Tests + Docker | All 8 agents |
 
-A landing page gets HTML. A SaaS gets Next.js. The plugin decides — you don't have to.
+A landing page gets HTML. A SaaS gets Next.js. The plugin decides -- you don't have to.
 
 ---
 
-## 19 Commands
+## Design-First Philosophy
+
+Inspired by **Lovable**, **v0**, and **Bolt.new** -- output is polished, not just functional.
+
+- **Semantic tokens only** -- `bg-primary`, `text-foreground`. Never `bg-blue-600`, `text-white`.
+- **Every interactive element has states** -- hover, focus-visible, active, disabled + transitions.
+- **Every data view has 3 states** -- loading skeleton, empty state, error state.
+- **Dark mode automatic** -- semantic tokens handle light/dark.
+- **Mobile-first responsive** -- design for 320px, enhance up.
+- **Rich animations** -- Framer Motion, GSAP ScrollTrigger, CSS transitions.
+- **3D experiences** -- React Three Fiber, Drei, particles, scroll-driven 3D, glassmorphism.
+- **Accessible** -- WCAG AA contrast, focus indicators, semantic HTML, aria attributes.
+
+---
+
+## 22 MCP Tools
+
+| Category | Tools |
+|----------|-------|
+| **Project Lifecycle** | `tenx_start`, `tenx_build`, `tenx_projects`, `tenx_read_index`, `tenx_update_index` |
+| **Knowledge** | `tenx_get_skill`, `tenx_get_knowledge`, `tenx_list_knowledge`, `tenx_get_components` |
+| **Memory & Context** | `tenx_save_memory`, `tenx_get_context`, `tenx_get_agent` |
+| **Session & Health** | `tenx_update_session`, `tenx_health` |
+| **User Interaction** | `tenx_ask_user`, `tenx_save_answer` |
+| **3D Asset Pipeline** | `tenx_download_asset`, `tenx_list_assets`, `tenx_browse_3d_sources`, `tenx_model_sources` |
+| **Storyboard & Visual** | `tenx_storyboard`, `tenx_screenshot` |
+
+---
+
+## 19 Slash Commands (Claude Code)
 
 | Command | Description |
 |---------|------------|
-| `/start` | New project — 4 questions, then build |
-| `/build` | Full build from your vision |
+| `/start` | New project -- describe what you want, agents build it |
+| `/build` | Execute the full build pipeline |
 | `/add-page` | Add a page to your app |
 | `/add-feature` | Add a feature (frontend + backend) |
 | `/connect-data` | Wire external data (API, Supabase, Firebase, Sheets, CSV) |
-| `/modify-ui` | Quick UI changes — theme, layout, dark mode, animations |
+| `/modify-ui` | Quick UI changes -- theme, layout, dark mode, animations |
 | `/generate` | Generate component, API route, hook, model, or test |
 | `/fix` | Describe the bug, plugin locates and fixes it |
 | `/refactor` | Improve code quality without changing behavior |
 | `/review` | Code quality + visual quality review |
 | `/explain` | Explain how any part of the codebase works |
 | `/deploy` | Set up deployment (Vercel, Docker, CI/CD) |
-| `/resume` | Continue where you left off (loads from persistent memory) |
+| `/resumeproject` | Continue where you left off (loads from persistent memory) |
 | `/projects` | List, switch, manage all your projects |
 | `/status` | Project dashboard |
 | `/update-deps` | Check and update dependencies safely |
@@ -173,51 +202,38 @@ A landing page gets HTML. A SaaS gets Next.js. The plugin decides — you don't 
 | `/index` | View or rebuild the file index |
 | `/help` | Show all commands |
 
+All commands are prefixed with `/10x-development-team:` in Claude Code.
+
 ---
 
-## What's Inside
+## 61 Knowledge Files
 
-```
-mcp-server/          MCP server — 12 tools, 10 resources, 8 prompts
-.claude/
-  skills/            19 skill definitions (slash commands)
-  agents/             7 specialist agent instructions
-  knowledge/         50+ code pattern files (copy-paste ready)
-  components/        35+ component blueprints with registry
-  templates/          8 project scaffolds
-  hooks/              Safety hooks (component reuse, secret detection, index sync)
-  scripts/            DB init, validation, component checks
-```
+Agents don't invent code. They copy proven patterns from the knowledge base:
 
-### Knowledge Base — 50+ Files
+| Category | Files | Examples |
+|----------|-------|---------|
+| **Frameworks** | 5 | Next.js, Vite+React, HTML/CSS/JS, Expo |
+| **Libraries** | 15 | shadcn/ui, Tailwind, Framer Motion, Prisma, Stripe, R3F, Drei, GSAP |
+| **Patterns** | 23 | Design system, 3D scenes, particles, scroll-driven 3D, glassmorphism, auth, SEO |
+| **Components** | 18 | Button, card, navbar, sidebar, modal, data-table, auth pages, 3D scene, particles |
 
-Agents don't invent code. They copy proven patterns:
+---
 
-| Category | What's Covered | Key Files |
-|----------|---------------|-----------|
-| **UI/UX Design** | The design bible, design system creation, charts | `ui-ux-principles.md` (514 lines), `design-system.md` (538 lines) |
-| **Frameworks** | Next.js App Router, Vite + React, Expo, vanilla HTML/CSS/JS | `nextjs.md`, `vite-react.md`, `html-css-js.md` |
-| **Libraries** | Tailwind, shadcn/ui, Framer Motion, Prisma, Zod, NextAuth, Stripe, Zustand, Recharts | `shadcn-ui.md` (2,041 lines), `framer-motion.md` (1,949 lines) |
-| **Data** | REST APIs, GraphQL, Supabase, Firebase, Airtable, Sheets, Notion, CSV/Excel | `external-api.md`, `data-sources.md`, `file-ingestion.md` |
-| **Infrastructure** | File storage (S3/R2), realtime (SSE/WebSocket), rate limiting, monitoring | `realtime.md`, `rate-limiting.md`, `monitoring.md` |
-| **Patterns** | Auth flows, dark mode, SEO, responsive layout, error boundaries | `dark-mode.md`, `seo.md`, `responsive-layout.md` |
-| **Components** | Button, navbar, sidebar, cards, modals, tables, forms, auth pages | 10 copy-paste-ready component files |
+## Free 3D Asset Sources (all 100% free)
 
-### MCP Server
+| Source | What You Get | License |
+|--------|-------------|---------|
+| [Poly Haven](https://polyhaven.com/) | Models, HDRIs, textures | CC0 |
+| [Kenney](https://kenney.nl/assets) | Low-poly game assets | CC0 |
+| [Sketchfab](https://sketchfab.com/features/free-3d-models) | High-quality models | CC-BY/CC0 |
+| [Mixamo](https://www.mixamo.com/) | Animated characters | Free |
+| [Quaternius](https://quaternius.com/) | Cartoon characters/nature | CC0 |
 
-```bash
-npx 10x-development-team setup     # auto-configure for your AI clients
-npx 10x-development-team doctor    # verify installation
-npx 10x-development-team --help    # all CLI commands
-```
+Use `tenx_browse_3d_sources` to search across all sources. Use `tenx_download_asset` to add to your project.
 
-| Capability | Count | Examples |
-|-----------|-------|---------|
-| **Tools** | 12 | `tenx_start`, `tenx_build`, `tenx_get_knowledge`, `tenx_get_agent` |
-| **Resources** | 10 | `knowledge://index`, `components://registry`, `project://config` |
-| **Prompts** | 8 | `tenx-system`, `tenx-agent`, `tenx-build`, `tenx-fix` |
+---
 
-### MCP Config Format
+## MCP Config
 
 For all clients except VS Code:
 ```json
@@ -243,21 +259,6 @@ For VS Code + GitHub Copilot (`.vscode/mcp.json`):
 }
 ```
 
-### Persistent Memory
-
-SQLite database at `~/.10x/memory.db`:
-- Tracks every project you've ever created
-- Remembers decisions, preferences, session history
-- Resume any project with full context: `:resume`
-- Switch between projects: `:projects`
-
-### Model-Aware Execution
-
-| Model Size | Behavior |
-|-----------|----------|
-| **Haiku / Sonnet** | COPY code from knowledge files. Change only names, props, content. |
-| **Opus** | USE knowledge as base. ENHANCE with animations, a11y, dark mode, SEO. |
-
 ---
 
 ## Architecture
@@ -275,9 +276,16 @@ User (any AI client)
   +-- Codex CLI ----------> MCP Server (stdio, local)
   +-- OpenCode -----------> MCP Server (stdio, local)
   |
-  +-- All modes ----------> ~/.10x/memory.db (persistent cross-project memory)
+  +-- All modes ----------> ~/.10x/memory.db (SQLite -- global cross-project memory)
   +-- All modes ----------> .10x/ per project (index, tasks, features, dev log)
 ```
+
+### Model-Aware Execution
+
+| Model Size | Behavior |
+|-----------|----------|
+| **Haiku / Sonnet** | COPY code from knowledge files. Change only names, props, content. |
+| **Opus** | USE knowledge as base. ENHANCE with animations, a11y, dark mode, SEO. |
 
 ---
 
@@ -286,15 +294,13 @@ User (any AI client)
 If you are an AI agent that has been asked to set up or use the 10x Development Team:
 
 1. **Install**: `npx 10x-development-team setup --client [your-client]`
-2. The MCP server exposes **12 tools**. Call `tenx_start` to begin a new project.
-3. Call `tenx_get_knowledge` with `category` and `file_name` to read code patterns before writing code.
-4. Call `tenx_get_agent` with `agent_name` to load specialist agent instructions.
-5. Call `tenx_get_skill` with `skill_name` to get detailed skill execution steps.
-6. Call `tenx_read_index` to understand current project state before making changes.
-7. Call `tenx_update_index` after creating/modifying files to keep the index in sync.
-8. Call `tenx_list_knowledge` to see ALL available knowledge files by category.
-9. Call `tenx_get_components` to check the component registry before building UI.
-10. The system works **100% locally** — no API keys, no hosting, no cloud services needed.
+2. The MCP server exposes **22 tools**. Call `tenx_start` to begin a new project.
+3. Call `tenx_read_index` to understand current project state before making changes.
+4. Call `tenx_get_knowledge` with `category` and `file_name` before writing code.
+5. Call `tenx_get_agent` with `agent_name` to load specialist agent instructions.
+6. Call `tenx_update_index` after creating/modifying files to keep the index in sync.
+7. Call `tenx_health` to verify setup is working correctly.
+8. The system works **100% locally** -- no API keys, no hosting, no cloud services.
 
 ---
 
@@ -306,4 +312,4 @@ If you are an AI agent that has been asked to set up or use the 10x Development 
 
 ---
 
-**Built by [Anit Chaudhry](https://github.com/10x-Anit)** | MIT License
+**MIT License** | Built by [10x-Anit](https://github.com/10x-Anit)

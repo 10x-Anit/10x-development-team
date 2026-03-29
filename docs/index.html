@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>10x Development Team — Your AI Development Team</title>
-  <meta name="description" content="Multi-agent AI plugin. 8 specialist agents, 20 MCP tools, 3D asset pipeline, Playwright browser automation. Build stunning apps with 3D scenes, scroll animations, glassmorphism, particles, and production-grade UI. Works with Claude Code, Cursor, Windsurf, Codex, and 5 more AI clients.">
+  <meta name="description" content="Multi-agent AI plugin. 8 specialist agents, 22 MCP tools, smart index system, 3D asset pipeline, Playwright browser automation. Build stunning apps with 3D scenes, scroll animations, glassmorphism, particles, and production-grade UI. Works with Claude Code, Cursor, Windsurf, Codex, and 5 more AI clients.">
   <meta property="og:title" content="10x Development Team">
-  <meta property="og:description" content="8 AI agents, 20 MCP tools, 3D asset pipeline with Sketchfab/Mixamo/Poly Haven. Build beautiful apps with 3D, scroll animations, particles, and production-grade UI. One plugin, 9 clients.">
+  <meta property="og:description" content="8 AI agents, 22 MCP tools, smart index system for context management. Build beautiful apps with 3D, scroll animations, particles, and production-grade UI. One plugin, 9 clients.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://10x-anit.github.io/10x-development-team/">
   <link rel="canonical" href="https://10x-anit.github.io/10x-development-team/">
@@ -316,6 +316,10 @@
     .scope-features li::before { content: '\2713'; color: var(--color-success); font-weight: 700; }
     @media (max-width: 960px) { .scopes-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 560px) { .scopes-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) {
+      #index-system [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
+      #index-system [style*="grid-template-columns:repeat(3"] { grid-template-columns: 1fr !important; }
+    }
 
     /* ── Commands ── */
     .commands-section { background: var(--color-bg-raised); }
@@ -456,6 +460,7 @@
       <li role="none"><a href="#agents" role="menuitem">Agents</a></li>
       <li role="none"><a href="#scopes" role="menuitem">Scopes</a></li>
       <li role="none"><a href="#commands" role="menuitem">Commands</a></li>
+      <li role="none"><a href="#index-system" role="menuitem">Index System</a></li>
       <li role="none"><a href="#ai-reference" role="menuitem">AI Reference</a></li>
     </ul>
     <a href="#install" class="nav-cta">Get Started</a>
@@ -480,10 +485,10 @@
   <div class="container hero-content">
     <div class="hero-badge reveal">
       <span class="hero-badge-dot" aria-hidden="true"></span>
-      Open Source MCP Plugin
+      v3.1.0 &mdash; Open Source MCP Plugin
     </div>
     <h1 class="reveal reveal-delay-1">Your <span class="gradient-text">AI Development Team</span></h1>
-    <p class="hero-desc reveal reveal-delay-2">8 specialist agents that build stunning apps with 3D scenes, scroll animations, glassmorphism, particles, and production-grade UI. Describe what you want. They architect, design, code, test, and deploy it.</p>
+    <p class="hero-desc reveal reveal-delay-2">8 specialist agents with a shared index system for lightning-fast context. Build stunning apps with 3D scenes, scroll animations, glassmorphism, particles, and production-grade UI. Describe what you want. They architect, design, code, test, and deploy it.</p>
     <div class="hero-buttons reveal reveal-delay-3">
       <a href="#install" class="btn-primary">Get Started</a>
       <a href="https://github.com/10x-Anit/10x-development-team" class="btn-secondary" target="_blank" rel="noopener">
@@ -504,7 +509,7 @@
     </div>
     <div class="hero-stats reveal reveal-delay-4">
       <div class="stat"><div class="stat-value gradient-text">8</div><div class="stat-label">AI Agents</div></div>
-      <div class="stat"><div class="stat-value gradient-text">20</div><div class="stat-label">MCP Tools</div></div>
+      <div class="stat"><div class="stat-value gradient-text">22</div><div class="stat-label">MCP Tools</div></div>
       <div class="stat"><div class="stat-value gradient-text">19</div><div class="stat-label">Commands</div></div>
       <div class="stat"><div class="stat-value gradient-text">61</div><div class="stat-label">Knowledge Files</div></div>
       <div class="stat"><div class="stat-value gradient-text">9</div><div class="stat-label">AI Clients</div></div>
@@ -711,7 +716,7 @@
 <section class="commands-section" id="commands">
   <div class="container">
     <div class="section-label reveal">Commands</div>
-    <h2 class="section-title reveal">19 slash commands. <span class="gradient-text">20 MCP tools.</span></h2>
+    <h2 class="section-title reveal">19 slash commands. <span class="gradient-text">22 MCP tools.</span></h2>
     <p class="section-subtitle reveal">Natural language skills for every stage of development. Use as <code>/10x-development-team:command</code> in Claude Code, or call MCP tools programmatically from any AI client.</p>
     <div class="command-groups">
       <div class="command-group reveal">
@@ -885,7 +890,7 @@ npx 10x-development-team doctor</code></pre>
 
     <!-- Tool Reference -->
     <div class="ref-block reveal" id="ref-tools">
-      <h3>MCP Tool Reference (20 tools)</h3>
+      <h3>MCP Tool Reference (22 tools)</h3>
 
       <h4 style="margin-top:24px; color: var(--color-primary);">Project Lifecycle (5 tools)</h4>
       <table class="ref-table">
@@ -964,6 +969,23 @@ npx 10x-development-team doctor</code></pre>
             <td>tenx_get_agent</td>
             <td>agent_name (team-lead|frontend-dev|backend-dev|ui-designer|3d-designer|qa-tester|deployer|error-recovery)</td>
             <td>Full agent instruction markdown</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 style="margin-top:24px; color: var(--color-primary);">Session & Health (2 tools) <span style="color: var(--color-success); font-size:0.75rem; vertical-align:super;">NEW v3.1</span></h4>
+      <table class="ref-table">
+        <thead><tr><th>Tool</th><th>Parameters</th><th>Returns</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>tenx_update_session</td>
+            <td>session_id (string), summary?, tasks_completed? (string[]), files_created? (string[]), files_modified? (string[])</td>
+            <td>Closes/updates a build session. Persists what was accomplished to SQLite for cross-session memory</td>
+          </tr>
+          <tr>
+            <td>tenx_health</td>
+            <td>(none)</td>
+            <td>Full health check: SQLite status, project index, file count, tasks, plugin files, feature map, dev log</td>
           </tr>
         </tbody>
       </table>
@@ -1117,7 +1139,7 @@ npx 10x-development-team doctor</code></pre>
       <table class="ref-table">
         <thead><tr><th>Mode</th><th>How</th><th>Best For</th></tr></thead>
         <tbody>
-          <tr><td>MCP Server</td><td>Runs as local MCP server. AI client connects via stdio. 20 tools exposed. Works with all 9 clients.</td><td>Any AI client with MCP support</td></tr>
+          <tr><td>MCP Server</td><td>Runs as local MCP server. AI client connects via stdio. 22 tools exposed. Works with all 9 clients. SQLite optional (graceful fallback).</td><td>Any AI client with MCP support</td></tr>
           <tr><td>Direct Plugin</td><td>Copies agents/, skills/, knowledge/, components/ into project's .claude/ directory. No server needed.</td><td>Claude Code only</td></tr>
         </tbody>
       </table>
@@ -1164,7 +1186,7 @@ npx 10x-development-team doctor</code></pre>
       <pre><code># When users run: npm install 10x-development-team
 # The postinstall script automatically creates:
 
-.claude/              # Plugin files (agents, skills, knowledge, components)
+.claude/              # Plugin files (agents, skills, knowledge, components, hooks)
 .10x/                 # Project tracking directory
 .10x/assets.json      # 3D asset registry
 .env                  # Environment variable skeleton
@@ -1175,10 +1197,8 @@ public/models/        # Directory for 3D models (GLB, GLTF)
 public/textures/      # Directory for PBR textures
 public/hdri/          # Directory for environment maps
 
-# Also installs:
-playwright            # Browser automation (screenshots, site exploration)
-@playwright/mcp       # Playwright MCP server for AI agent browser control
-chromium              # Headless browser for Playwright</code></pre>
+# SQLite memory (~/.10x/memory.db) is created on first use
+# SQLite is optional — server works without it (graceful fallback)</code></pre>
 
       <h4>Persistent Memory</h4>
       <pre><code># SQLite database at ~/.10x/memory.db
@@ -1190,35 +1210,113 @@ chromium              # Headless browser for Playwright</code></pre>
 </section>
 
 <!-- ════════════════════════════════════════════════════════ -->
+<!-- INDEX SYSTEM                                              -->
+<!-- ════════════════════════════════════════════════════════ -->
+<section id="index-system" style="background: var(--color-bg-raised);">
+  <div class="container">
+    <div class="section-label reveal">Smart Context</div>
+    <h2 class="section-title reveal">The <span class="gradient-text">Index System</span> &mdash; shared brain for all agents</h2>
+    <p class="section-subtitle reveal">Agents don't scan your filesystem. They read a lightweight index that tracks every file, task, feature, and decision. This cuts token usage by 60-80% and eliminates duplicate work.</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:48px;">
+      <div class="reveal" style="padding:28px; border-radius:var(--radius-lg); background:var(--color-bg-card); border:1px solid var(--color-border);">
+        <h3 style="font-size:1.125rem; font-weight:700; color:var(--color-heading); margin-bottom:16px; display:flex; align-items:center; gap:10px;">
+          <span style="font-size:1.5rem;">&#128193;</span> Project Index <code style="font-size:0.75rem;">.10x/</code>
+        </h3>
+        <p style="font-size:0.9375rem; color:var(--color-text-muted); margin-bottom:16px;">Lives inside each project directory. Every agent reads this instead of exploring the codebase.</p>
+        <ul style="list-style:none; font-size:0.875rem;">
+          <li style="padding:6px 0; color:var(--color-text-muted);"><code style="color:var(--color-primary-bright);">project.json</code> &mdash; App name, scope, stack, vision</li>
+          <li style="padding:6px 0; color:var(--color-text-muted);"><code style="color:var(--color-primary-bright);">file-index.json</code> &mdash; Every file: type, exports, dependencies</li>
+          <li style="padding:6px 0; color:var(--color-text-muted);"><code style="color:var(--color-primary-bright);">tasks.json</code> &mdash; Task tracker with goals and assignments</li>
+          <li style="padding:6px 0; color:var(--color-text-muted);"><code style="color:var(--color-primary-bright);">feature-map.json</code> &mdash; Feature-to-file mapping with data flow</li>
+          <li style="padding:6px 0; color:var(--color-text-muted);"><code style="color:var(--color-primary-bright);">dev-log.md</code> &mdash; Chronological log of all agent actions</li>
+        </ul>
+      </div>
+      <div class="reveal reveal-delay-1" style="padding:28px; border-radius:var(--radius-lg); background:var(--color-bg-card); border:1px solid var(--color-border);">
+        <h3 style="font-size:1.125rem; font-weight:700; color:var(--color-heading); margin-bottom:16px; display:flex; align-items:center; gap:10px;">
+          <span style="font-size:1.5rem;">&#128451;</span> Global Memory <code style="font-size:0.75rem;">~/.10x/</code>
+        </h3>
+        <p style="font-size:0.9375rem; color:var(--color-text-muted); margin-bottom:16px;">SQLite database in your home directory. Remembers ALL projects across sessions. Optional &mdash; graceful fallback if unavailable.</p>
+        <ul style="list-style:none; font-size:0.875rem;">
+          <li style="padding:6px 0; color:var(--color-text-muted);"><code style="color:var(--color-secondary);">projects</code> &mdash; Every project you've ever built</li>
+          <li style="padding:6px 0; color:var(--color-text-muted);"><code style="color:var(--color-secondary);">sessions</code> &mdash; Build history, files created, tasks done</li>
+          <li style="padding:6px 0; color:var(--color-text-muted);"><code style="color:var(--color-secondary);">memories</code> &mdash; Decisions, preferences, user feedback</li>
+          <li style="padding:6px 0; color:var(--color-text-muted);"><code style="color:var(--color-secondary);">shared_patterns</code> &mdash; Reusable code across projects</li>
+          <li style="padding:6px 0; color:var(--color-text-dim); font-style:italic;">Falls back to .10x/ files if SQLite is unavailable</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; margin-top:32px;">
+      <div class="reveal reveal-delay-1" style="padding:20px; border-radius:var(--radius-md); background:rgba(129,140,248,0.05); border:1px solid rgba(129,140,248,0.15); text-align:center;">
+        <div style="font-size:2rem; margin-bottom:8px;">&#9889;</div>
+        <div style="font-size:1rem; font-weight:700; color:var(--color-heading); margin-bottom:4px;">60-80% less tokens</div>
+        <div style="font-size:0.8125rem; color:var(--color-text-dim);">Agents read the index (2K tokens) instead of scanning files (80K+ tokens)</div>
+      </div>
+      <div class="reveal reveal-delay-2" style="padding:20px; border-radius:var(--radius-md); background:rgba(192,132,252,0.05); border:1px solid rgba(192,132,252,0.15); text-align:center;">
+        <div style="font-size:2rem; margin-bottom:8px;">&#128279;</div>
+        <div style="font-size:1rem; font-weight:700; color:var(--color-heading); margin-bottom:4px;">Zero duplicate work</div>
+        <div style="font-size:0.8125rem; color:var(--color-text-dim);">Agents see what others built. Backend logs API shapes, frontend reads them</div>
+      </div>
+      <div class="reveal reveal-delay-3" style="padding:20px; border-radius:var(--radius-md); background:rgba(34,211,238,0.05); border:1px solid rgba(34,211,238,0.15); text-align:center;">
+        <div style="font-size:2rem; margin-bottom:8px;">&#128260;</div>
+        <div style="font-size:1rem; font-weight:700; color:var(--color-heading); margin-bottom:4px;">Resume instantly</div>
+        <div style="font-size:0.8125rem; color:var(--color-text-dim);">Session breaks, context compaction &mdash; the index survives and agents resume perfectly</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════ -->
 <!-- INSTALLATION                                              -->
 <!-- ════════════════════════════════════════════════════════ -->
 <section class="install-section" id="install">
   <div class="container">
     <div class="section-label reveal">Get Started</div>
     <h2 class="section-title reveal">Install in <span class="gradient-text">30 seconds</span></h2>
-    <p class="section-subtitle reveal" style="margin: 0 auto 0;">Three ways to set up. The postinstall auto-creates everything you need.</p>
-    <div class="install-options">
+    <p class="section-subtitle reveal" style="margin: 0 auto 0;">Install globally to use across all projects, or per-project for full auto-setup. Both modes give you the complete skill set.</p>
+    <div class="install-options" style="grid-template-columns: repeat(2, 1fr);">
       <div class="install-card featured reveal">
-        <h3>In Your Project (recommended)</h3>
-        <p>Install as a dev dependency. Postinstall auto-creates .claude/, .10x/, .mcp.json, .env, public/models/, and installs Playwright.</p>
-        <pre><code>cd my-project
+        <h3>&#127775; Global Install (recommended)</h3>
+        <p>Install once, use in any project. Run setup to auto-configure all your AI clients. Then use <code>install-plugin</code> to add skills to any project.</p>
+        <pre><code># Install globally
+npm install -g 10x-development-team
+
+# Auto-configure all detected AI clients
+10x-mcp setup
+
+# Add plugin files to a specific project
+10x-mcp install-plugin ~/my-app
+
+# Health check
+10x-mcp doctor</code></pre>
+      </div>
+      <div class="install-card featured reveal reveal-delay-1">
+        <h3>&#128230; Per-Project Install</h3>
+        <p>Install as a dev dependency. Postinstall auto-creates <code>.claude/</code>, <code>.10x/</code>, <code>.mcp.json</code>, <code>.env</code>, and 3D asset directories.</p>
+        <pre><code># Inside your project
+cd my-project
 npm install 10x-development-team
-# Done! Open Claude Code and type:
+
+# Everything is auto-created!
+# Open Claude Code and type:
 # /10x-development-team:start</code></pre>
       </div>
-      <div class="install-card reveal reveal-delay-1">
+    </div>
+    <div class="install-options" style="grid-template-columns: repeat(2, 1fr); margin-top:20px;">
+      <div class="install-card reveal">
         <h3>MCP Server (any AI client)</h3>
-        <p>Auto-detect installed AI clients and configure MCP server for each.</p>
-        <pre><code>npx 10x-development-team setup
-# Or target a specific client:
-npx 10x-development-team setup --client cursor
+        <p>Configure the MCP server for Cursor, Windsurf, Cline, VS Code, Continue, Codex, or OpenCode.</p>
+        <pre><code>npx 10x-development-team setup --client cursor
 npx 10x-development-team setup --client windsurf
 npx 10x-development-team setup --all</code></pre>
       </div>
-      <div class="install-card reveal reveal-delay-2">
-        <h3>Claude Code Plugin (no MCP)</h3>
-        <p>Copy plugin files directly into a project. Claude Code reads them natively.</p>
-        <pre><code>npx 10x-development-team install-plugin ~/my-app</code></pre>
+      <div class="install-card reveal reveal-delay-1">
+        <h3>Claude Code Direct Plugin (no MCP)</h3>
+        <p>Copy plugin files directly into a project. Claude Code reads <code>.claude/</code> natively &mdash; no server needed.</p>
+        <pre><code>npx 10x-development-team install-plugin ~/my-app
+# Then: cd ~/my-app && claude
+# Type: /10x-development-team:start</code></pre>
       </div>
     </div>
 
@@ -1226,7 +1324,7 @@ npx 10x-development-team setup --all</code></pre>
       <h3 class="reveal" style="font-size:1.25rem; font-weight:700; color:var(--color-heading); margin-bottom:16px;">What gets auto-created on <code>npm install</code></h3>
       <div class="reveal" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
         <div style="padding:12px 16px; background:var(--color-bg-card); border:1px solid var(--color-border); border-radius:var(--radius-sm); font-size:0.875rem;">
-          <span style="color:var(--color-success);">&#10003;</span> <code>.claude/</code> <span style="color:var(--color-text-dim);">agents, skills, knowledge</span>
+          <span style="color:var(--color-success);">&#10003;</span> <code>.claude/</code> <span style="color:var(--color-text-dim);">agents, skills, knowledge, hooks</span>
         </div>
         <div style="padding:12px 16px; background:var(--color-bg-card); border:1px solid var(--color-border); border-radius:var(--radius-sm); font-size:0.875rem;">
           <span style="color:var(--color-success);">&#10003;</span> <code>.10x/</code> <span style="color:var(--color-text-dim);">project tracking + assets</span>
@@ -1241,7 +1339,7 @@ npx 10x-development-team setup --all</code></pre>
           <span style="color:var(--color-success);">&#10003;</span> <code>public/models/</code> <span style="color:var(--color-text-dim);">3D asset directories</span>
         </div>
         <div style="padding:12px 16px; background:var(--color-bg-card); border:1px solid var(--color-border); border-radius:var(--radius-sm); font-size:0.875rem;">
-          <span style="color:var(--color-success);">&#10003;</span> <code>playwright</code> <span style="color:var(--color-text-dim);">browser automation</span>
+          <span style="color:var(--color-success);">&#10003;</span> <code>hooks.json</code> <span style="color:var(--color-text-dim);">index enforcement hooks</span>
         </div>
       </div>
     </div>
@@ -1307,7 +1405,7 @@ npx 10x-development-team --version                 # Show version</code></pre>
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "10x Development Team",
-  "description": "Multi-agent AI plugin. 8 specialist agents, 20 MCP tools, 3D asset pipeline, Playwright browser automation. Build stunning apps with 3D scenes, scroll animations, glassmorphism, particles, and production-grade UI from natural language.",
+  "description": "Multi-agent AI plugin. 8 specialist agents, 22 MCP tools, smart index system, 3D asset pipeline. Build stunning apps with 3D scenes, scroll animations, glassmorphism, particles, and production-grade UI from natural language. Install globally or per-project.",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Windows, macOS, Linux",
   "url": "https://github.com/10x-Anit/10x-development-team",

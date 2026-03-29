@@ -53,6 +53,18 @@
     "scripts",
     "README.md"
   ],
+  "peerDependencies": {
+    "playwright": ">=1.40.0",
+    "@playwright/mcp": ">=0.1.0"
+  },
+  "peerDependenciesMeta": {
+    "playwright": {
+      "optional": true
+    },
+    "@playwright/mcp": {
+      "optional": true
+    }
+  },
   "engines": {
     "node": ">=18"
   }

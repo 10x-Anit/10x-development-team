@@ -55,6 +55,38 @@ These rules apply to ALL agents, ALL scopes, ALL models:
 | Scroll-driven 3D | `knowledge/patterns/scroll-driven-3d.md` |
 | Glassmorphism & effects | `knowledge/patterns/glassmorphism.md` |
 | 3D hero patterns | `knowledge/patterns/3d-hero-sections.md` |
+| **3D resources & sources** | `knowledge/patterns/3d-resources.md` |
+
+### Free 3D Asset Sources (ALL 100% FREE — no subscriptions, no cost to user)
+> NEVER ask users to pay for any 3D resource. Every source below is completely free.
+
+| Source | URL | What You Get | License |
+|--------|-----|-------------|---------|
+| **Poly Haven** | https://polyhaven.com/ | Models, HDRIs, textures. BEST free source | CC0 (no attribution needed) |
+| **Kenney** | https://kenney.nl/assets | Low-poly game asset packs | CC0 |
+| **Quaternius** | https://quaternius.com/ | Cartoon characters, animals, nature | CC0 |
+| **Sketchfab** | https://sketchfab.com/features/free-3d-models | Models, characters (filter: Downloadable + CC) | CC-BY/CC0 |
+| **Mixamo** | https://www.mixamo.com/ | Animated human characters (free Adobe account) | Free |
+| **ReadyPlayer.me** | https://readyplayer.me/ | Custom avatars from selfie | Free |
+| **Blender** | https://www.blender.org/ | Create anything, export GLB | GPL (open source) |
+
+### Free SVG Illustration Sources (for SVG → 3D technique)
+| Source | URL | Style |
+|--------|-----|-------|
+| Heroicons | https://heroicons.com/ | Clean UI icons (briefcase, search, rocket, envelope) |
+| Lucide | https://lucide.dev/ | Beautiful open-source icons |
+| unDraw | https://undraw.co/ | Flat illustrations of people and scenes |
+| Humaaans | https://www.humaaans.com/ | Mix-and-match people illustrations |
+| Open Peeps | https://www.openpeeps.com/ | Hand-drawn people illustrations |
+| SVGRepo | https://www.svgrepo.com/ | 500k+ free SVGs, all categories |
+| Phosphor Icons | https://phosphoricons.com/ | Flexible icon family |
+
+### 3D Optimization Tools
+| Tool | URL | Purpose |
+|------|-----|---------|
+| gltf.pmnd.rs | https://gltf.pmnd.rs/ | Convert GLB → React Three Fiber component |
+| gltf.report | https://gltf.report/ | Inspect GLB — check poly count, size |
+| gltf-transform | https://gltf-transform.dev/ | CLI: compress + optimize GLB files |
 
 ## Index-First Rule (MANDATORY)
 
@@ -81,12 +113,25 @@ The plugin uses a SQLite database at `~/.10x/memory.db` to remember ALL projects
 - Key decisions and user preferences are saved per-project
 - Users can switch between projects with `/projects`
 
-On `/start`: register project in SQLite. On `/resume`: load context from SQLite. On session end: save summary.
+On `/start`: register project in SQLite. On `/resumeproject`: load context from SQLite. On session end: save summary.
 If SQLite is unavailable (no `better-sqlite3`, web sandbox), fall back to `.10x/` files only — never fail because of missing database.
 
-## Knowledge Base (READ BEFORE CODING)
+## Token Efficiency (CRITICAL — saves user money)
 
-Before writing code, check `.claude/knowledge/index.json` and read the relevant file:
+**DO NOT read every knowledge file for every task.** Read ONLY what the task requires:
+
+1. **ALWAYS read:** `.10x/project.json` + `.10x/file-index.json` (small files, essential context)
+2. **Read ONE knowledge file** matching your task (not all of them)
+3. **If the task prompt already includes code patterns or file contents**, skip the knowledge file — you already have context
+4. **For bug fixes**, read ONLY the broken file — no knowledge files needed
+5. **For modifications**, read ONLY the file being modified + its dependencies from file-index
+6. **NEVER scan the filesystem** — use file-index.json as the source of truth
+
+Each agent's instructions specify exactly which knowledge file to read for which task type. Follow those tables.
+
+## Knowledge Base (read ONLY the ONE file matching your task)
+
+Check `.claude/knowledge/index.json` and read the relevant file:
 
 | Need | Read |
 |------|------|
@@ -126,6 +171,9 @@ Before writing code, check `.claude/knowledge/index.json` and read the relevant 
 | Scroll-driven 3D | `knowledge/patterns/scroll-driven-3d.md` |
 | Glassmorphism & CSS effects | `knowledge/patterns/glassmorphism.md` |
 | 3D hero sections | `knowledge/patterns/3d-hero-sections.md` |
+| **3D website build guide (MUST READ)** | `knowledge/patterns/3d-website-learnings.md` |
+| **3D website build guide (MUST READ FIRST)** | `knowledge/patterns/3d-website-learnings.md` |
+| **3D resources (Spline, Sketchfab, SVG→3D, Mixamo, GLB)** | `knowledge/patterns/3d-resources.md` |
 | Copy-paste components | `knowledge/components-source/*.md` |
 
 Read the knowledge file FIRST, then build. Don't reinvent patterns that are already documented.
@@ -254,7 +302,7 @@ Every task:
 | `/10x-development-team:review` | Code quality review |
 | `/10x-development-team:explain` | Explain how something works |
 | `/10x-development-team:deploy` | Set up deployment |
-| `/10x-development-team:resume` | Continue from where you left off |
+| `/10x-development-team:resumeproject` | Continue from where you left off |
 | `/10x-development-team:status` | Quick project overview |
 | `/10x-development-team:update-deps` | Check/update dependencies |
 | `/10x-development-team:config` | View/change project settings |

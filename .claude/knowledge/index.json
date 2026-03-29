@@ -58,7 +58,9 @@
     "particle-systems.md": "Particle effects: floating particles, rising embers, wave grids, galaxy spirals, network graphs, snow/rain. Instanced meshes for performance.",
     "scroll-driven-3d.md": "Scroll + 3D: GSAP ScrollTrigger with R3F camera paths, object reveals, material morphing, parallax 3D layers, section-triggered animations.",
     "glassmorphism.md": "Modern CSS effects: glassmorphism cards, mesh gradients, noise overlays, glow/neon, gradient borders, dot/line grids, spotlight effects, mouse-following highlights.",
-    "3d-hero-sections.md": "Hero section patterns: floating object hero, particle field hero, wireframe + bloom neon hero, glass sphere hero, starfield galaxy hero. Mobile fallbacks + reduced motion."
+    "3d-hero-sections.md": "Hero section patterns: floating object hero, particle field hero, wireframe + bloom neon hero, glass sphere hero, starfield galaxy hero. Mobile fallbacks + reduced motion.",
+    "3d-website-learnings.md": "BATTLE-TESTED learnings for building premium 3D websites. Covers: how to explore reference sites with Playwright, single-viewport vs multi-section architecture, why real GLB models beat primitives, animation crossfade patterns, typography rules (80-100px hero text), color transition per scene, the complete build pipeline, and 10 rules for 10/10 3D sites. READ THIS BEFORE ANY 3D WEBSITE BUILD.",
+    "3d-resources.md": "COMPLETE 3D resource guide — 3 approaches: (A) Pre-made models from Spline/Sketchfab/Mixamo/Poly Haven/Kenney with R3F loading code, (B) SVG-to-3D extrude technique with SVGLoader + ExtrudeGeometry + ready-to-use icon paths, (C) Procedural primitives with Drei materials. Includes free SVG sources (Heroicons, unDraw, Humaaans), optimization tools (gltf.pmnd.rs, gltf-transform), Spline-to-R3F pipeline, Mixamo-to-GLB workflow"
   },
   "components-source": {
     "button.md": "Button component with 8 variants (primary, secondary, outline, ghost, destructive, link, gradient, glass), sizes, loading state, icon slots, MotionButton — copy-paste ready",

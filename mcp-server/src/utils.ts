@@ -156,7 +156,7 @@ export function listSkills(): string[] {
   return [
     'start', 'build', 'add-page', 'add-feature', 'connect-data',
     'modify-ui', 'generate', 'fix', 'refactor', 'review', 'explain',
-    'deploy', 'resume', 'status', 'update-deps', 'config', 'index',
+    'deploy', 'resumeproject', 'status', 'update-deps', 'config', 'index',
     'projects', 'help'
   ];
 }
@@ -165,5 +165,53 @@ export function listSkills(): string[] {
  * List all available agents
  */
 export function listAgents(): string[] {
-  return ['team-lead', 'frontend-dev', 'backend-dev', 'ui-designer', 'qa-tester', 'deployer', 'error-recovery'];
+  return ['team-lead', 'frontend-dev', 'backend-dev', 'ui-designer', '3d-designer', 'qa-tester', 'deployer', 'error-recovery'];
+}
+
+/**
+ * Download a file from a URL to a local path
+ */
+export async function downloadFile(url: string, destPath: string): Promise<void> {
+  const { default: https } = await import('https');
+  const { default: http } = await import('http');
+  const { createWriteStream } = await import('fs');
+  const { dirname: dirn } = await import('path');
+
+  const destDir = dirn(destPath);
+  if (!existsSync(destDir)) {
+    mkdirSync(destDir, { recursive: true });
+  }
+
+  return new Promise((resolve, reject) => {
+    const protocol = url.startsWith('https') ? https : http;
+    const request = protocol.get(url, (response) => {
+      // Follow redirects
+      if (response.statusCode && response.statusCode >= 300 && response.statusCode < 400 && response.headers.location) {
+        downloadFile(response.headers.location, destPath).then(resolve).catch(reject);
+        return;
+      }
+      if (response.statusCode && response.statusCode !== 200) {
+        reject(new Error(`Download failed: HTTP ${response.statusCode}`));
+        return;
+      }
+      const file = createWriteStream(destPath);
+      response.pipe(file);
+      file.on('finish', () => { file.close(); resolve(); });
+      file.on('error', reject);
+    });
+    request.on('error', reject);
+    request.setTimeout(30000, () => { request.destroy(); reject(new Error('Download timeout')); });
+  });
+}
+
+/**
+ * Read/write storyboard file (.10x/storyboard.json)
+ */
+export function readStoryboard(): unknown | null {
+  const content = readProjectFile('storyboard.json');
+  return content ? JSON.parse(content) : null;
+}
+
+export function writeStoryboard(storyboard: unknown): void {
+  writeProjectFile('storyboard.json', JSON.stringify(storyboard, null, 2));
 }

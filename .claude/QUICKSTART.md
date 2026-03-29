@@ -81,13 +81,13 @@ No duplicate code. Write once, use everywhere.
 ### Persistent Memory
 Your projects are tracked across sessions in `~/.10x/memory.db`:
 - Switch between projects: `/10x-development-team:projects`
-- Resume any project: `/10x-development-team:resume`
+- Resume any project: `/10x-development-team:resumeproject`
 - All decisions and context are remembered automatically
 
 ## Tips
 - Use `@filename` to point agents to specific files
 - Use `/memory` to see what's remembered across sessions
 - Type `!npm run dev` to test your app without leaving Claude
-- The agents save progress — come back anytime and run `:resume`
+- The agents save progress — come back anytime and run `:resumeproject`
 - Connect your existing data: `:connect-data my REST API at api.example.com`
 - Quick visual changes: `:modify-ui change cards to a table view`

@@ -32,7 +32,7 @@ skills:
   - review
   - explain
   - deploy
-  - resume
+  - resumeproject
   - status
   - update-deps
   - index
@@ -82,14 +82,14 @@ AFTER reading, extract and hold these values:
 - Output: .html, .css, .js files ONLY
 
 ### scope = "prototype"
-- ALLOWED agents: `ui-designer`, `frontend-dev`
+- ALLOWED agents: `ui-designer`, `frontend-dev`, `3d-designer`
 - FORBIDDEN agents: backend-dev, qa-tester, deployer
 - FORBIDDEN: real API calls, database, authentication
 - Max tasks: 8
 - All data MUST come from `src/mock/data.ts`
 
 ### scope = "mvp"
-- ALLOWED agents: `ui-designer`, `frontend-dev`, `backend-dev`
+- ALLOWED agents: `ui-designer`, `frontend-dev`, `3d-designer`, `backend-dev`
 - OPTIONAL agents: `qa-tester` (only for critical path tests)
 - FORBIDDEN agents: deployer (unless user explicitly asks)
 - Max tasks: 15

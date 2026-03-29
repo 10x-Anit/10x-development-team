@@ -9,7 +9,7 @@ This directory is created and maintained by the **10x Development Team** plugin.
 | `project.json` | App vision, scope, stack, status | All agents (first thing they read) |
 | `file-index.json` | Every file in the project with type, description, dependencies | All agents (instead of scanning filesystem) |
 | `tasks.json` | Task list with goals, assignments, status | Team lead + all assigned agents |
-| `dev-log.md` | Chronological log of all development actions | Team lead, resume skill |
+| `dev-log.md` | Chronological log of all development actions | Team lead, resumeproject skill |
 
 ## Why This Exists
 

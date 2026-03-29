@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>10x Development Team — Your AI Development Team</title>
-  <meta name="description" content="Multi-agent AI plugin. 8 specialist agents build stunning apps with 3D scenes, scroll animations, glassmorphism, particles, and production-grade UI. Works with Claude Code, Cursor, Windsurf, Codex, and 5 more AI clients.">
+  <meta name="description" content="Multi-agent AI plugin. 8 specialist agents, 20 MCP tools, 3D asset pipeline, Playwright browser automation. Build stunning apps with 3D scenes, scroll animations, glassmorphism, particles, and production-grade UI. Works with Claude Code, Cursor, Windsurf, Codex, and 5 more AI clients.">
   <meta property="og:title" content="10x Development Team">
-  <meta property="og:description" content="8 AI agents that build beautiful apps with 3D, scroll animations, particles, and production-grade UI. One plugin, 9 clients, 19 commands.">
+  <meta property="og:description" content="8 AI agents, 20 MCP tools, 3D asset pipeline with Sketchfab/Mixamo/Poly Haven. Build beautiful apps with 3D, scroll animations, particles, and production-grade UI. One plugin, 9 clients.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://10x-anit.github.io/10x-development-team/">
   <link rel="canonical" href="https://10x-anit.github.io/10x-development-team/">
@@ -504,6 +504,7 @@
     </div>
     <div class="hero-stats reveal reveal-delay-4">
       <div class="stat"><div class="stat-value gradient-text">8</div><div class="stat-label">AI Agents</div></div>
+      <div class="stat"><div class="stat-value gradient-text">20</div><div class="stat-label">MCP Tools</div></div>
       <div class="stat"><div class="stat-value gradient-text">19</div><div class="stat-label">Commands</div></div>
       <div class="stat"><div class="stat-value gradient-text">61</div><div class="stat-label">Knowledge Files</div></div>
       <div class="stat"><div class="stat-value gradient-text">9</div><div class="stat-label">AI Clients</div></div>
@@ -697,7 +698,7 @@
           <li>CI/CD pipeline</li>
           <li>Docker config</li>
           <li>Error tracking</li>
-          <li>All 7 agents active</li>
+          <li>All 8 agents active</li>
         </ul>
       </div>
     </div>
@@ -710,8 +711,8 @@
 <section class="commands-section" id="commands">
   <div class="container">
     <div class="section-label reveal">Commands</div>
-    <h2 class="section-title reveal">19 commands. <span class="gradient-text">Every workflow covered.</span></h2>
-    <p class="section-subtitle reveal">Natural language skills for every stage of development. Use as slash commands in Claude Code or MCP tools in any client.</p>
+    <h2 class="section-title reveal">19 slash commands. <span class="gradient-text">20 MCP tools.</span></h2>
+    <p class="section-subtitle reveal">Natural language skills for every stage of development. Use as <code>/10x-development-team:command</code> in Claude Code, or call MCP tools programmatically from any AI client.</p>
     <div class="command-groups">
       <div class="command-group reveal">
         <h3>&#9654; Project Lifecycle</h3>
@@ -794,6 +795,12 @@
         <p>CRUD app connected to Supabase, role-based access, data tables with sort/filter/export. MVP scope.</p>
         <div class="use-case-prompt">"Build an internal tool for managing customer support tickets with Supabase"</div>
       </div>
+      <div class="use-case-card reveal reveal-delay-2">
+        <div class="use-case-icon" aria-hidden="true">&#127912;</div>
+        <h3>3D Immersive Website</h3>
+        <p>Scroll-driven 3D story with real GLTF models from Sketchfab/Mixamo, GSAP animations, particles, and glassmorphism overlays. Prototype scope with R3F + Drei.</p>
+        <div class="use-case-prompt">"Create a Dora-style 3D scroll website for my job search app with real 3D models"</div>
+      </div>
     </div>
   </div>
 </section>
@@ -856,30 +863,37 @@ npx 10x-development-team doctor</code></pre>
         </tbody>
       </table>
 
-      <h4>MCP Config Format</h4>
+      <h4>MCP Config Format (.mcp.json -- auto-created by postinstall)</h4>
       <pre><code>{
   "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    },
     "10x-dev": {
       "command": "node",
-      "args": ["/absolute/path/to/node_modules/10x-development-team/dist/index.js"],
+      "args": ["/path/to/node_modules/10x-development-team/dist/index.js"],
       "env": {
-        "PLUGIN_ROOT": "/absolute/path/to/node_modules/10x-development-team/plugin"
+        "PROJECT_DIR": "/path/to/your/project",
+        "PLUGIN_ROOT": "/path/to/node_modules/10x-development-team"
       }
     }
   }
 }</code></pre>
-      <p style="font-size: 0.8125rem; color: var(--color-text-dim); margin-top: 8px;">VS Code uses <code>"servers"</code> as the top-level key instead of <code>"mcpServers"</code>.</p>
+      <p style="font-size: 0.8125rem; color: var(--color-text-dim); margin-top: 8px;">VS Code uses <code>"servers"</code> as the top-level key instead of <code>"mcpServers"</code>. Windows uses <code>"command": "cmd", "args": ["/c", "npx", ...]</code> for Playwright.</p>
     </div>
 
     <!-- Tool Reference -->
     <div class="ref-block reveal" id="ref-tools">
-      <h3>MCP Tool Reference (12 tools)</h3>
+      <h3>MCP Tool Reference (20 tools)</h3>
+
+      <h4 style="margin-top:24px; color: var(--color-primary);">Project Lifecycle (5 tools)</h4>
       <table class="ref-table">
         <thead><tr><th>Tool</th><th>Parameters</th><th>Returns</th></tr></thead>
         <tbody>
           <tr>
             <td>tenx_start</td>
-            <td>name (string), description (string), scope (simple|prototype|mvp|production), type (website|webapp|mobile|ecommerce|other), target_users? (string), core_features? (string[]), first_screen? (string)</td>
+            <td>name, description, scope (simple|prototype|mvp|production), type (website|webapp|mobile|ecommerce|other), target_users?, core_features?, first_screen?</td>
             <td>Project JSON, creates .10x/ directory, registers in SQLite memory</td>
           </tr>
           <tr>
@@ -890,7 +904,7 @@ npx 10x-development-team doctor</code></pre>
           <tr>
             <td>tenx_projects</td>
             <td>action (list|search|info|delete), query? (string)</td>
-            <td>Project list, search results, project info with sessions/memories, or deletion confirmation</td>
+            <td>Project list, search results, project info with sessions/memories</td>
           </tr>
           <tr>
             <td>tenx_read_index</td>
@@ -899,9 +913,16 @@ npx 10x-development-team doctor</code></pre>
           </tr>
           <tr>
             <td>tenx_update_index</td>
-            <td>file_index_updates? (object), task_updates? (array), dev_log_entry? (string), feature_map_updates? (object)</td>
+            <td>file_index_updates?, task_updates?, dev_log_entry?, feature_map_updates?</td>
             <td>Confirmation of which files were updated</td>
           </tr>
+        </tbody>
+      </table>
+
+      <h4 style="margin-top:24px; color: var(--color-primary);">Knowledge & Components (4 tools)</h4>
+      <table class="ref-table">
+        <thead><tr><th>Tool</th><th>Parameters</th><th>Returns</th></tr></thead>
+        <tbody>
           <tr>
             <td>tenx_get_skill</td>
             <td>skill_name (start|build|add-page|add-feature|connect-data|modify-ui|generate|fix|refactor|review|explain|deploy|resume|status|update-deps|config|index|projects|help)</td>
@@ -909,7 +930,7 @@ npx 10x-development-team doctor</code></pre>
           </tr>
           <tr>
             <td>tenx_get_knowledge</td>
-            <td>category (frameworks|libraries|patterns|components-source), file_name (string, e.g. "nextjs.md")</td>
+            <td>category (frameworks|libraries|patterns|components-source), file_name (e.g. "nextjs.md")</td>
             <td>Knowledge file content with copy-paste code patterns</td>
           </tr>
           <tr>
@@ -922,6 +943,13 @@ npx 10x-development-team doctor</code></pre>
             <td>(none)</td>
             <td>Component registry JSON with props, variants, template paths</td>
           </tr>
+        </tbody>
+      </table>
+
+      <h4 style="margin-top:24px; color: var(--color-primary);">Memory & Context (3 tools)</h4>
+      <table class="ref-table">
+        <thead><tr><th>Tool</th><th>Parameters</th><th>Returns</th></tr></thead>
+        <tbody>
           <tr>
             <td>tenx_save_memory</td>
             <td>category (decision|preference|issue|context|user_feedback), content (string)</td>
@@ -934,8 +962,69 @@ npx 10x-development-team doctor</code></pre>
           </tr>
           <tr>
             <td>tenx_get_agent</td>
-            <td>agent_name (team-lead|frontend-dev|backend-dev|ui-designer|qa-tester|deployer|error-recovery)</td>
+            <td>agent_name (team-lead|frontend-dev|backend-dev|ui-designer|3d-designer|qa-tester|deployer|error-recovery)</td>
             <td>Full agent instruction markdown</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 style="margin-top:24px; color: var(--color-secondary);">User Interaction (2 tools) <span style="color: var(--color-success); font-size:0.75rem; vertical-align:super;">NEW</span></h4>
+      <table class="ref-table">
+        <thead><tr><th>Tool</th><th>Parameters</th><th>Returns</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>tenx_ask_user</td>
+            <td>question_type (approval|choice|multi_choice|open_ended|priority|confirmation), title, question, context?, options? [{label, description?, preview?}], default_option?, deadline_context?</td>
+            <td>Formatted question for user with question_id. Stores in .10x/pending-questions.json</td>
+          </tr>
+          <tr>
+            <td>tenx_save_answer</td>
+            <td>question_id (string), answer (string), selected_options? (string[])</td>
+            <td>Saves user response, persists to SQLite memory for cross-session recall</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 style="margin-top:24px; color: var(--color-secondary);">3D Asset Pipeline (4 tools) <span style="color: var(--color-success); font-size:0.75rem; vertical-align:super;">NEW</span></h4>
+      <table class="ref-table">
+        <thead><tr><th>Tool</th><th>Parameters</th><th>Returns</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>tenx_download_asset</td>
+            <td>url (URL), filename (e.g. "laptop.glb"), asset_type (model|texture|hdri|animation|other), source?, license?, description?</td>
+            <td>Downloaded file path, public URL, R3F usage hint. Tracked in .10x/assets.json</td>
+          </tr>
+          <tr>
+            <td>tenx_list_assets</td>
+            <td>(none)</td>
+            <td>All downloaded 3D assets with paths, sources, licenses</td>
+          </tr>
+          <tr>
+            <td>tenx_browse_3d_sources</td>
+            <td>query (string), source (all|sketchfab|polyhaven|mixamo|kenney|quaternius), format_preference (glb|gltf|fbx|any), license_filter (any|cc0|cc-by|free), max_poly?</td>
+            <td>Search URLs for each source, recommended workflow, tips per source</td>
+          </tr>
+          <tr>
+            <td>tenx_model_sources</td>
+            <td>category (all|characters|objects|environments|effects|textures|hdri)</td>
+            <td>Full registry of free 3D sources: Sketchfab, Poly Haven, Mixamo, Kenney, Quaternius, ReadyPlayer.me + tools (gltf.pmnd.rs, gltf.report, gltf-transform)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 style="margin-top:24px; color: var(--color-secondary);">Storyboard & Visual (2 tools) <span style="color: var(--color-success); font-size:0.75rem; vertical-align:super;">NEW</span></h4>
+      <table class="ref-table">
+        <thead><tr><th>Tool</th><th>Parameters</th><th>Returns</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>tenx_storyboard</td>
+            <td>action (create|read|update_scene|approve|reject), storyboard? {title, narrative, style (dora-hero|scroll-story|parallax-layers|scene-transitions|interactive-explore), scenes? [{id, title, scroll_range, model_3d, text_overlay, background, camera?, transition?}]}, scene_id?, scene_updates?, feedback?</td>
+            <td>Creates/reads/updates storyboard in .10x/storyboard.json. Supports approval/rejection workflow</td>
+          </tr>
+          <tr>
+            <td>tenx_screenshot</td>
+            <td>url (default localhost:5173), filename, full_page?, width?, height?, wait_for?, scroll_to?</td>
+            <td>Screenshot saved to .10x/screenshots/. Uses Playwright (auto-installed). Falls back gracefully if unavailable</td>
           </tr>
         </tbody>
       </table>
@@ -970,6 +1059,10 @@ npx 10x-development-team doctor</code></pre>
             <li><span class="kf">react-hook-form.md</span><span class="kd">Forms: validation, error display, submission</span></li>
             <li><span class="kf">resend.md</span><span class="kd">Email: Resend API, React Email templates</span></li>
             <li><span class="kf">charts-dataviz.md</span><span class="kd">Recharts, stat cards, sparklines, dashboards</span></li>
+            <li><span class="kf">react-three-fiber.md</span><span class="kd">R3F Canvas, meshes, materials, lights, camera</span></li>
+            <li><span class="kf">drei.md</span><span class="kd">Float, Stars, Sparkles, Environment, useGLTF, MeshDistortMaterial</span></li>
+            <li><span class="kf">gsap-scrolltrigger.md</span><span class="kd">GSAP timelines, ScrollTrigger, scrub, pin</span></li>
+            <li><span class="kf">three-postprocessing.md</span><span class="kd">Bloom, vignette, chromatic aberration, depth of field</span></li>
           </ul>
         </div>
         <div class="knowledge-category">
@@ -992,6 +1085,11 @@ npx 10x-development-team doctor</code></pre>
             <li><span class="kf">rate-limiting.md</span><span class="kd">Rate limiting, CORS, security headers</span></li>
             <li><span class="kf">monitoring.md</span><span class="kd">Sentry, structured logging, health checks</span></li>
             <li><span class="kf">plugin-memory.md</span><span class="kd">SQLite memory schema, cross-project tracking</span></li>
+            <li><span class="kf">3d-scenes.md</span><span class="kd">Scene composition, lighting rigs, material recipes</span></li>
+            <li><span class="kf">particle-systems.md</span><span class="kd">Instanced particles, confetti, sparkle trails</span></li>
+            <li><span class="kf">scroll-driven-3d.md</span><span class="kd">GSAP + R3F scroll animation, chapter transitions</span></li>
+            <li><span class="kf">glassmorphism.md</span><span class="kd">Frosted glass, backdrop-blur, layered transparency</span></li>
+            <li><span class="kf">3d-hero-sections.md</span><span class="kd">Hero with 3D background, text overlay, scroll indicator</span></li>
           </ul>
         </div>
         <div class="knowledge-category">
@@ -1019,27 +1117,31 @@ npx 10x-development-team doctor</code></pre>
       <table class="ref-table">
         <thead><tr><th>Mode</th><th>How</th><th>Best For</th></tr></thead>
         <tbody>
-          <tr><td>MCP Server</td><td>Runs as local MCP server. AI client connects via stdio. 12 tools exposed. Works with all 9 clients.</td><td>Any AI client with MCP support</td></tr>
+          <tr><td>MCP Server</td><td>Runs as local MCP server. AI client connects via stdio. 20 tools exposed. Works with all 9 clients.</td><td>Any AI client with MCP support</td></tr>
           <tr><td>Direct Plugin</td><td>Copies agents/, skills/, knowledge/, components/ into project's .claude/ directory. No server needed.</td><td>Claude Code only</td></tr>
         </tbody>
       </table>
 
       <h4>Plugin File Structure</h4>
       <pre><code>plugin/
-  agents/           # 7 agent instruction files (.md)
-    team-lead.md
-    frontend-dev.md
-    backend-dev.md
-    ui-designer.md
-    qa-tester.md
-    deployer.md
-    error-recovery.md
+  agents/           # 8 agent instruction files (.md)
+    team-lead.md        # Orchestrator -- delegates, tracks, reports
+    frontend-dev.md     # Pages, components, UI
+    backend-dev.md      # APIs, database, auth
+    ui-designer.md      # Design system, tokens, visual consistency
+    3d-designer.md      # 3D scenes, particles, scroll-driven 3D, R3F
+    qa-tester.md        # Tests, lint, quality
+    deployer.md         # CI/CD, Docker, hosting
+    error-recovery.md   # Fix build errors, crashes
   skills/           # 19 skill files (.md) -- step-by-step instructions
     start.md, build.md, add-page.md, add-feature.md, ...
   knowledge/        # 50+ reference files organized by category
     frameworks/     # nextjs.md, vite-react.md, html-css-js.md, expo-react-native.md
-    libraries/      # shadcn-ui.md, tailwind.md, prisma.md, stripe.md, ...
-    patterns/       # ui-ux-principles.md, design-system.md, api-patterns.md, ...
+    libraries/      # shadcn-ui.md, tailwind.md, prisma.md, stripe.md,
+                    # react-three-fiber.md, drei.md, gsap-scrolltrigger.md, three-postprocessing.md
+    patterns/       # ui-ux-principles.md, design-system.md, api-patterns.md,
+                    # 3d-scenes.md, particle-systems.md, scroll-driven-3d.md,
+                    # glassmorphism.md, 3d-hero-sections.md
     components-source/  # button.md, card.md, navbar.md, modal.md, ...
     index.json      # Master index -- read this first
   components/
@@ -1052,7 +1154,31 @@ npx 10x-development-team doctor</code></pre>
   file-index.json   # Every file: type, description, exports, dependencies
   tasks.json        # Task tracker: id, status, assigned_to, goal
   feature-map.json  # Feature-to-file mapping with data flow wiring
-  dev-log.md        # Chronological log of all agent actions</code></pre>
+  dev-log.md        # Chronological log of all agent actions
+  assets.json       # Downloaded 3D models, textures, HDRIs with licenses
+  storyboard.json   # 3D website story scenes, scroll mappings, model refs
+  pending-questions.json  # User approval/choice questions awaiting response
+  screenshots/      # Playwright screenshots for visual verification</code></pre>
+
+      <h4>Auto-Created by Postinstall</h4>
+      <pre><code># When users run: npm install 10x-development-team
+# The postinstall script automatically creates:
+
+.claude/              # Plugin files (agents, skills, knowledge, components)
+.10x/                 # Project tracking directory
+.10x/assets.json      # 3D asset registry
+.env                  # Environment variable skeleton
+.env.example          # All possible env vars documented
+.mcp.json             # Playwright MCP + 10x MCP wired in
+.gitignore            # Updated with .env, .10x/screenshots/
+public/models/        # Directory for 3D models (GLB, GLTF)
+public/textures/      # Directory for PBR textures
+public/hdri/          # Directory for environment maps
+
+# Also installs:
+playwright            # Browser automation (screenshots, site exploration)
+@playwright/mcp       # Playwright MCP server for AI agent browser control
+chromium              # Headless browser for Playwright</code></pre>
 
       <h4>Persistent Memory</h4>
       <pre><code># SQLite database at ~/.10x/memory.db
@@ -1070,26 +1196,89 @@ npx 10x-development-team doctor</code></pre>
   <div class="container">
     <div class="section-label reveal">Get Started</div>
     <h2 class="section-title reveal">Install in <span class="gradient-text">30 seconds</span></h2>
-    <p class="section-subtitle reveal" style="margin: 0 auto 0;">Three ways to set up. Pick the one that matches your workflow.</p>
+    <p class="section-subtitle reveal" style="margin: 0 auto 0;">Three ways to set up. The postinstall auto-creates everything you need.</p>
     <div class="install-options">
       <div class="install-card featured reveal">
-        <h3>Auto Setup (recommended)</h3>
-        <p>Detects your installed AI clients and configures them automatically.</p>
-        <pre><code>npm install -g 10x-development-team
-npx 10x-development-team setup</code></pre>
+        <h3>In Your Project (recommended)</h3>
+        <p>Install as a dev dependency. Postinstall auto-creates .claude/, .10x/, .mcp.json, .env, public/models/, and installs Playwright.</p>
+        <pre><code>cd my-project
+npm install 10x-development-team
+# Done! Open Claude Code and type:
+# /10x-development-team:start</code></pre>
       </div>
       <div class="install-card reveal reveal-delay-1">
-        <h3>Specific Client</h3>
-        <p>Target a single AI client by name.</p>
-        <pre><code>npx 10x-development-team setup --client cursor
+        <h3>MCP Server (any AI client)</h3>
+        <p>Auto-detect installed AI clients and configure MCP server for each.</p>
+        <pre><code>npx 10x-development-team setup
+# Or target a specific client:
+npx 10x-development-team setup --client cursor
 npx 10x-development-team setup --client windsurf
-npx 10x-development-team setup --client claude-code</code></pre>
+npx 10x-development-team setup --all</code></pre>
       </div>
       <div class="install-card reveal reveal-delay-2">
         <h3>Claude Code Plugin (no MCP)</h3>
-        <p>Install directly into a project as a Claude Code plugin. No server needed.</p>
+        <p>Copy plugin files directly into a project. Claude Code reads them natively.</p>
         <pre><code>npx 10x-development-team install-plugin ~/my-app</code></pre>
       </div>
+    </div>
+
+    <div style="margin-top:48px; text-align:left; max-width:720px; margin-left:auto; margin-right:auto;">
+      <h3 class="reveal" style="font-size:1.25rem; font-weight:700; color:var(--color-heading); margin-bottom:16px;">What gets auto-created on <code>npm install</code></h3>
+      <div class="reveal" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+        <div style="padding:12px 16px; background:var(--color-bg-card); border:1px solid var(--color-border); border-radius:var(--radius-sm); font-size:0.875rem;">
+          <span style="color:var(--color-success);">&#10003;</span> <code>.claude/</code> <span style="color:var(--color-text-dim);">agents, skills, knowledge</span>
+        </div>
+        <div style="padding:12px 16px; background:var(--color-bg-card); border:1px solid var(--color-border); border-radius:var(--radius-sm); font-size:0.875rem;">
+          <span style="color:var(--color-success);">&#10003;</span> <code>.10x/</code> <span style="color:var(--color-text-dim);">project tracking + assets</span>
+        </div>
+        <div style="padding:12px 16px; background:var(--color-bg-card); border:1px solid var(--color-border); border-radius:var(--radius-sm); font-size:0.875rem;">
+          <span style="color:var(--color-success);">&#10003;</span> <code>.mcp.json</code> <span style="color:var(--color-text-dim);">Playwright + 10x MCP</span>
+        </div>
+        <div style="padding:12px 16px; background:var(--color-bg-card); border:1px solid var(--color-border); border-radius:var(--radius-sm); font-size:0.875rem;">
+          <span style="color:var(--color-success);">&#10003;</span> <code>.env</code> <span style="color:var(--color-text-dim);">+ .env.example skeleton</span>
+        </div>
+        <div style="padding:12px 16px; background:var(--color-bg-card); border:1px solid var(--color-border); border-radius:var(--radius-sm); font-size:0.875rem;">
+          <span style="color:var(--color-success);">&#10003;</span> <code>public/models/</code> <span style="color:var(--color-text-dim);">3D asset directories</span>
+        </div>
+        <div style="padding:12px 16px; background:var(--color-bg-card); border:1px solid var(--color-border); border-radius:var(--radius-sm); font-size:0.875rem;">
+          <span style="color:var(--color-success);">&#10003;</span> <code>playwright</code> <span style="color:var(--color-text-dim);">browser automation</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:48px; text-align:left; max-width:720px; margin-left:auto; margin-right:auto;">
+      <h3 class="reveal" style="font-size:1.25rem; font-weight:700; color:var(--color-heading); margin-bottom:16px;">CLI Commands</h3>
+      <pre class="reveal"><code># Setup & Configuration
+npx 10x-development-team setup                    # Auto-detect + configure all AI clients
+npx 10x-development-team setup --client cursor     # Configure specific client
+npx 10x-development-team setup --all               # Configure ALL 9 clients
+npx 10x-development-team install-plugin ~/my-app   # Direct plugin install (Claude Code)
+npx 10x-development-team doctor                    # Health check + diagnostics
+npx 10x-development-team --version                 # Show version</code></pre>
+    </div>
+
+    <div style="margin-top:32px; text-align:left; max-width:720px; margin-left:auto; margin-right:auto;">
+      <h3 class="reveal" style="font-size:1.25rem; font-weight:700; color:var(--color-heading); margin-bottom:16px;">Slash Commands (Claude Code)</h3>
+      <pre class="reveal"><code># In Claude Code, type any of these:
+/10x-development-team:start          # New project -- describe what you want to build
+/10x-development-team:build          # Execute the full build pipeline
+/10x-development-team:add-page       # Add a new page to your app
+/10x-development-team:add-feature    # Add a feature (frontend + backend)
+/10x-development-team:generate       # Generate component, api, hook, model, or test
+/10x-development-team:connect-data   # Connect external data (API, Supabase, Firebase, CSV)
+/10x-development-team:modify-ui      # Quick UI changes -- layout, theme, colors, dark mode
+/10x-development-team:fix            # Fix a bug -- describe the problem
+/10x-development-team:refactor       # Improve code quality
+/10x-development-team:review         # Code quality review
+/10x-development-team:explain        # Explain how something works
+/10x-development-team:deploy         # Set up deployment
+/10x-development-team:resumeproject         # Continue from where you left off
+/10x-development-team:status         # Quick project overview
+/10x-development-team:update-deps    # Check/update dependencies
+/10x-development-team:config         # View/change project settings
+/10x-development-team:index          # View/rebuild project index
+/10x-development-team:projects       # List/switch between all projects
+/10x-development-team:help           # Show all commands and tips</code></pre>
     </div>
   </div>
 </section>
@@ -1118,12 +1307,12 @@ npx 10x-development-team setup --client claude-code</code></pre>
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "10x Development Team",
-  "description": "Multi-agent AI plugin. 8 specialist agents build stunning apps with 3D scenes, scroll animations, glassmorphism, particles, and production-grade UI from natural language.",
+  "description": "Multi-agent AI plugin. 8 specialist agents, 20 MCP tools, 3D asset pipeline, Playwright browser automation. Build stunning apps with 3D scenes, scroll animations, glassmorphism, particles, and production-grade UI from natural language.",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Windows, macOS, Linux",
   "url": "https://github.com/10x-Anit/10x-development-team",
   "downloadUrl": "https://www.npmjs.com/package/10x-development-team",
-  "softwareVersion": "1.0.2",
+  "softwareVersion": "3.1.0",
   "license": "https://opensource.org/licenses/MIT",
   "author": {
     "@type": "Person",

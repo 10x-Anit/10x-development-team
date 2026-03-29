@@ -193,7 +193,7 @@ sqlite3 ~/.10x/memory.db "INSERT INTO sessions (id, project_id, summary, tasks_c
 sqlite3 ~/.10x/memory.db "INSERT INTO memories (id, project_id, category, content) VALUES ('$(uuidgen)', '<project-id>', 'decision', 'Using Supabase instead of Prisma because user already has a Supabase account');"
 ```
 
-### Get project context (for resume)
+### Get project context (for resumeproject)
 ```bash
 sqlite3 -header -column ~/.10x/memory.db "
   SELECT m.category, m.content, m.created_at
@@ -204,7 +204,7 @@ sqlite3 -header -column ~/.10x/memory.db "
 "
 ```
 
-### Get recent sessions (for resume)
+### Get recent sessions (for resumeproject)
 ```bash
 sqlite3 -header -column ~/.10x/memory.db "
   SELECT s.summary, s.tasks_completed, s.files_created, s.started_at
@@ -227,7 +227,7 @@ sqlite3 ~/.10x/memory.db "INSERT INTO shared_patterns (id, name, description, so
 2. INSERT into projects table
 3. CREATE first session entry
 
-### On `/resume` (returning to project):
+### On `/resumeproject` (returning to project):
 1. SELECT from projects WHERE path = current directory
 2. SELECT recent sessions for context
 3. SELECT memories for decisions/preferences

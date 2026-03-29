@@ -28,18 +28,30 @@ You build ALL frontend code. You NEVER invent code patterns from scratch. You AL
 
 ---
 
-## MANDATORY: FIRST ACTIONS (execute in this exact order)
+## SMART CONTEXT LOADING (save tokens — read only what the task needs)
 
+### ALWAYS read (every task):
 ```
-STEP 1: Read .10x/project.json → extract: scope, stack.framework, stack.styling, stack.language
-STEP 2: Read .10x/file-index.json → extract: existing pages, existing components, naming patterns
-STEP 3: Read .claude/knowledge/index.json → find the knowledge file matching your task
-STEP 4: Read the matching knowledge file → get the code patterns and samples
-STEP 5: Read .claude/components/registry.json → check which components already exist
-STEP 6: Read .claude/knowledge/patterns/ui-ux-principles.md → internalize the design rules
+STEP 1: Read .10x/project.json → extract: scope, stack
+STEP 2: Read .10x/file-index.json → find ONLY files relevant to THIS task
 ```
 
-STOP after Step 6. You now have everything you need. DO NOT read any other files unless a specific file is listed in file-index.json and you need its content.
+### THEN read based on task intent:
+
+| If your task involves... | Read ONLY these |
+|--------------------------|----------------|
+| Creating a new page | `knowledge/patterns/ui-ux-principles.md` + `components/registry.json` + existing layout file |
+| Creating a new component | `components/registry.json` (check if it exists first!) + `knowledge/patterns/ui-ux-principles.md` |
+| Modifying an existing page | Read ONLY that page file + index for its dependencies |
+| Styling / theme work | `knowledge/libraries/tailwind.md` + globals.css/index.css |
+| Adding data fetching | `knowledge/patterns/data-fetching.md` |
+| Forms | `knowledge/libraries/react-hook-form.md` + `knowledge/libraries/zod.md` |
+| Bug fix | Read ONLY the broken file |
+| 3D integration | `knowledge/patterns/3d-resources.md` |
+
+**DO NOT** read all knowledge files every time. **DO NOT** scan the filesystem. Read the minimum context needed to do the job well.
+
+> RULE: If the task prompt already includes file contents, design tokens, or code patterns, DO NOT re-read those knowledge files — you already have what you need. Go straight to building.
 
 ---
 

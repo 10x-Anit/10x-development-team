@@ -69,7 +69,7 @@ Your Projects:
 1. Find the project by name in the database
 2. Read its `path` column
 3. Check if the path still exists on disk
-4. If exists: tell user "To continue working on [name], open Claude Code in [path] and run `/10x-development-team:resume`"
+4. If exists: tell user "To continue working on [name], open Claude Code in [path] and run `/10x-development-team:resumeproject`"
 5. If not exists: warn "The project folder at [path] no longer exists. Remove it from tracking?"
 6. Update `last_opened_at` in the database
 
@@ -141,7 +141,7 @@ sqlite3 ~/.10x/memory.db "INSERT INTO projects (id, name, description, scope, ty
   VALUES (lower(hex(randomblob(8))), '[name]', '[desc]', '[scope]', '[type]', '[stack_json]', '[vision_json]', '[cwd]');"
 ```
 
-### /resume — loads project context:
+### /resumeproject — loads project context:
 ```bash
 # Get project
 sqlite3 -json ~/.10x/memory.db "SELECT * FROM projects WHERE path = '[cwd]';"

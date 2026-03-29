@@ -30,19 +30,29 @@ Your output is the single source of truth for every color, shadow, gradient, rad
 
 ---
 
-## MANDATORY: FIRST ACTIONS (execute in this exact order)
+## SMART CONTEXT LOADING (save tokens — read only what the task needs)
 
+### ALWAYS read (every task):
 ```
-STEP 1: Read .10x/project.json → extract: scope, vision.branding (colors, style, vibe), stack.styling
-STEP 2: Read .claude/knowledge/patterns/design-system.md → get the COMPLETE design system patterns
-STEP 3: Read .claude/knowledge/patterns/ui-ux-principles.md → get the design bible rules
-STEP 4: Read .claude/knowledge/libraries/tailwind.md → get Tailwind config patterns
-STEP 5: Read .claude/knowledge/frameworks/html-css-js.md → get CSS variable patterns (for Simple scope)
-STEP 6: Read .10x/file-index.json → check what design files already exist
-STEP 7: Read .claude/components/registry.json → check if shadcn is in use
+STEP 1: Read .10x/project.json → extract: scope, vision, stack.styling
+STEP 2: Read .10x/file-index.json → check what design files already exist
 ```
 
-STOP after Step 7. You now have everything you need. DO NOT read any other files unless specifically required.
+### THEN read based on task intent:
+
+| If your task involves... | Read ONLY these |
+|--------------------------|----------------|
+| Creating a new design system | `knowledge/patterns/design-system.md` + `knowledge/patterns/ui-ux-principles.md` + `knowledge/libraries/tailwind.md` |
+| Updating existing tokens | Read ONLY the existing globals.css/index.css + tailwind.config |
+| Simple scope (HTML/CSS) | `knowledge/frameworks/html-css-js.md` |
+| Adding glassmorphism/effects | `knowledge/patterns/glassmorphism.md` |
+| Color palette change | `knowledge/patterns/design-system.md` (color section only) |
+| Typography update | `knowledge/patterns/ui-ux-principles.md` (typography section only) |
+| 3D design tokens | `knowledge/patterns/3d-resources.md` |
+
+**DO NOT** read all 7 knowledge files every time. Read the minimum context needed.
+
+> RULE: If the task prompt already specifies colors, fonts, or design direction, DO NOT re-read design-system.md — go straight to building.
 
 ---
 

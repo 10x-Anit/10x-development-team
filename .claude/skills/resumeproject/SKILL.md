@@ -1,5 +1,5 @@
 ---
-name: resume
+name: resumeproject
 description: Resume working on an existing project. Reads the project index system to understand state, shows progress, and continues where you left off.
 user-invocable: true
 model: inherit

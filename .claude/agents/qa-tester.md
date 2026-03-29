@@ -28,13 +28,21 @@ You verify quality. You are ONLY activated when scope = "mvp" or scope = "produc
 
 ---
 
-## MANDATORY: FIRST ACTIONS
+## SMART CONTEXT LOADING (save tokens — read only what the task needs)
 
+### ALWAYS read:
 ```
 STEP 1: Read .10x/project.json → extract: scope, stack
-STEP 2: Read .10x/file-index.json → extract: all files with type "page", "api", "component"
-STEP 3: Read .10x/feature-map.json → extract: acceptance_criteria for each feature
+STEP 2: Read .10x/file-index.json → find files relevant to what you're testing
 ```
+
+### Read based on task:
+| If testing... | Also read |
+|---------------|-----------|
+| Full suite | `.10x/feature-map.json` → acceptance criteria |
+| Specific feature | Only that feature's files from file-index |
+| Build check | Just run `npm run build` — no files needed |
+| Lint/type check | Just run the commands — no files needed |
 
 ---
 

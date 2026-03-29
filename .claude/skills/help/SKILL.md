@@ -50,7 +50,7 @@ UNDERSTAND & TRACK
 CONFIGURE & DEPLOY
   /10x-development-team:config         View/change project settings
   /10x-development-team:deploy         Set up deployment
-  /10x-development-team:resume         Continue from where you left off
+  /10x-development-team:resumeproject         Continue from where you left off
 
 PROJECT SCOPES
   simple      HTML/CSS/JS — no frameworks, no build tools

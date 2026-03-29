@@ -29,21 +29,33 @@ If scope = "simple" or scope = "prototype", you MUST NOT be spawned. If you are,
 
 ---
 
-## MANDATORY: FIRST ACTIONS (exact order)
+## SMART CONTEXT LOADING (save tokens — read only what the task needs)
 
+### ALWAYS read (every task):
 ```
-STEP 1: Read .10x/project.json → extract: scope, stack.backend, stack.database, stack.auth
-STEP 2: Read .10x/file-index.json → extract: existing API routes, service files, db config
-STEP 3: Read .10x/feature-map.json → understand existing features and their wiring
-STEP 4: Read the matching knowledge file:
-        - Database work → .claude/knowledge/libraries/prisma.md
-        - Auth work → .claude/knowledge/libraries/nextauth.md
-        - Validation → .claude/knowledge/libraries/zod.md
-        - Payments → .claude/knowledge/libraries/stripe.md
-        - API patterns → .claude/knowledge/frameworks/nextjs.md (API Routes section)
+STEP 1: Read .10x/project.json → extract: scope, stack
+STEP 2: Read .10x/file-index.json → find ONLY files relevant to THIS task
 ```
 
-STOP after Step 4. You now have the code patterns. DO NOT invent patterns.
+### THEN read based on task intent:
+
+| If your task involves... | Read ONLY this |
+|--------------------------|---------------|
+| Database/ORM | `knowledge/libraries/prisma.md` |
+| Authentication | `knowledge/libraries/nextauth.md` |
+| Input validation | `knowledge/libraries/zod.md` |
+| Payments | `knowledge/libraries/stripe.md` |
+| API routes | `knowledge/frameworks/nextjs.md` (API section) |
+| External API calls | `knowledge/patterns/external-api.md` |
+| Email sending | `knowledge/libraries/resend.md` |
+| File uploads | `knowledge/patterns/file-storage.md` |
+| Realtime data | `knowledge/patterns/realtime.md` |
+| Feature wiring check | `.10x/feature-map.json` |
+| Bug fix | Read ONLY the broken file |
+
+**DO NOT** read all knowledge files. Read the ONE file matching your task.
+
+> RULE: If the task prompt already includes the API shape, schema, or patterns, DO NOT re-read knowledge files — go straight to building.
 
 ---
 

@@ -30,21 +30,41 @@ You work ALONGSIDE the `ui-designer` (who handles 2D design tokens) and `fronten
 
 ---
 
-## MANDATORY: FIRST ACTIONS (execute in this exact order)
+## SMART CONTEXT LOADING (save tokens — read only what you need)
 
+### ALWAYS read (every task):
 ```
-STEP 1: Read .10x/project.json → extract: scope, stack, vision (look for 3D/animation/immersive keywords)
-STEP 2: Read .10x/file-index.json → check existing 3D files, components, scenes
-STEP 3: Read .claude/knowledge/index.json → find relevant 3D knowledge files
-STEP 4: Read .claude/knowledge/libraries/react-three-fiber.md → R3F patterns
-STEP 5: Read .claude/knowledge/libraries/drei.md → Drei helper components
-STEP 6: Read .claude/knowledge/libraries/gsap-scrolltrigger.md → scroll animation patterns
-STEP 7: Read .claude/knowledge/patterns/3d-scenes.md → scene composition patterns
-STEP 8: Read the specific knowledge file matching your task (particles, hero, scroll-3d, etc.)
-STEP 9: Read globals.css and tailwind.config.ts → know the design tokens to match
+STEP 1: Read .10x/project.json → extract: scope, stack, vision
+STEP 2: Read .10x/file-index.json → find existing files relevant to THIS task only
 ```
 
-STOP after Step 9. You now have everything. DO NOT scan the filesystem.
+### THEN read based on task intent:
+
+| If your task involves... | Read ONLY these |
+|--------------------------|----------------|
+| **Building a 3D website/landing page** | `knowledge/patterns/3d-website-learnings.md` (READ FIRST — has the complete pipeline, architecture decisions, and 10 rules for 10/10 quality) |
+| Creating a new 3D scene | `knowledge/patterns/3d-resources.md` + `knowledge/libraries/react-three-fiber.md` + `knowledge/libraries/drei.md` |
+| Scroll-driven animation | `knowledge/patterns/scroll-driven-3d.md` + `knowledge/libraries/gsap-scrolltrigger.md` |
+| Particles/effects | `knowledge/patterns/particle-systems.md` + `knowledge/libraries/drei.md` |
+| Hero section with 3D | `knowledge/patterns/3d-hero-sections.md` + `knowledge/patterns/3d-resources.md` |
+| SVG → 3D technique | `knowledge/patterns/3d-resources.md` (section B) |
+| Loading external models | `knowledge/patterns/3d-resources.md` (section A — Spline/Sketchfab/Mixamo) |
+| Modifying existing scene | Read ONLY the file being modified + the index |
+| Bug fix | Read ONLY the broken file |
+
+### ALSO read (if working with styling):
+```
+STEP 3: Read src/index.css OR globals.css → design tokens to match
+```
+
+**DO NOT** read all knowledge files every time. **DO NOT** scan the filesystem. Read the minimum context needed to do the job well.
+
+> RULE: If the task prompt already includes the file contents or code patterns, DO NOT re-read the knowledge files — you already have what you need.
+
+### 3 APPROACHES FOR 3D ELEMENTS (choose per task):
+- **Approach A: Pre-made Models** — Use Spline (design + export GLB), Sketchfab (download GLB), Mixamo (animated characters), Poly Haven (CC0 models). Load with `useGLTF`. Best for realistic characters, products.
+- **Approach B: SVG → 3D Extrude** — Take SVG icons/illustrations from Heroicons, unDraw, Humaaans, Open Peeps, SVGRepo. Use `SVGLoader` + `ExtrudeGeometry` for stylized flat-with-depth look. Best for icons, logos, modern aesthetic.
+- **Approach C: Procedural** — Build from Three.js primitives + Drei helpers (MeshDistortMaterial, Float, Sparkles, Stars). Best for abstract effects, particles, quick prototypes.
 
 ---
 

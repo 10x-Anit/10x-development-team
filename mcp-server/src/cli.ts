@@ -364,11 +364,13 @@ export async function runSetup(args: string[]): Promise<void> {
   heading('Setup Complete');
   log('');
   log(`${c.bold}What the MCP server gives your AI client:${c.reset}`);
-  log('  \u2022 12 tools: start projects, build, read knowledge, manage tasks');
+  log('  \u2022 20 tools: projects, build, knowledge, assets, storyboard, screenshots, user questions');
   log('  \u2022 19 skills: add pages, features, fix bugs, deploy, and more');
-  log('  \u2022 50+ knowledge files: copy-paste code patterns for React, Tailwind, shadcn, etc.');
+  log('  \u2022 50+ knowledge files: copy-paste code patterns for React, Tailwind, shadcn, R3F, etc.');
   log('  \u2022 35+ component blueprints: buttons, cards, forms, tables, auth pages');
-  log('  \u2022 7 agent roles: team lead, frontend, backend, UI designer, QA, deployer, error recovery');
+  log('  \u2022 8 agent roles: team lead, frontend, backend, UI designer, 3D designer, QA, deployer, error recovery');
+  log('  \u2022 3D asset pipeline: browse, download, track models from Sketchfab, Poly Haven, Mixamo');
+  log('  \u2022 Playwright: browser screenshots & site exploration');
   log('  \u2022 Persistent memory: projects tracked across sessions in SQLite');
   log('');
   log(`${c.bold}Quick start:${c.reset}`);
@@ -650,7 +652,7 @@ export async function runCli(args: string[]): Promise<void> {
     case 'version':
     case '--version':
     case '-v':
-      log('10x-development-team v1.0.2');
+      log('10x-development-team v3.1.0');
       break;
     default:
       error(`Unknown command: ${command}`);

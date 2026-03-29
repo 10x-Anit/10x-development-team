@@ -9,7 +9,7 @@ import {
   registerProject, listProjects, getProjectByPath,
   searchProjects, deleteProject, touchProject,
   createSession, updateSession, getRecentSessions,
-  saveMemory, getMemories
+  saveMemory, getMemories, isSqliteAvailable
 } from '../db.js';
 import { existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
@@ -843,6 +843,109 @@ export function registerTools(server: McpServer): void {
           }]
         };
       }
+    }
+  );
+
+  // ── Session Lifecycle Tools ──
+
+  server.tool(
+    'tenx_update_session',
+    'Update or close the current build session. Saves what was accomplished, which tasks were completed, and which files were created. Call this when a build finishes or when the user ends a session.',
+    {
+      session_id: z.string().describe('Session ID from tenx_start or tenx_get_context'),
+      summary: z.string().optional().describe('What was accomplished in this session'),
+      tasks_completed: z.array(z.string()).optional().describe('Task IDs that were completed'),
+      files_created: z.array(z.string()).optional().describe('File paths that were created'),
+      files_modified: z.array(z.string()).optional().describe('File paths that were modified')
+    },
+    async (args) => {
+      try {
+        updateSession(args.session_id, {
+          summary: args.summary,
+          tasks_completed: args.tasks_completed ? JSON.stringify(args.tasks_completed) : undefined,
+          files_created: args.files_created ? JSON.stringify(args.files_created) : undefined,
+          files_modified: args.files_modified ? JSON.stringify(args.files_modified) : undefined
+        });
+        return { content: [{ type: 'text' as const, text: `Session ${args.session_id} updated and closed.` }] };
+      } catch (err) {
+        return { content: [{ type: 'text' as const, text: `Session update failed: ${(err as Error).message}` }] };
+      }
+    }
+  );
+
+  // ── Health Check Tool ──
+
+  server.tool(
+    'tenx_health',
+    'Check the health of the 10x Development Team setup. Verifies SQLite, plugin files, project index, and reports what is working.',
+    {},
+    async () => {
+      const checks: Record<string, string> = {};
+
+      // Check SQLite
+      checks.sqlite = isSqliteAvailable() ? 'ok' : 'unavailable (file-based fallback active)';
+
+      // Check project index
+      const project = readProjectFile('project.json');
+      checks.project_index = project ? 'ok' : 'no project initialized';
+
+      // Check file index
+      const fileIndex = readProjectFile('file-index.json');
+      if (fileIndex) {
+        try {
+          const parsed = JSON.parse(fileIndex);
+          const fileCount = Object.keys(parsed.files || {}).length;
+          checks.file_index = `ok (${fileCount} files tracked)`;
+        } catch {
+          checks.file_index = 'exists but invalid JSON';
+        }
+      } else {
+        checks.file_index = 'not created yet';
+      }
+
+      // Check tasks
+      const tasks = readProjectFile('tasks.json');
+      if (tasks) {
+        try {
+          const parsed = JSON.parse(tasks);
+          const taskList = parsed.tasks || [];
+          const completed = taskList.filter((t: { status: string }) => t.status === 'completed').length;
+          const pending = taskList.filter((t: { status: string }) => t.status === 'pending').length;
+          checks.tasks = `ok (${taskList.length} total: ${completed} completed, ${pending} pending)`;
+        } catch {
+          checks.tasks = 'exists but invalid JSON';
+        }
+      } else {
+        checks.tasks = 'not created yet';
+      }
+
+      // Check plugin files
+      try {
+        readPluginFile('CLAUDE.md');
+        checks.plugin_files = 'ok';
+      } catch {
+        checks.plugin_files = 'not found — run 10x-mcp install-plugin or 10x-mcp setup';
+      }
+
+      // Check feature map
+      const featureMap = readProjectFile('feature-map.json');
+      checks.feature_map = featureMap ? 'ok' : 'not created yet';
+
+      // Check dev log
+      const devLog = readProjectFile('dev-log.md');
+      checks.dev_log = devLog ? 'ok' : 'not created yet';
+
+      return {
+        content: [{
+          type: 'text' as const,
+          text: JSON.stringify({
+            status: 'healthy',
+            version: '3.1.0',
+            checks,
+            project_dir: getProjectDir()
+          }, null, 2)
+        }]
+      };
     }
   );
 

@@ -1,6 +1,6 @@
 {
   "name": "10x-development-team",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "AI-powered multi-agent development team — builds stunning apps with 3D scenes, scroll animations, glassmorphism, particle effects, and production-grade UI",
   "type": "module",
   "main": "dist/index.js",
@@ -11,8 +11,8 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "start": "node dist/index.js",
-    "postinstall": "node scripts/postinstall.js || true",
-    "prebuild:package": "node scripts/bundle-plugin.js",
+    "postinstall": "node scripts/postinstall.cjs || true",
+    "prebuild:package": "node scripts/bundle-plugin.cjs",
     "build:package": "npm run prebuild:package && tsc",
     "prepublishOnly": "npm run build:package",
     "prepare": "npm run build"
@@ -39,8 +39,10 @@
   "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.1",
-    "better-sqlite3": "^11.0.0",
     "zod": "^3.24.0"
+  },
+  "optionalDependencies": {
+    "better-sqlite3": "^11.0.0"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.0",

@@ -3,14 +3,12 @@
 /**
  * Copies .claude/ plugin files into mcp-server/plugin/ for npm packaging.
  * Run before publish: npm run prebuild:package
+ *
+ * NOTE: CommonJS (.cjs) for portability — this runs as a standalone script.
  */
 
-import { cpSync, mkdirSync, existsSync, rmSync } from 'fs';
-import { join, resolve, dirname } from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const { cpSync, mkdirSync, existsSync, rmSync } = require('fs');
+const { join, resolve } = require('path');
 
 const packageRoot = resolve(__dirname, '..');
 const repoRoot = resolve(packageRoot, '..');
@@ -29,8 +27,8 @@ if (existsSync(destDir)) {
 }
 mkdirSync(destDir, { recursive: true });
 
-// Copy each directory
-const dirs = ['skills', 'agents', 'knowledge', 'components', 'templates', 'scripts'];
+// Copy each directory (including hooks!)
+const dirs = ['skills', 'agents', 'knowledge', 'components', 'templates', 'scripts', 'hooks'];
 for (const dir of dirs) {
   const src = join(sourceDir, dir);
   if (existsSync(src)) {
@@ -49,4 +47,4 @@ for (const file of files) {
   }
 }
 
-console.log(`Plugin files bundled into: ${destDir}`);
+console.log(`\nPlugin files bundled into: ${destDir}`);

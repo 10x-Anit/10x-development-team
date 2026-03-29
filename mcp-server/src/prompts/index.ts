@@ -30,7 +30,7 @@ export function registerPrompts(server: McpServer): void {
   server.prompt(
     'tenx-agent',
     {
-      agent: z.enum(['team-lead', 'frontend-dev', 'backend-dev', 'ui-designer', 'qa-tester', 'deployer', 'error-recovery']).describe('Agent role to assume')
+      agent: z.enum(['team-lead', 'frontend-dev', 'backend-dev', 'ui-designer', '3d-designer', 'qa-tester', 'deployer', 'error-recovery']).describe('Agent role to assume')
     },
     ({ agent }) => {
       const instructions = readPluginFile(`agents/${agent}.md`);

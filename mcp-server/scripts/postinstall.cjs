@@ -9,21 +9,21 @@
  * 3. Creates skeleton files (.env, .env.example)
  * 4. Creates public/models/ directory for 3D assets
  * 5. Sets up .mcp.json with Playwright MCP wired in
- * 6. Installs Playwright (browser automation for screenshots/exploration)
- * 7. Prints clear next steps
+ * 6. Prints clear next steps
+ *
+ * NOTE: This file is intentionally CommonJS (require/module.exports)
+ * for maximum portability across all Node.js environments.
+ * ESM postinstall scripts can fail when the consumer project
+ * has a different module system.
  *
  * Skips if:
  * - Running inside the package's own repo (development mode)
  * - Running in CI (npm_config_ignore_scripts or CI env var)
  */
 
-import { cpSync, existsSync, mkdirSync, writeFileSync, readFileSync } from 'fs';
-import { join, resolve, dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { execSync } from 'child_process';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const { cpSync, existsSync, mkdirSync, writeFileSync, readFileSync } = require('fs');
+const { join, resolve, dirname } = require('path');
+const { execSync } = require('child_process');
 
 // ── Colors ──
 const c = {
@@ -39,7 +39,6 @@ const c = {
 function success(msg) { console.log(`${c.green}  \u2713${c.reset} ${msg}`); }
 function warn(msg) { console.log(`${c.yellow}  \u26A0${c.reset} ${msg}`); }
 function info(msg) { console.log(`  ${msg}`); }
-function fail(msg) { console.log(`${c.red}  \u2717${c.reset} ${msg}`); }
 
 // ── Detect environment ──
 
@@ -48,11 +47,11 @@ if (process.env.CI || process.env.npm_config_ignore_scripts) {
   process.exit(0);
 }
 
-// The package root is two levels up from scripts/
+// The package root is one level up from scripts/
 const packageRoot = resolve(__dirname, '..');
 const pluginDir = join(packageRoot, 'plugin');
 
-// The project root is where node_modules lives
+// The project root is where the user ran npm install
 const projectRoot = process.env.INIT_CWD || resolve(packageRoot, '..', '..');
 
 // Skip if we're running in the package's own repo (development mode)
@@ -77,7 +76,7 @@ const targetClaude = join(projectRoot, '.claude');
 let filesInstalled = 0;
 
 // Copy plugin directories into .claude/
-const dirs = ['skills', 'agents', 'knowledge', 'components', 'templates', 'scripts'];
+const dirs = ['skills', 'agents', 'knowledge', 'components', 'templates', 'scripts', 'hooks'];
 for (const dir of dirs) {
   const src = join(pluginDir, dir);
   const dest = join(targetClaude, dir);
@@ -135,7 +134,6 @@ const publicModels = join(projectRoot, 'public', 'models');
 if (!existsSync(publicModels)) {
   try {
     mkdirSync(publicModels, { recursive: true });
-    // Add a .gitkeep so the directory is tracked
     writeFileSync(join(publicModels, '.gitkeep'), '');
     success('Created public/models/ for 3D assets');
   } catch { /* skip */ }
@@ -308,7 +306,7 @@ if (!existsSync(mcpJsonPath)) {
 
     if (updated) {
       writeFileSync(mcpJsonPath, JSON.stringify(existing, null, 2));
-      success('Updated .mcp.json — added missing MCP servers (Playwright + 10x)');
+      success('Updated .mcp.json \u2014 added missing MCP servers (Playwright + 10x)');
     } else {
       success('.mcp.json already has Playwright + 10x configured');
     }
@@ -318,39 +316,7 @@ if (!existsSync(mcpJsonPath)) {
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// PHASE 5: Install Playwright (for browser screenshots & site exploration)
-// ══════════════════════════════════════════════════════════════════════════════
-
-console.log('');
-info(`${c.dim}Installing Playwright for browser automation...${c.reset}`);
-
-try {
-  // Install playwright as a dev dependency
-  execSync('npm install -D playwright @playwright/mcp', {
-    cwd: projectRoot,
-    stdio: 'pipe',
-    timeout: 120000
-  });
-  success('Installed Playwright + @playwright/mcp');
-
-  // Install Chromium browser
-  try {
-    execSync('npx playwright install chromium', {
-      cwd: projectRoot,
-      stdio: 'pipe',
-      timeout: 120000
-    });
-    success('Installed Chromium browser for Playwright');
-  } catch {
-    warn('Could not auto-install Chromium. Run: npx playwright install chromium');
-  }
-} catch {
-  warn('Could not install Playwright automatically.');
-  info(`${c.dim}Run manually: npm install -D playwright @playwright/mcp && npx playwright install chromium${c.reset}`);
-}
-
-// ══════════════════════════════════════════════════════════════════════════════
-// PHASE 6: Create .10x/assets.json for 3D asset tracking
+// PHASE 5: Create .10x/assets.json for 3D asset tracking
 // ══════════════════════════════════════════════════════════════════════════════
 
 const assetsJson = join(dotTenx, 'assets.json');
@@ -373,12 +339,11 @@ info(`${c.bold}2.${c.reset} Type: ${c.cyan}/10x-development-team:start${c.reset}
 info(`${c.bold}3.${c.reset} Describe what you want to build`);
 console.log('');
 info(`${c.dim}Installed for you:${c.reset}`);
-info(`  ${c.green}\u2713${c.reset} .claude/ — AI agent skills, knowledge, components`);
-info(`  ${c.green}\u2713${c.reset} .10x/ — project tracking & asset registry`);
-info(`  ${c.green}\u2713${c.reset} .mcp.json — Playwright MCP + 10x MCP servers`);
-info(`  ${c.green}\u2713${c.reset} .env + .env.example — environment variable skeletons`);
-info(`  ${c.green}\u2713${c.reset} public/models/ — ready for 3D assets (GLB, GLTF)`);
-info(`  ${c.green}\u2713${c.reset} Playwright — browser automation for screenshots & exploration`);
+info(`  ${c.green}\u2713${c.reset} .claude/ \u2014 AI agent skills, knowledge, components, hooks`);
+info(`  ${c.green}\u2713${c.reset} .10x/ \u2014 project tracking & asset registry`);
+info(`  ${c.green}\u2713${c.reset} .mcp.json \u2014 Playwright MCP + 10x MCP servers`);
+info(`  ${c.green}\u2713${c.reset} .env + .env.example \u2014 environment variable skeletons`);
+info(`  ${c.green}\u2713${c.reset} public/models/ \u2014 ready for 3D assets (GLB, GLTF)`);
 console.log('');
 info(`${c.dim}MCP server mode: npx 10x-development-team setup${c.reset}`);
 info(`${c.dim}Health check: npx 10x-development-team doctor${c.reset}`);

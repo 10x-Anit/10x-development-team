@@ -129,6 +129,30 @@ If SQLite is unavailable (no `better-sqlite3`, web sandbox), fall back to `.10x/
 
 Each agent's instructions specify exactly which knowledge file to read for which task type. Follow those tables.
 
+## Cache & Cost Optimization (protects against known Claude Code cache bugs)
+
+> **Two confirmed bugs in Claude Code can break prompt caching, increasing API costs significantly.**
+> See `knowledge/patterns/cache-optimization.md` for full details and caveats.
+> GitHub issues: [#40524](https://github.com/anthropics/claude-code/issues/40524), [#34629](https://github.com/anthropics/claude-code/issues/34629)
+
+### Bug 1: Conversation History Invalidation ([#40524](https://github.com/anthropics/claude-code/issues/40524))
+The standalone Claude Code binary can invalidate the cache when conversation history contains CC internal strings (billing sentinels, CC source code). Most normal usage is unaffected — this only triggers in specific conditions.
+
+**How this plugin avoids the trigger:** CLAUDE.md and knowledge files contain only project instructions, design patterns, and framework references — no CC internals. This doesn't "fix" the bug, but the plugin's clean content means it's unlikely to trigger.
+
+**Reported workaround:** Run Claude Code via `npx @anthropic-ai/claude-code` instead of the standalone binary (community-reported).
+
+### Bug 2: --resume Cache Miss ([#34629](https://github.com/anthropics/claude-code/issues/34629))
+Since v2.1.69, every `--resume` causes a full cache rebuild. Cost scales with conversation size (~$0.15 on 500K tokens, less on smaller conversations).
+
+**How this plugin avoids it:** The `/resumeproject` skill reconstructs project context from `.10x/` index files in a **fresh session** — no `--resume` needed. This is the plugin's most concrete cost benefit for this bug.
+
+### Plugin Rules for Cost Safety
+1. **NEVER paste CC source code, billing headers, or internal identifiers into CLAUDE.md or knowledge files**
+2. **Prefer `/resumeproject` over `--resume`** for continuing work — significantly cheaper context reconstruction via index files
+3. **Keep conversations focused** — the index-first architecture means agents don't need long conversation histories
+4. **If users report high costs**, suggest checking cache health and using `/resumeproject` instead of `--resume`
+
 ## Knowledge Base (read ONLY the ONE file matching your task)
 
 Check `.claude/knowledge/index.json` and read the relevant file:
@@ -174,6 +198,7 @@ Check `.claude/knowledge/index.json` and read the relevant file:
 | **3D website build guide (MUST READ)** | `knowledge/patterns/3d-website-learnings.md` |
 | **3D website build guide (MUST READ FIRST)** | `knowledge/patterns/3d-website-learnings.md` |
 | **3D resources (Spline, Sketchfab, SVG→3D, Mixamo, GLB)** | `knowledge/patterns/3d-resources.md` |
+| **Cache & cost optimization** | `knowledge/patterns/cache-optimization.md` |
 | Copy-paste components | `knowledge/components-source/*.md` |
 
 Read the knowledge file FIRST, then build. Don't reinvent patterns that are already documented.

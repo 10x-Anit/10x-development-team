@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>10x Development Team — Your AI Development Team</title>
-  <meta name="description" content="Multi-agent AI plugin. 8 specialist agents, 22 MCP tools, smart index system, 3D asset pipeline, Playwright browser automation. Build stunning apps with 3D scenes, scroll animations, glassmorphism, particles, and production-grade UI. Works with Claude Code, Cursor, Windsurf, Codex, and 5 more AI clients.">
+  <meta name="description" content="Multi-agent AI plugin. 8 specialist agents, 22 MCP tools, smart index system, 3D asset pipeline. Avoids two confirmed Claude Code cache bugs that can inflate API costs. Build stunning apps with 3D scenes, scroll animations, glassmorphism, particles, and production-grade UI. Works with Claude Code, Cursor, Windsurf, Codex, and 5 more AI clients.">
   <meta property="og:title" content="10x Development Team">
-  <meta property="og:description" content="8 AI agents, 22 MCP tools, smart index system for context management. Build beautiful apps with 3D, scroll animations, particles, and production-grade UI. One plugin, 9 clients.">
+  <meta property="og:description" content="8 AI agents, 22 MCP tools, smart index system for context management. Avoids two confirmed Claude Code cache bugs that can inflate API costs. Build beautiful apps with 3D, scroll animations, particles, and production-grade UI. One plugin, 9 clients.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://10x-anit.github.io/10x-development-team/">
   <link rel="canonical" href="https://10x-anit.github.io/10x-development-team/">
@@ -461,6 +461,7 @@
       <li role="none"><a href="#scopes" role="menuitem">Scopes</a></li>
       <li role="none"><a href="#commands" role="menuitem">Commands</a></li>
       <li role="none"><a href="#index-system" role="menuitem">Index System</a></li>
+      <li role="none"><a href="#cache-protection" role="menuitem">Cache Protection</a></li>
       <li role="none"><a href="#ai-reference" role="menuitem">AI Reference</a></li>
     </ul>
     <a href="#install" class="nav-cta">Get Started</a>
@@ -488,7 +489,7 @@
       v3.2.0 &mdash; Open Source MCP Plugin
     </div>
     <h1 class="reveal reveal-delay-1">Your <span class="gradient-text">AI Development Team</span></h1>
-    <p class="hero-desc reveal reveal-delay-2">8 specialist agents with a shared index system for lightning-fast context. Build stunning apps with 3D scenes, scroll animations, glassmorphism, particles, and production-grade UI. Describe what you want. They architect, design, code, test, and deploy it.</p>
+    <p class="hero-desc reveal reveal-delay-2">8 specialist agents with a shared index system for lightning-fast context. Build stunning apps with 3D scenes, scroll animations, glassmorphism, particles, and production-grade UI. <strong style="color:var(--color-heading);">Avoids two confirmed Claude Code cache bugs</strong> that can inflate your API costs. Describe what you want. They architect, design, code, test, and deploy it.</p>
     <div class="hero-buttons reveal reveal-delay-3">
       <a href="#install" class="btn-primary">Get Started</a>
       <a href="https://github.com/10x-Anit/10x-development-team" class="btn-secondary" target="_blank" rel="noopener">
@@ -513,6 +514,7 @@
       <div class="stat"><div class="stat-value gradient-text">19</div><div class="stat-label">Commands</div></div>
       <div class="stat"><div class="stat-value gradient-text">61</div><div class="stat-label">Knowledge Files</div></div>
       <div class="stat"><div class="stat-value gradient-text">9</div><div class="stat-label">AI Clients</div></div>
+      <div class="stat"><div class="stat-value" style="color:var(--color-success);">2</div><div class="stat-label">Cache Bugs Avoided</div></div>
     </div>
   </div>
 </section>
@@ -1260,8 +1262,85 @@ public/hdri/          # Directory for environment maps
       </div>
       <div class="reveal reveal-delay-3" style="padding:20px; border-radius:var(--radius-md); background:rgba(34,211,238,0.05); border:1px solid rgba(34,211,238,0.15); text-align:center;">
         <div style="font-size:2rem; margin-bottom:8px;">&#128260;</div>
-        <div style="font-size:1rem; font-weight:700; color:var(--color-heading); margin-bottom:4px;">Resume instantly</div>
-        <div style="font-size:0.8125rem; color:var(--color-text-dim);">Session breaks, context compaction &mdash; the index survives and agents resume perfectly</div>
+        <div style="font-size:1rem; font-weight:700; color:var(--color-heading); margin-bottom:4px;">Resume without cache rebuild</div>
+        <div style="font-size:0.8125rem; color:var(--color-text-dim);">Avoids Claude Code's --resume cache bug (<a href="https://github.com/anthropics/claude-code/issues/34629" target="_blank" rel="noopener" style="font-size:inherit;">#34629</a>). Reads index files in a fresh session instead.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- CACHE PROTECTION                                          -->
+<!-- ════════════════════════════════════════════════════════ -->
+<section id="cache-protection">
+  <div class="container">
+    <div class="section-label reveal" style="color: var(--color-warning);">Cost Protection</div>
+    <h2 class="section-title reveal">Avoids two <span class="gradient-text">confirmed Claude Code cache bugs</span></h2>
+    <p class="section-subtitle reveal">Two open bugs in Claude Code can break prompt caching without any visible error. This plugin's index-first architecture sidesteps both &mdash; especially the <code style="color:var(--color-primary-bright);">--resume</code> bug, where <code style="color:var(--color-primary-bright);">/resumeproject</code> is significantly cheaper.</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:48px;">
+      <!-- Bug 1 -->
+      <div class="reveal" style="padding:28px; border-radius:var(--radius-lg); background:var(--color-bg-card); border:1px solid rgba(251,191,36,0.2);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+          <span style="font-size:1.25rem; padding:6px 10px; border-radius:var(--radius-sm); background:rgba(251,191,36,0.1); color:var(--color-warning);">Bug 1</span>
+          <a href="https://github.com/anthropics/claude-code/issues/40524" target="_blank" rel="noopener" style="font-size:0.8125rem; color:var(--color-text-dim);">#40524</a>
+        </div>
+        <h3 style="font-size:1.125rem; font-weight:700; color:var(--color-heading); margin-bottom:8px;">Sentinel Replacement Breaks Cache</h3>
+        <p style="font-size:0.9375rem; color:var(--color-text-muted); margin-bottom:16px; line-height:1.7;">The standalone binary replaces a billing sentinel in the request body. If your conversation contains CC internal strings, it replaces the wrong instance &mdash; changing your messages every request and breaking the cache prefix.</p>
+        <div style="padding:16px; border-radius:var(--radius-md); background:rgba(251,191,36,0.05); border:1px solid rgba(251,191,36,0.1);">
+          <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--color-warning); margin-bottom:8px;">Impact</div>
+          <div style="font-size:0.9375rem; color:var(--color-text-muted);">~$0.04&ndash;0.15 <strong style="color:var(--color-heading);">extra per request</strong>, every request, silently</div>
+        </div>
+      </div>
+
+      <!-- Bug 2 -->
+      <div class="reveal reveal-delay-1" style="padding:28px; border-radius:var(--radius-lg); background:var(--color-bg-card); border:1px solid rgba(251,191,36,0.2);">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+          <span style="font-size:1.25rem; padding:6px 10px; border-radius:var(--radius-sm); background:rgba(251,191,36,0.1); color:var(--color-warning);">Bug 2</span>
+          <a href="https://github.com/anthropics/claude-code/issues/34629" target="_blank" rel="noopener" style="font-size:0.8125rem; color:var(--color-text-dim);">#34629</a>
+        </div>
+        <h3 style="font-size:1.125rem; font-weight:700; color:var(--color-heading); margin-bottom:8px;">--resume Always Breaks Cache</h3>
+        <p style="font-size:0.9375rem; color:var(--color-text-muted); margin-bottom:16px; line-height:1.7;">Since v2.1.69, every <code style="color:var(--color-primary-bright);">--resume</code> causes a full cache miss. Only the system prompt is cached; all conversation history rebuilds from scratch due to a <code style="color:var(--color-primary-bright);">deferred_tools_delta</code> injection mismatch.</p>
+        <div style="padding:16px; border-radius:var(--radius-md); background:rgba(251,191,36,0.05); border:1px solid rgba(251,191,36,0.1);">
+          <div style="font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; color:var(--color-warning); margin-bottom:8px;">Impact</div>
+          <div style="font-size:0.9375rem; color:var(--color-text-muted);">~$0.15 <strong style="color:var(--color-heading);">per resume</strong> on a 500K token conversation</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- How Plugin Fixes It -->
+    <div style="margin-top:40px; padding:32px; border-radius:var(--radius-lg); background:rgba(52,211,153,0.03); border:1px solid rgba(52,211,153,0.15);">
+      <h3 class="reveal" style="font-size:1.25rem; font-weight:700; color:var(--color-heading); margin-bottom:20px; display:flex; align-items:center; gap:10px;">
+        <span style="color:var(--color-success); font-size:1.5rem;">&#10003;</span> How This Plugin Avoids Both Bugs
+      </h3>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+        <div class="reveal">
+          <h4 style="font-size:1rem; font-weight:600; color:var(--color-success); margin-bottom:8px;">Bug 1 &mdash; Clean Context</h4>
+          <p style="font-size:0.9375rem; color:var(--color-text-muted); line-height:1.7;">The plugin's CLAUDE.md and knowledge files contain only project instructions and framework references &mdash; no CC internals or billing strings. This means the trigger conditions for this bug are unlikely to occur. Note: most normal projects are also unaffected by this bug.</p>
+        </div>
+        <div class="reveal reveal-delay-1">
+          <h4 style="font-size:1rem; font-weight:600; color:var(--color-success); margin-bottom:8px;">Bug 2 &mdash; Index-Based Resume</h4>
+          <p style="font-size:0.9375rem; color:var(--color-text-muted); line-height:1.7;">Instead of <code style="color:var(--color-primary-bright);">--resume</code>, the plugin's <code style="color:var(--color-primary-bright);">/resumeproject</code> command reads small <code>.10x/</code> index files in a <strong style="color:var(--color-heading);">fresh session</strong>. Full context reconstruction from ~5KB of JSON instead of rebuilding the entire conversation cache. This is the plugin's most concrete cost benefit.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cost Comparison -->
+    <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; margin-top:32px;">
+      <div class="reveal reveal-delay-1" style="padding:20px; border-radius:var(--radius-md); background:rgba(251,191,36,0.05); border:1px solid rgba(251,191,36,0.15); text-align:center;">
+        <div style="font-size:2rem; margin-bottom:8px;">&#128176;</div>
+        <div style="font-size:1rem; font-weight:700; color:var(--color-heading); margin-bottom:4px;">~$0.15 per resume</div>
+        <div style="font-size:0.8125rem; color:var(--color-text-dim);">Cost of --resume on a 500K token conversation. Scales with conversation size.</div>
+      </div>
+      <div class="reveal reveal-delay-2" style="padding:20px; border-radius:var(--radius-md); background:rgba(52,211,153,0.05); border:1px solid rgba(52,211,153,0.15); text-align:center;">
+        <div style="font-size:2rem; margin-bottom:8px;">&#128737;</div>
+        <div style="font-size:1rem; font-weight:700; color:var(--color-success); margin-bottom:4px;">~$0.001 with /resumeproject</div>
+        <div style="font-size:0.8125rem; color:var(--color-text-dim);">Reads 5 small JSON index files in a fresh session. No cache rebuild needed.</div>
+      </div>
+      <div class="reveal reveal-delay-3" style="padding:20px; border-radius:var(--radius-md); background:rgba(129,140,248,0.05); border:1px solid rgba(129,140,248,0.15); text-align:center;">
+        <div style="font-size:2rem; margin-bottom:8px;">&#128200;</div>
+        <div style="font-size:1rem; font-weight:700; color:var(--color-primary-bright); margin-bottom:4px;">Significant savings on resume</div>
+        <div style="font-size:0.8125rem; color:var(--color-text-dim);">The bigger your conversation, the more you save. Index-based resume scales to any project size.</div>
       </div>
     </div>
   </div>

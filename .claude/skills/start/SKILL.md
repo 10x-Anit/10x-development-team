@@ -263,6 +263,14 @@ Do NOT wait for another confirmation. The user already said "go". Build.
 6. **NEVER ask more than 2 questions total** — 1 is ideal. 2 is the maximum.
 7. **NEVER ask "anything else?"** after confirmation — Just build.
 
+## COST OPTIMIZATION NOTE
+
+This plugin's index system (`.10x/` files) serves as a cheaper alternative to Claude Code's `--resume` flag, which has a confirmed cache bug (GitHub #34629) that causes a full cache rebuild on resume. By storing all project context in small JSON files, `/resumeproject` reconstructs context in a fresh session without triggering the bug.
+
+If the user mentions high API costs, suggest:
+1. Use `npx @anthropic-ai/claude-code` instead of the standalone binary (reported workaround for cache Bug 1 — GitHub #40524)
+2. Use `/resumeproject` instead of `--resume` (avoids cache Bug 2 — GitHub #34629)
+
 ---
 
 <large-model-instructions>

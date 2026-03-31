@@ -62,3 +62,17 @@ Rename the project in `.10x/project.json`.
 2. Log all config changes in `.10x/dev-log.md`.
 3. Warn about breaking implications before making changes.
 4. Never auto-change code when config changes — just update the config. Code changes happen in subsequent builds.
+
+## Cache & Cost Info
+
+When the user runs `/config view`, append this section at the bottom:
+
+```
+Cache & Cost:
+  Plugin cache protection: active
+  Recommended runner: npx @anthropic-ai/claude-code (avoids cache Bug 1)
+  Resume method: /resumeproject (avoids --resume cache bug #34629)
+  Details: .claude/knowledge/patterns/cache-optimization.md
+```
+
+If the user asks about costs or caching, point them to `knowledge/patterns/cache-optimization.md` which documents two confirmed Claude Code bugs (GitHub #40524 and #34629) and how this plugin's architecture avoids them.

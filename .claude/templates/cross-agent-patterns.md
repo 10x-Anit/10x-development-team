@@ -112,6 +112,25 @@ Each agent updates their task status and the team-lead can see progress without 
 
 ---
 
+## Pattern 5: Index System as Cache-Safe Resume
+
+The `.10x/` index system doubles as a **cost-safe resume mechanism** that avoids Claude Code's `--resume` cache bug ([#34629](https://github.com/anthropics/claude-code/issues/34629)).
+
+**The problem:** Every `--resume` causes a full cache rebuild (~$0.15 on a 500K token conversation) due to a `deferred_tools_delta` injection mismatch since v2.1.69.
+
+**The solution:** `/resumeproject` reads the `.10x/` index files in a **fresh session**:
+- `project.json` → app name, scope, stack, vision (~1KB)
+- `file-index.json` → all files, their types, exports, dependencies (~2-5KB)
+- `tasks.json` → task states, what's done, what's pending (~1KB)
+- `feature-map.json` → feature-to-file mapping (~1KB)
+- `dev-log.md` → last 10 entries for recent context (~1KB)
+
+**Total: ~5-10KB read vs a full conversation cache rebuild.** The bigger the conversation, the more you save.
+
+This means the index system isn't just a coordination tool — it's a critical cost protection feature. Every agent MUST keep the index updated after every action so `/resumeproject` has accurate context.
+
+---
+
 ## Pattern 5: Error Escalation
 
 When an agent hits an error:

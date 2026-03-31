@@ -33,6 +33,7 @@ Map `$ARGUMENTS` to the right index source:
 | "What's the tech stack?" | project.json → stack object |
 | "What has been built?" | dev-log.md → summarize + tasks.json → show completed |
 | "How do [page] and [api] connect?" | feature-map.json → find feature containing both → read wiring |
+| "Why is my bill high?" / "costs" / "cache" | knowledge/patterns/cache-optimization.md → explain two cache bugs + workarounds |
 
 ## STEP 3: Read Source Files (only if needed)
 

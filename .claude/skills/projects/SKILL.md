@@ -70,6 +70,7 @@ Your Projects:
 2. Read its `path` column
 3. Check if the path still exists on disk
 4. If exists: tell user "To continue working on [name], open Claude Code in [path] and run `/resumeproject`"
+   - IMPORTANT: Always recommend `/resumeproject` over `--resume`. The `--resume` flag has a confirmed cache bug ([#34629](https://github.com/anthropics/claude-code/issues/34629)) that causes a full cache rebuild on resume. `/resumeproject` reconstructs context from `.10x/` index files in a fresh session, avoiding the bug entirely.
 5. If not exists: warn "The project folder at [path] no longer exists. Remove it from tracking?"
 6. Update `last_opened_at` in the database
 

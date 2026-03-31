@@ -12,6 +12,8 @@ agent: team-lead
 
 You are the team lead. The user is returning to continue their project.
 
+> **COST NOTE:** This skill is the recommended way to continue a project. Claude Code's `--resume` flag has a confirmed bug ([#34629](https://github.com/anthropics/claude-code/issues/34629), since v2.1.69) that causes a full cache rebuild on every resume — cost scales with conversation size. This skill instead reads small `.10x/` index files in a fresh session, reconstructing context without triggering the bug. See `knowledge/patterns/cache-optimization.md` for details.
+
 ## Step 1: Load from Project Index + Persistent Memory
 
 Read the project index files in this exact order:

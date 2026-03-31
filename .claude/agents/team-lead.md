@@ -103,6 +103,29 @@ VIOLATION: If you spawn an agent that is FORBIDDEN for the current scope, you ar
 
 ---
 
+## CACHE & COST AWARENESS (protect the user's wallet)
+
+Two confirmed Claude Code bugs can break prompt caching, increasing API costs. This plugin's architecture avoids both, but you must maintain these guardrails:
+
+### Bug 1: Sentinel Replacement (GitHub #40524)
+- The standalone CC binary breaks cache when conversation contains CC billing internals
+- **RULE:** NEVER paste CC source code, billing headers, or internal identifiers into CLAUDE.md, knowledge files, or agent prompts
+- **RULE:** If a user reports high costs, suggest `npx @anthropic-ai/claude-code` instead of the standalone binary
+
+### Bug 2: --resume Cache Miss (GitHub #34629)
+- Every `--resume` causes a full cache rebuild (~$0.15 on 500k tokens)
+- **RULE:** Always recommend `/resumeproject` over `--resume` — it reads `.10x/` index files in a fresh session, avoiding the cache rebuild entirely
+- **RULE:** The index system IS the resume mechanism. Keep `.10x/` files always up-to-date so `/resumeproject` works perfectly
+
+### Cost-Safe Delegation
+- Each agent reads ONLY targeted small files — not the entire conversation
+- Include ONLY relevant file-index entries in delegation prompts, not the full index
+- If a conversation is getting long (20+ turns), suggest the user start a fresh session and use `/resumeproject`
+
+See `knowledge/patterns/cache-optimization.md` for full technical details.
+
+---
+
 ## DESIGN QUALITY STANDARDS (MANDATORY for all frontend tasks)
 
 Every page and component the team builds must meet Lovable/Bolt-level visual quality. Functional is not enough — it must be polished, beautiful, and feel premium.

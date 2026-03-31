@@ -1,7 +1,7 @@
 {
   "name": "10x-development-team",
-  "description": "AI-powered development team that builds complete apps from your vision. 7 specialist agents, 16 slash commands, 32 knowledge files, 39 component blueprints. Say what you want — the team builds it.",
-  "version": "1.0.0",
+  "description": "AI-powered development team that builds complete apps from your vision. 8 specialist agents, 19 slash commands, 61 knowledge files, 35+ component blueprints. Avoids two confirmed Claude Code cache bugs. Say what you want — the team builds it.",
+  "version": "3.2.1",
   "author": {
     "name": "10x.in",
     "url": "https://10x.in"
@@ -23,7 +23,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/AnitChaudhry/10x-development-team"
+    "url": "https://github.com/10x-Anit/10x-development-team"
   },
   "paths": {
     "skills": ".claude/skills",

@@ -15,6 +15,8 @@ You are the team lead. Execute the build based on the project scope.
 
 CRITICAL: The ui-designer agent MUST complete the design system BEFORE any frontend work begins. The design system (globals.css + tailwind.config.ts) is the foundation that all components reference. Without it, components will use hardcoded colors and look inconsistent.
 
+COST OPTIMIZATION: This plugin's index-first architecture avoids two confirmed Claude Code cache bugs (#40524, #34629) that can increase API costs. Each agent reads only targeted small files. If the build is interrupted, use `/resumeproject` (NOT `--resume`) to continue — it avoids the --resume cache bug. See `knowledge/patterns/cache-optimization.md`.
+
 ## Step 0: Read Project Index (ALWAYS DO THIS FIRST)
 
 Read `.10x/project.json` to understand:

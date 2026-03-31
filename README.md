@@ -15,6 +15,8 @@ A plugin that turns any AI assistant into a coordinated development team. You de
 
 **No templates. No boilerplate.** The agents coordinate through a shared file index, reuse components, enforce design quality, and remember everything across sessions.
 
+**Avoids two confirmed Claude Code cache bugs** ([#40524](https://github.com/anthropics/claude-code/issues/40524), [#34629](https://github.com/anthropics/claude-code/issues/34629)) that can silently inflate API costs. The plugin's index-first architecture sidesteps both by design — especially the `--resume` bug, where `/resumeproject` is significantly cheaper.
+
 ---
 
 ## Install
@@ -121,6 +123,31 @@ SQLite is **optional** -- the server works without it (graceful fallback to `.10
 
 ---
 
+## Cache Bug Protection
+
+Two confirmed, open bugs in Claude Code can break prompt caching. This plugin's architecture avoids both.
+
+### Bug 1: Conversation History Invalidation ([#40524](https://github.com/anthropics/claude-code/issues/40524))
+
+The standalone Claude Code binary can invalidate the cache when conversations contain CC internal strings. This is a niche trigger — most normal usage is unaffected.
+
+**How this plugin avoids the trigger:** CLAUDE.md and knowledge files contain only clean project instructions -- never CC internals, billing strings, or source code.
+
+**Reported workaround:** Use `npx @anthropic-ai/claude-code` instead of the standalone binary (community-reported).
+
+### Bug 2: --resume Cache Miss ([#34629](https://github.com/anthropics/claude-code/issues/34629))
+
+Since v2.1.69, every `--resume` causes a full cache rebuild. Cost scales with conversation size (~$0.15 on 500K tokens, proportionally less on smaller conversations).
+
+**How this plugin avoids it:** The `/resumeproject` command reads small `.10x/` index files (~5KB total) in a **fresh session** -- no `--resume` needed. This is the plugin's most concrete cost benefit.
+
+| Method | Cost (500K token conversation) |
+|--------|-------------------------------|
+| `--resume` | ~$0.15 one-time cache rebuild |
+| `/resumeproject` | ~$0.001 (reading index files) |
+
+---
+
 ## The 8 Agents
 
 | Agent | Role | Scope |
@@ -194,7 +221,7 @@ Inspired by **Lovable**, **v0**, and **Bolt.new** -- output is polished, not jus
 | `/review` | Code quality + visual quality review |
 | `/explain` | Explain how any part of the codebase works |
 | `/deploy` | Set up deployment (Vercel, Docker, CI/CD) |
-| `/resumeproject` | Continue where you left off (loads from persistent memory) |
+| `/resumeproject` | Continue where you left off -- avoids `--resume` cache bug ([#34629](https://github.com/anthropics/claude-code/issues/34629)) |
 | `/projects` | List, switch, manage all your projects |
 | `/status` | Project dashboard |
 | `/update-deps` | Check and update dependencies safely |

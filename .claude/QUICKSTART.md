@@ -85,9 +85,24 @@ Your projects are tracked across sessions in `~/.10x/memory.db`:
 - Resume any project: `/resumeproject`
 - All decisions and context are remembered automatically
 
+## Cost Protection
+
+This plugin avoids two confirmed Claude Code cache bugs that can inflate API costs:
+
+| Bug | Issue | Impact | How Plugin Avoids It |
+|-----|-------|--------|---------------------|
+| History invalidation | [#40524](https://github.com/anthropics/claude-code/issues/40524) | Cache breaks when CC internals in conversation | Clean project files — no CC internals |
+| --resume cache miss | [#34629](https://github.com/anthropics/claude-code/issues/34629) | Full cache rebuild on resume (cost scales with conversation size) | `/resumeproject` reads index files in fresh session |
+
+**Tips to save money:**
+- Use `/resumeproject` instead of `--resume` to continue work
+- Use `npx @anthropic-ai/claude-code` instead of the standalone binary (community-reported workaround for Bug 1)
+- Don't paste Claude Code source code or billing internals into your project files
+
 ## Tips
 - Use `@filename` to point agents to specific files
 - Type `!npm run dev` to test your app without leaving Claude
-- The agents save progress -- come back anytime and run `/resumeproject`
+- The agents save progress -- come back anytime and run `/resumeproject` (NOT `--resume`)
 - Connect your existing data: `/connect-data my REST API at api.example.com`
 - Quick visual changes: `/modify-ui change cards to a table view`
+- If costs seem high, check `.claude/knowledge/patterns/cache-optimization.md`

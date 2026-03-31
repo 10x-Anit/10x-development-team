@@ -1,6 +1,6 @@
 # 10x Development Team
 
-**Describe your app. 7 AI agents build it.** Works with 9 AI clients. Outputs production-quality UI.
+**Describe your app. 8 AI agents build it.** Works with 9 AI clients. Outputs production-quality UI. **Avoids two confirmed Claude Code cache bugs** that can inflate API costs.
 
 [![npm](https://img.shields.io/npm/v/10x-development-team?color=blue)](https://www.npmjs.com/package/10x-development-team)
 [![GitHub](https://img.shields.io/badge/GitHub-10x--Anit-blue?logo=github)](https://github.com/10x-Anit/10x-development-team)
@@ -11,15 +11,17 @@
 
 ## What Is This?
 
-An MCP server and plugin that turns any AI assistant into a full development team. You describe what you want in plain English. The plugin's 7 specialist agents plan, design, build, test, and deploy it.
+An MCP server and plugin that turns any AI assistant into a full development team. You describe what you want in plain English. The plugin's 8 specialist agents plan, design, build, test, and deploy it.
 
 **No templates. No boilerplate. No "here's some code, figure it out."** The agents coordinate through a shared file index, reuse a registry of 35+ component blueprints, follow a 50+ file knowledge base of proven patterns, and remember everything across sessions via persistent SQLite memory.
+
+**Avoids two confirmed Claude Code cache bugs** ([#40524](https://github.com/anthropics/claude-code/issues/40524), [#34629](https://github.com/anthropics/claude-code/issues/34629)) that can inflate API costs. The index-first architecture sidesteps both by design — especially the `--resume` bug, where `/resumeproject` reconstructs context from small index files instead of rebuilding the entire conversation cache.
 
 ### By the numbers
 
 | | |
 |---|---|
-| **7** specialist agents | Team Lead, Frontend, Backend, UI Designer, QA, Deployer, Error Recovery |
+| **8** specialist agents | Team Lead, Frontend, Backend, UI Designer, 3D Designer, QA, Deployer, Error Recovery |
 | **19** slash commands | From `/start` to `/deploy` |
 | **50+** knowledge files | Copy-paste-ready code for every common pattern |
 | **35+** component blueprints | Buttons, cards, tables, modals, auth pages, sidebars, and more |
@@ -137,7 +139,7 @@ This checks: Node version, plugin files, SQLite database, configured clients, an
 
 > "I want an app where freelancers create invoices and track payments."
 
-**What happens:** The plugin asks 4 plain-English questions. Picks MVP scope. 7 agents build login, dashboard, invoice CRUD, client list, payment tracking -- all with a polished design system, loading states, and dark mode. Run `npm run dev` and see a working app. Add Stripe payments with one more command.
+**What happens:** The plugin asks 4 plain-English questions. Picks MVP scope. 8 agents build login, dashboard, invoice CRUD, client list, payment tracking -- all with a polished design system, loading states, and dark mode. Run `npm run dev` and see a working app. Add Stripe payments with one more command.
 
 **Scope:** MVP | **Client:** Claude Desktop | **Stack:** Next.js + Prisma + Auth
 
@@ -177,13 +179,13 @@ This checks: Node version, plugin files, SQLite database, configured clients, an
 
 > "We have 500 users. Add Stripe payments, email notifications, and a settings page."
 
-**What happens:** `:resume` loads the project from persistent memory -- it knows every file, every feature, every past decision. `:add-feature Stripe subscriptions` builds checkout + webhooks + pricing page. `:add-feature welcome and invoice emails` sets up Resend with React Email templates. `:add-page account settings` uses existing auth and components. `:review` runs QA. `:deploy` updates CI/CD. Three features shipped in one session.
+**What happens:** `/resumeproject` loads the project from persistent memory (avoids `--resume` cache bug) -- it knows every file, every feature, every past decision. `:add-feature Stripe subscriptions` builds checkout + webhooks + pricing page. `:add-feature welcome and invoice emails` sets up Resend with React Email templates. `:add-page account settings` uses existing auth and components. `:review` runs QA. `:deploy` updates CI/CD. Three features shipped in one session.
 
 **Scope:** Production | **Client:** Claude Code | **Stack:** Next.js + Stripe + Resend
 
 ---
 
-## The 7 Agents
+## The 8 Agents
 
 | Agent | What It Does | When It's Used |
 |-------|-------------|---------------|
@@ -204,7 +206,7 @@ This checks: Node version, plugin files, SQLite database, configured clients, an
 | **Simple** | Static pages, opens in browser | HTML + CSS + JS | Frontend only | CSS custom properties, transitions, responsive |
 | **Prototype** | Clickable demo with fake data | Vite + React + Tailwind | UI + Frontend | Full design system, Framer Motion, dark mode |
 | **MVP** | Working app with real data | Next.js + Prisma + Auth | UI + Front + Back | shadcn/ui, loading skeletons, error states |
-| **Production** | Full app, tested, CI/CD | Next.js + Tests + Docker | All 7 agents | Everything above + a11y audit, SEO, monitoring |
+| **Production** | Full app, tested, CI/CD | Next.js + Tests + Docker | All 8 agents | Everything above + a11y audit, SEO, monitoring |
 
 A landing page gets HTML. A SaaS gets Next.js. The plugin decides -- you don't have to.
 
@@ -226,7 +228,7 @@ A landing page gets HTML. A SaaS gets Next.js. The plugin decides -- you don't h
 | `/review` | Code quality review (scope-appropriate depth) |
 | `/explain` | Explain how any part of the codebase works |
 | `/deploy` | Set up deployment (Vercel, Docker, CI/CD) |
-| `/resume` | Continue where you left off (loads from persistent memory) |
+| `/resumeproject` | Continue where you left off — avoids `--resume` cache bug ([#34629](https://github.com/anthropics/claude-code/issues/34629)) |
 | `/projects` | List, switch, manage all your projects |
 | `/status` | Project dashboard |
 | `/update-deps` | Check and update dependencies safely |
@@ -242,7 +244,7 @@ A landing page gets HTML. A SaaS gets Next.js. The plugin decides -- you don't h
 mcp-server/          MCP server -- 12 tools, 10 resources, 8 prompts
 .claude/
   skills/            19 skill definitions (slash commands)
-  agents/             7 specialist agent instructions
+  agents/             8 specialist agent instructions
   knowledge/         50+ code pattern files (copy-paste ready)
   components/        35+ component blueprints with registry
   templates/          8 project scaffolds
@@ -280,7 +282,7 @@ Agents don't invent code. They copy proven patterns from a curated knowledge bas
 | `tenx_get_components` | Get the component registry (35+ components) |
 | `tenx_save_memory` | Save decisions/context to persistent memory |
 | `tenx_get_context` | Load cross-session context for current project |
-| `tenx_get_agent` | Get specialist agent instructions (7 agents) |
+| `tenx_get_agent` | Get specialist agent instructions (8 agents) |
 
 #### Resources (10)
 
@@ -315,8 +317,24 @@ Agents don't invent code. They copy proven patterns from a curated knowledge bas
 SQLite database at `~/.10x/memory.db`:
 - Tracks every project you've ever created
 - Remembers decisions, preferences, session history
-- Resume any project with full context: `:resume`
-- Switch between projects: `:projects`
+- Resume any project with full context: `/resumeproject` (avoids `--resume` cache bug — see Cache Protection below)
+- Switch between projects: `/projects`
+
+### Cache Protection
+
+Two confirmed, open bugs in Claude Code can break prompt caching:
+
+| Bug | Issue | Impact | How This Plugin Avoids It |
+|-----|-------|--------|--------------------------|
+| History invalidation | [#40524](https://github.com/anthropics/claude-code/issues/40524) | Cache breaks when CC internals in conversation | Clean project files — no CC internals |
+| --resume cache miss | [#34629](https://github.com/anthropics/claude-code/issues/34629) | Full cache rebuild on resume (cost scales with conversation size) | `/resumeproject` reads index files in a fresh session |
+
+The plugin's index-first architecture avoids both:
+- `/resumeproject` reconstructs context from small `.10x/` index files (~5KB) — no `--resume` needed
+- CLAUDE.md and knowledge files contain only project instructions, never CC internals
+- Bug 1 mostly affects users discussing CC internals — the plugin's clean content avoids the trigger
+
+**Reported workaround for Bug 1:** Use `npx @anthropic-ai/claude-code` instead of the standalone binary (community-reported).
 
 ### Model-Aware Execution
 

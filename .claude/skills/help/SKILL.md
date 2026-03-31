@@ -58,9 +58,21 @@ PROJECT SCOPES
   mvp         Next.js — real data, basic auth
   production  Full stack — tested, CI/CD, optimized
 
+COST OPTIMIZATION
+  This plugin avoids two confirmed Claude Code cache bugs:
+
+  Bug 1: History invalidation (#40524)
+    Workaround: Use npx @anthropic-ai/claude-code
+    Plugin: Clean project files avoid the trigger
+  Bug 2: --resume cache miss (#34629, since v2.1.69)
+    Plugin: /resumeproject reads index files in a
+    fresh session — no --resume cache rebuild needed
+
 TIPS
   - Use @ to reference files: @src/components/Button.tsx
   - Use Ctrl+T to see task progress
   - Your project state is saved in .10x/ directory
   - Type ! before a command to run it in terminal: !npm run dev
+  - Use npx @anthropic-ai/claude-code to avoid cache Bug 1
+  - Use /resumeproject instead of --resume to avoid cache Bug 2
 ```

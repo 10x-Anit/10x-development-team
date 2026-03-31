@@ -63,3 +63,13 @@ Commands:
 1. This skill is READ-ONLY. NEVER modify any file.
 2. NEVER scan the filesystem. Use index files only.
 3. Output the format EXACTLY as shown above.
+
+## Cost Optimization Tip
+After the status output, append this tip if the project has been active for a while (5+ tasks completed):
+
+```
+Tip: If you're resuming this project, use /resumeproject instead
+of --resume to avoid a known Claude Code cache bug (#34629) that
+causes a full cache rebuild on resume. The plugin reads small
+.10x/ index files in a fresh session instead.
+```

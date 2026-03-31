@@ -2,6 +2,8 @@
 
 The 10x Development Team uses a SQLite database at `~/.10x/memory.db` to remember all projects across sessions. This is SEPARATE from individual project `.10x/` directories.
 
+> **Cost Protection Note:** The `/resumeproject` command uses this persistence system as a **cache-safe alternative** to Claude Code's `--resume` flag, which has a confirmed bug ([#34629](https://github.com/anthropics/claude-code/issues/34629)) that causes a full cache rebuild on every resume. By reading `.10x/` index files + SQLite in a fresh session, `/resumeproject` reconstructs context without triggering the bug. See `knowledge/patterns/cache-optimization.md` for details.
+
 ## Architecture
 
 ```

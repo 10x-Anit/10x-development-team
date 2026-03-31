@@ -56,6 +56,7 @@ Everything in MVP plus:
 - Component reuse audit (no duplicates of registry components)
 - Design token usage (no hardcoded colors/spacing)
 - Import consistency (aliases used correctly)
+- **Cache cost safety check**: Verify CLAUDE.md and knowledge files don't contain Claude Code internal strings, billing sentinels, or CC source code that could trigger cache Bug 1 ([#40524](https://github.com/anthropics/claude-code/issues/40524)). If found, flag as a cost risk.
 
 ## Step 2: Report
 

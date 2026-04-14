@@ -157,23 +157,57 @@
     }
     .announce {
       border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-      padding: 0.8rem 0;
+      padding: 0.45rem 0;
     }
-    .announce a {
+    .announce.is-hidden { display: none; }
+    .announce-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.85rem;
+    }
+    .announce-link {
       display: inline-flex;
       align-items: center;
       gap: 0.75rem;
       color: var(--muted);
-      font-size: 0.92rem;
+      font-size: 0.88rem;
+      min-width: 0;
+      flex: 1 1 auto;
     }
-    .announce strong { color: var(--text); font-weight: 500; }
+    .announce strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+    .announce .label {
+      padding: 0.38rem 0.72rem;
+      font-size: 0.66rem;
+      flex: 0 0 auto;
+    }
+    .announce-dismiss {
+      width: 2rem;
+      height: 2rem;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--soft);
+      cursor: pointer;
+      flex: 0 0 auto;
+    }
+    .announce-dismiss:hover {
+      color: var(--text);
+      border-color: var(--border-strong);
+      background: rgba(255, 255, 255, 0.05);
+    }
 
     .header-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-      padding: 1rem 0;
+      padding: 0.72rem 0;
     }
     .brand {
       display: inline-flex;
@@ -185,9 +219,9 @@
       letter-spacing: -0.03em;
     }
     .brand-mark {
-      width: 2.25rem;
-      height: 2.25rem;
-      border-radius: 0.8rem;
+      width: 2.05rem;
+      height: 2.05rem;
+      border-radius: 0.72rem;
       display: grid;
       place-items: center;
       background: linear-gradient(135deg, var(--accent), #f2ffe0);
@@ -221,6 +255,10 @@
       border: 1px solid var(--border);
       font-weight: 500;
       cursor: pointer;
+    }
+    .nav-actions .button {
+      min-height: 2.55rem;
+      padding: 0.68rem 1.15rem;
     }
     .button-primary {
       background: var(--accent);
@@ -387,6 +425,8 @@
     }
 
     .section { padding: 6.5rem 0; }
+    #commands .section-heading { max-width: 25ch; }
+    #commands .section-copy { max-width: 68rem; }
 
     .cards-grid { display: grid; gap: 1.2rem; margin-top: 2rem; }
     .cards-grid.cards-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -650,14 +690,22 @@
 
     @media (max-width: 560px) {
       .container { width: min(var(--content), calc(100% - 1.2rem)); }
-      .announce a {
+      .announce-row {
+        align-items: flex-start;
+      }
+      .announce-link {
         display: grid;
         grid-template-columns: auto 1fr;
         align-items: start;
         gap: 0.55rem;
         font-size: 0.86rem;
       }
-      .announce a > span:last-child { display: none; }
+      .announce-link > span:last-child { display: none; }
+      .announce-dismiss {
+        width: 1.85rem;
+        height: 1.85rem;
+        margin-top: 0.1rem;
+      }
       .header-row {
         display: grid;
         grid-template-columns: minmax(0, 1fr);
@@ -699,13 +747,14 @@
 <body>
   <div class="shell">
     <header class="site-header">
-      <div class="announce">
-        <div class="container">
-          <a href="#install">
+      <div class="announce" id="topAnnouncement">
+        <div class="container announce-row">
+          <a class="announce-link" href="#install">
             <span class="label"><span class="dot"></span>New</span>
             <strong>Codex and Claude now share the same engineering playbooks, skills, and knowledge base.</strong>
             <span>Install and ship faster</span>
           </a>
+          <button class="announce-dismiss" id="announceDismiss" type="button" aria-label="Dismiss announcement">×</button>
         </div>
       </div>
 
@@ -1137,8 +1186,22 @@ Behind the scenes:
     </script>
 
     <script>
+      const topAnnouncement = document.getElementById("topAnnouncement");
+      const announceDismiss = document.getElementById("announceDismiss");
+      const announcementKey = "10x-announcement-dismissed";
       const navToggle = document.getElementById("navToggle");
       const siteNav = document.getElementById("siteNav");
+
+      if (topAnnouncement && announceDismiss) {
+        if (localStorage.getItem(announcementKey) === "true") {
+          topAnnouncement.classList.add("is-hidden");
+        }
+
+        announceDismiss.addEventListener("click", () => {
+          topAnnouncement.classList.add("is-hidden");
+          localStorage.setItem(announcementKey, "true");
+        });
+      }
 
       if (navToggle && siteNav) {
         navToggle.addEventListener("click", () => {

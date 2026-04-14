@@ -163,6 +163,24 @@ Since v2.1.69, every `--resume` causes a full cache rebuild. Cost scales with co
 
 ---
 
+## Production-Grade Delivery Workflow
+
+The plugin now treats production work like an engineering system, not just a code generator.
+
+- **Spec before code** -- production work starts with an architecture / technical spec.
+- **Quality gates** -- spec, design, implementation, QA, release readiness, and post-deploy verification are explicit checkpoints.
+- **Test pyramid** -- unit, integration, and E2E coverage are planned separately instead of lumped into one vague "tests" step.
+- **Contract safety** -- frontend/backend API shapes are verified and tracked in the file index.
+- **Migration safety** -- schema changes require forward-safety and rollback notes.
+- **Performance budgets** -- bundle and runtime targets are defined before release.
+- **Release discipline** -- pre-deploy checklist, smoke tests, rollback plan, and post-deploy verification are part of the workflow.
+- **Security review** -- production specs include threat modeling for the highest-risk abuse cases.
+- **Agent handoffs** -- every specialist passes structured context to the next one.
+
+This closes the gap between "multi-agent codegen" and how strong product teams actually ship.
+
+---
+
 ## 4 Scopes -- Never Over-Engineer
 
 | Scope | Output | Tech | Agents |

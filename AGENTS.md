@@ -7,7 +7,7 @@ You are part of the **10x Development Team**, a multi-agent plugin that builds c
 You MUST adapt your behavior based on your context window size:
 
 ### SMALL context (Haiku, Sonnet, effort: low/medium) — COPY-PASTE mode:
-1. Read the knowledge file for your task (`.claude/knowledge/`)
+1. Read the knowledge file for your task (`.Codex/knowledge/`)
 2. Find the closest code sample in that file
 3. COPY the code EXACTLY as written
 4. Change ONLY: names, props, content text, and colors to match the task
@@ -109,7 +109,7 @@ If `.10x/` doesn't exist, the project hasn't been initialized. Tell the user:
 
 The plugin uses a SQLite database at `~/.10x/memory.db` to remember ALL projects across sessions:
 - Every project created with `/start` is registered in the database
-- Session history (what was built, what failed) persists across Claude restarts
+- Session history (what was built, what failed) persists across Codex restarts
 - Key decisions and user preferences are saved per-project
 - Users can switch between projects with `/projects`
 
@@ -129,33 +129,33 @@ If SQLite is unavailable (no `better-sqlite3`, web sandbox), fall back to `.10x/
 
 Each agent's instructions specify exactly which knowledge file to read for which task type. Follow those tables.
 
-## Cache & Cost Optimization (protects against known Claude Code cache bugs)
+## Cache & Cost Optimization (protects against known Codex cache bugs)
 
-> **Two confirmed bugs in Claude Code can break prompt caching, increasing API costs significantly.**
+> **Two confirmed bugs in Codex can break prompt caching, increasing API costs significantly.**
 > See `knowledge/patterns/cache-optimization.md` for full details and caveats.
-> GitHub issues: [#40524](https://github.com/anthropics/claude-code/issues/40524), [#34629](https://github.com/anthropics/claude-code/issues/34629)
+> GitHub issues: [#40524](https://github.com/anthropics/Codex/issues/40524), [#34629](https://github.com/anthropics/Codex/issues/34629)
 
-### Bug 1: Conversation History Invalidation ([#40524](https://github.com/anthropics/claude-code/issues/40524))
-The standalone Claude Code binary can invalidate the cache when conversation history contains CC internal strings (billing sentinels, CC source code). Most normal usage is unaffected — this only triggers in specific conditions.
+### Bug 1: Conversation History Invalidation ([#40524](https://github.com/anthropics/Codex/issues/40524))
+The standalone Codex binary can invalidate the cache when conversation history contains CC internal strings (billing sentinels, CC source code). Most normal usage is unaffected — this only triggers in specific conditions.
 
-**How this plugin avoids the trigger:** CLAUDE.md and knowledge files contain only project instructions, design patterns, and framework references — no CC internals. This doesn't "fix" the bug, but the plugin's clean content means it's unlikely to trigger.
+**How this plugin avoids the trigger:** AGENTS.md and knowledge files contain only project instructions, design patterns, and framework references — no CC internals. This doesn't "fix" the bug, but the plugin's clean content means it's unlikely to trigger.
 
-**Reported workaround:** Run Claude Code via `npx @anthropic-ai/claude-code` instead of the standalone binary (community-reported).
+**Reported workaround:** Run Codex via `npx @anthropic-ai/Codex` instead of the standalone binary (community-reported).
 
-### Bug 2: --resume Cache Miss ([#34629](https://github.com/anthropics/claude-code/issues/34629))
+### Bug 2: --resume Cache Miss ([#34629](https://github.com/anthropics/Codex/issues/34629))
 Since v2.1.69, every `--resume` causes a full cache rebuild. Cost scales with conversation size (~$0.15 on 500K tokens, less on smaller conversations).
 
 **How this plugin avoids it:** The `/resumeproject` skill reconstructs project context from `.10x/` index files in a **fresh session** — no `--resume` needed. This is the plugin's most concrete cost benefit for this bug.
 
 ### Plugin Rules for Cost Safety
-1. **NEVER paste CC source code, billing headers, or internal identifiers into CLAUDE.md or knowledge files**
+1. **NEVER paste CC source code, billing headers, or internal identifiers into AGENTS.md or knowledge files**
 2. **Prefer `/resumeproject` over `--resume`** for continuing work — significantly cheaper context reconstruction via index files
 3. **Keep conversations focused** — the index-first architecture means agents don't need long conversation histories
 4. **If users report high costs**, suggest checking cache health and using `/resumeproject` instead of `--resume`
 
 ## Knowledge Base (read ONLY the ONE file matching your task)
 
-Check `.claude/knowledge/index.json` and read the relevant file:
+Check `.Codex/knowledge/index.json` and read the relevant file:
 
 | Need | Read |
 |------|------|
@@ -305,7 +305,7 @@ After release, verify all of the following:
 
 ## Component Reuse (MANDATORY)
 
-Read `.claude/components/registry.json` before building any UI.
+Read `.Codex/components/registry.json` before building any UI.
 - NEVER create a component that already exists in the registry
 - NEVER put reusable components inside page files
 - Global components go in `src/components/` (or root `components/` for Simple scope)

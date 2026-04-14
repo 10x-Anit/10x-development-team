@@ -15,7 +15,7 @@ You are the team lead. Execute the build based on the project scope.
 
 CRITICAL: The ui-designer agent MUST complete the design system BEFORE any frontend work begins. The design system (globals.css + tailwind.config.ts) is the foundation that all components reference. Without it, components will use hardcoded colors and look inconsistent.
 
-COST OPTIMIZATION: This plugin's index-first architecture avoids two confirmed Claude Code cache bugs (#40524, #34629) that can increase API costs. Each agent reads only targeted small files. If the build is interrupted, use `/resumeproject` (NOT `--resume`) to continue — it avoids the --resume cache bug. See `knowledge/patterns/cache-optimization.md`.
+COST OPTIMIZATION: This plugin's index-first architecture avoids two confirmed Codex cache bugs (#40524, #34629) that can increase API costs. Each agent reads only targeted small files. If the build is interrupted, use `/resumeproject` (NOT `--resume`) to continue — it avoids the --resume cache bug. See `knowledge/patterns/cache-optimization.md`.
 
 ## Step 0: Read Project Index (ALWAYS DO THIS FIRST)
 
@@ -33,7 +33,7 @@ NEVER scan the filesystem to understand the project. The index IS the truth.
 ### Simple (HTML/CSS/JS)
 - NO frameworks, NO npm, NO build tools
 - Create: index.html, css/styles.css, js/main.js
-- Use the `simple-html` template from `.claude/templates/simple-html/scaffold.md`
+- Use the `simple-html` template from `.Codex/templates/simple-html/scaffold.md`
 - Skip backend, auth, testing, deployment agents
 - Only use: **frontend-dev** agent (and only for HTML/CSS/JS)
 
@@ -200,8 +200,8 @@ When delegating, tell the agent:
 - "Log your work in `.10x/dev-log.md`."
 
 Every frontend task delegation MUST include these in FILES TO READ:
-- .claude/knowledge/patterns/ui-ux-principles.md
-- .claude/knowledge/patterns/design-system.md
+- .Codex/knowledge/patterns/ui-ux-principles.md
+- .Codex/knowledge/patterns/design-system.md
 
 Delegate in dependency order:
 1. **Scaffolding** (team-lead does this)

@@ -1,5 +1,9 @@
 {
   "name": "10x-development-team",
+  "compatibility": {
+    "claude": true,
+    "codex": true
+  },
   "description": "AI-powered development team that builds complete apps from your vision. 8 specialist agents, 19 slash commands, 61 knowledge files, 35+ component blueprints. Avoids two confirmed Claude Code cache bugs. Say what you want — the team builds it.",
   "version": "3.2.1",
   "author": {

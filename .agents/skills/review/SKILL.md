@@ -64,7 +64,7 @@ Everything in MVP plus:
 - Pre-deploy checklist and rollback plan exist
 - Smoke test plan and post-deploy verification steps exist
 - Handoff quality: tasks include enough context for the next agent to continue without rediscovery
-- **Cache cost safety check**: Verify CLAUDE.md and knowledge files don't contain Claude Code internal strings, billing sentinels, or CC source code that could trigger cache Bug 1 ([#40524](https://github.com/anthropics/claude-code/issues/40524)). If found, flag as a cost risk.
+- **Cache cost safety check**: Verify AGENTS.md and knowledge files don't contain Codex internal strings, billing sentinels, or CC source code that could trigger cache Bug 1 ([#40524](https://github.com/anthropics/Codex/issues/40524)). If found, flag as a cost risk.
 
 ## Step 2: Report
 

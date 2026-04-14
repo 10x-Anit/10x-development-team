@@ -22,6 +22,14 @@ cp -r 10x-development-team/.claude /path/to/your/project/.claude
 ```
 All slash commands become available immediately.
 
+### Codex + Claude parity
+
+This repo ships both runtime layouts:
+- `AGENTS.md` + `.agents/skills/` for Codex
+- `.claude/CLAUDE.md` + `.claude/skills/` for Claude
+
+If you want both assistants to follow the same workflow in one project, copy or install both surfaces together so they share the same `.10x/` project index and production process rules.
+
 ## Your First Project
 
 ### Step 1: Start
@@ -37,6 +45,13 @@ The team lead automatically delegates to specialist agents:
 - 3D Designer creates immersive 3D scenes (if needed)
 - Backend Dev creates APIs and database (if MVP/Production)
 - QA Tester verifies everything works (if MVP/Production)
+
+For production work, the team now also requires:
+- architecture / technical spec before coding
+- explicit quality gates between phases
+- unit, integration, and E2E coverage for critical flows
+- API contract checks, migration safety review, and rollback planning
+- smoke tests after deployment
 
 ### Step 3: Track Progress
 - Press `Ctrl+T` to see task progress
